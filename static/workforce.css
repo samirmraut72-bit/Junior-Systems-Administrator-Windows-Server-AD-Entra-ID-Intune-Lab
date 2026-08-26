@@ -1,0 +1,759 @@
+/* =========================================================
+   MEDSECURE
+   WORKFORCE DIRECTORY
+========================================================= */
+
+.workforce-page {
+    width: min(1380px, calc(100% - 48px));
+    margin: 34px auto 70px;
+    color: #173c59;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.workforce-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+
+    padding: 30px 34px;
+
+    border: 1px solid #dce7ee;
+    border-radius: 16px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 10px 30px rgba(26, 62, 87, 0.05);
+}
+
+
+.workforce-eyebrow {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #087c9d;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+
+.workforce-header h1 {
+    margin: 0;
+
+    color: #153f5d;
+
+    font-size: 32px;
+    line-height: 1.2;
+}
+
+
+.workforce-header p {
+    max-width: 680px;
+
+    margin: 8px 0 0;
+
+    color: #718999;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+.workforce-header-status {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    min-width: 220px;
+
+    padding: 13px 15px;
+
+    border: 1px solid #dfe9ee;
+    border-radius: 11px;
+
+    background: #f9fbfc;
+}
+
+
+.workforce-live-dot {
+    width: 10px;
+    height: 10px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #31a875;
+
+    box-shadow:
+        0 0 0 5px rgba(49, 168, 117, 0.10);
+}
+
+
+.workforce-header-status div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+
+.workforce-header-status strong {
+    color: #244c67;
+
+    font-size: 12px;
+}
+
+
+.workforce-header-status span {
+    color: #8599a6;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.workforce-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+
+    margin-top: 17px;
+}
+
+
+.workforce-summary article {
+    padding: 21px 23px;
+
+    border: 1px solid #dce7ee;
+    border-radius: 13px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 8px 22px rgba(26, 62, 87, 0.04);
+}
+
+
+.workforce-summary span {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #71899a;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+}
+
+
+.workforce-summary strong {
+    display: block;
+
+    color: #153f5d;
+
+    font-size: 28px;
+    line-height: 1;
+}
+
+
+.workforce-summary small {
+    display: block;
+
+    margin-top: 8px;
+
+    color: #8497a3;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   DIRECTORY PANEL
+========================================================= */
+
+.workforce-directory-panel {
+    margin-top: 18px;
+
+    overflow: hidden;
+
+    border: 1px solid #dce7ee;
+    border-radius: 15px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 10px 28px rgba(26, 62, 87, 0.045);
+}
+
+
+.workforce-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 24px 26px;
+
+    border-bottom: 1px solid #e4edf2;
+}
+
+
+.workforce-panel-header h2 {
+    margin: 0;
+
+    color: #153f5d;
+
+    font-size: 21px;
+}
+
+
+.workforce-panel-header p {
+    margin: 6px 0 0;
+
+    color: #7c929f;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+.workforce-secondary-button {
+    padding: 10px 14px;
+
+    border: 1px solid #d5e1e8;
+    border-radius: 9px;
+
+    background: #f8fafb;
+    color: #345970;
+
+    text-decoration: none;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+.workforce-secondary-button:hover {
+    background: #eef4f7;
+}
+
+
+/* =========================================================
+   TOOLBAR
+========================================================= */
+
+.workforce-toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: 12px;
+
+    padding: 14px 20px;
+
+    border-bottom: 1px solid #e4edf2;
+
+    background: #f8fafb;
+}
+
+
+.workforce-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 0 12px;
+
+    border: 1px solid #ccdce5;
+    border-radius: 9px;
+
+    background: #ffffff;
+}
+
+
+.workforce-search > span {
+    color: #7890a0;
+
+    font-size: 16px;
+}
+
+
+.workforce-search input {
+    width: 100%;
+
+    padding: 11px 0;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: #294d65;
+
+    font-size: 13px;
+}
+
+
+.workforce-search input::placeholder {
+    color: #93a4af;
+}
+
+
+.workforce-toolbar select {
+    padding: 0 12px;
+
+    border: 1px solid #ccdce5;
+    border-radius: 9px;
+
+    outline: none;
+
+    background: #ffffff;
+    color: #35586e;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   DIRECTORY TABLE
+========================================================= */
+
+.workforce-table-header,
+.workforce-row {
+    display: grid;
+
+    grid-template-columns:
+        minmax(240px, 1.35fr)
+        minmax(180px, 1fr)
+        minmax(190px, 1.05fr)
+        125px
+        105px
+        65px;
+
+    gap: 15px;
+
+    align-items: center;
+}
+
+
+.workforce-table-header {
+    padding: 11px 20px;
+
+    border-bottom: 1px solid #dde7ed;
+
+    background: #f3f7f9;
+}
+
+
+.workforce-table-header span {
+    color: #6c8596;
+
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.65px;
+}
+
+
+.workforce-row {
+    min-height: 91px;
+
+    padding: 14px 20px;
+
+    border-bottom: 1px solid #e5edf2;
+
+    transition:
+        background 0.18s ease,
+        transform 0.18s ease;
+}
+
+
+.workforce-row:last-child {
+    border-bottom: none;
+}
+
+
+.workforce-row:hover {
+    background: #f9fbfc;
+}
+
+
+/* =========================================================
+   PERSON
+========================================================= */
+
+.workforce-person {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    min-width: 0;
+}
+
+
+.workforce-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    border-radius: 11px;
+
+    background: #e5f1f7;
+    color: #175c7d;
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+
+.workforce-person > div:last-child {
+    min-width: 0;
+}
+
+
+.workforce-person strong {
+    display: block;
+
+    overflow: hidden;
+
+    color: #173f5d;
+
+    font-size: 13px;
+    font-weight: 750;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.workforce-person span {
+    display: block;
+
+    margin-top: 3px;
+
+    overflow: hidden;
+
+    color: #677f90;
+
+    font-size: 11px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.workforce-person small {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #8fa0ab;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   DIRECTORY DETAILS
+========================================================= */
+
+.workforce-detail {
+    min-width: 0;
+}
+
+
+.workforce-detail strong {
+    display: block;
+
+    overflow: hidden;
+
+    color: #36566c;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.workforce-detail span {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #8a9ca7;
+
+    font-size: 9px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   ROLE BADGES
+========================================================= */
+
+.workforce-role {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 70px;
+
+    padding: 6px 8px;
+
+    border-radius: 999px;
+
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+}
+
+
+.workforce-role-nurse {
+    background: #e8f3fa;
+    color: #226688;
+}
+
+
+.workforce-role-doctor {
+    background: #eceafb;
+    color: #5b55a0;
+}
+
+
+.workforce-role-admin {
+    background: #fbecec;
+    color: #9e5454;
+}
+
+
+/* =========================================================
+   ACCOUNT STATUS
+========================================================= */
+
+.workforce-account-active {
+    color: #27835d;
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+
+.workforce-account-inactive {
+    color: #a45656;
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   ROW ACTION
+========================================================= */
+
+.workforce-row-action {
+    text-align: right;
+}
+
+
+.workforce-row-action a {
+    color: #176d92;
+
+    text-decoration: none;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+
+.workforce-row-action a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   EMPTY STATES
+========================================================= */
+
+.workforce-empty {
+    padding: 42px 25px;
+
+    text-align: center;
+}
+
+
+.workforce-empty strong {
+    display: block;
+
+    color: #36586e;
+
+    font-size: 14px;
+}
+
+
+.workforce-empty p {
+    margin: 6px 0 0;
+
+    color: #8497a4;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   IAM ARCHITECTURE
+========================================================= */
+
+.workforce-identity-banner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 35px;
+
+    margin-top: 18px;
+    padding: 25px 28px;
+
+    border: 1px solid #d9e6ec;
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f7fbfc,
+            #eef6f9
+        );
+}
+
+
+.workforce-identity-banner h3 {
+    margin: 0;
+
+    color: #173f5d;
+
+    font-size: 18px;
+}
+
+
+.workforce-identity-banner p {
+    max-width: 680px;
+
+    margin: 7px 0 0;
+
+    color: #708998;
+
+    font-size: 11px;
+    line-height: 1.65;
+}
+
+
+.workforce-identity-flow {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+
+.workforce-identity-flow span {
+    padding: 8px 10px;
+
+    border: 1px solid #d2e2e9;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #345c73;
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+
+.workforce-identity-flow strong {
+    color: #7b93a1;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    .workforce-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    .workforce-directory-panel {
+        overflow-x: auto;
+    }
+
+
+    .workforce-table-header,
+    .workforce-row {
+        min-width: 1100px;
+    }
+
+
+    .workforce-identity-banner {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .workforce-page {
+        width: calc(100% - 24px);
+        margin-top: 18px;
+    }
+
+
+    .workforce-header {
+        align-items: flex-start;
+        flex-direction: column;
+
+        padding: 23px 21px;
+    }
+
+
+    .workforce-header h1 {
+        font-size: 26px;
+    }
+
+
+    .workforce-header-status {
+        width: 100%;
+    }
+
+
+    .workforce-summary {
+        grid-template-columns: 1fr;
+    }
+
+
+    .workforce-toolbar {
+        grid-template-columns: 1fr;
+    }
+
+}

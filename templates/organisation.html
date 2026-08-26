@@ -1,0 +1,562 @@
+{% extends "base.html" %}
+
+{% block title %}
+Organisation | MedSecure
+{% endblock %}
+
+{% block content %}
+
+<div class="organisation-page">
+
+    <!-- =====================================================
+         ORGANISATION HEADER
+    ====================================================== -->
+
+    <section class="organisation-hero">
+
+        <div class="organisation-hero-content">
+
+            <div class="organisation-breadcrumb">
+                MEDSECURE ENTERPRISE
+            </div>
+
+            <div class="organisation-title-row">
+
+                <div class="organisation-symbol">
+                    +
+                </div>
+
+                <div>
+
+                    <h1>
+                        {{ organisation.name }}
+                    </h1>
+
+                    <p>
+                        Enterprise healthcare organisation,
+                        workforce and facility management.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="organisation-meta">
+
+                <span>
+                    Organisation Code
+                    <strong>
+                        {{ organisation.organisation_code }}
+                    </strong>
+                </span>
+
+                <span>
+                    Type
+                    <strong>
+                        {{ organisation.organisation_type }}
+                    </strong>
+                </span>
+
+                <span>
+                    Identity Domain
+                    <strong>
+                        {{ organisation.email_domain or "Not configured" }}
+                    </strong>
+                </span>
+
+                <span class="organisation-status">
+                    ● {{ organisation.status }}
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         METRICS
+    ====================================================== -->
+
+    <section class="organisation-metrics">
+
+        <article class="organisation-metric-card">
+
+            <span>
+                FACILITIES
+            </span>
+
+            <strong>
+                {{ facilities|length }}
+            </strong>
+
+            <p>
+                Healthcare locations
+            </p>
+
+        </article>
+
+
+        <article class="organisation-metric-card">
+
+            <span>
+                DEPARTMENTS
+            </span>
+
+            <strong>
+                {{ departments|length }}
+            </strong>
+
+            <p>
+                Clinical and corporate units
+            </p>
+
+        </article>
+
+
+        <article class="organisation-metric-card">
+
+            <span>
+                WORKFORCE
+            </span>
+
+            <strong>
+                {{ employees|length }}
+            </strong>
+
+            <p>
+                Provisioned employees
+            </p>
+
+        </article>
+
+
+        <article class="organisation-metric-card identity-card">
+
+            <span>
+                IDENTITY
+            </span>
+
+            <strong class="identity-status">
+                Development
+            </strong>
+
+            <p>
+                Enterprise SSO planned
+            </p>
+
+        </article>
+
+    </section>
+
+
+    <!-- =====================================================
+         ENTERPRISE WORKSPACE
+    ====================================================== -->
+
+    <div class="organisation-grid">
+
+
+        <!-- =================================================
+             FACILITIES
+        ================================================== -->
+
+        <section class="organisation-panel">
+
+            <div class="organisation-panel-header">
+
+                <div>
+
+                    <span class="section-eyebrow">
+                        HEALTH NETWORK
+                    </span>
+
+                    <h2>
+                        Facilities
+                    </h2>
+
+                    <p>
+                        Healthcare facilities managed within
+                        {{ organisation.name }}.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="facility-list">
+
+                {% for facility in facilities %}
+
+                    <article class="facility-card">
+
+                        <div class="facility-card-top">
+
+                            <div class="facility-icon">
+                                +
+                            </div>
+
+                            <div class="facility-main">
+
+                                <h3>
+                                    {{ facility.name }}
+                                </h3>
+
+                                <span>
+                                    {{ facility.facility_type }}
+                                </span>
+
+                            </div>
+
+                            <span class="active-badge">
+                                {{ facility.status }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="facility-details">
+
+                            <div>
+
+                                <span>
+                                    Facility Code
+                                </span>
+
+                                <strong>
+                                    {{ facility.facility_code }}
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Location
+                                </span>
+
+                                <strong>
+                                    {{ facility.address or "Location not configured" }}
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Departments
+                                </span>
+
+                                <strong>
+                                    {{ facility.departments|length }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="facility-departments">
+
+                            {% for department in facility.departments %}
+
+                                <span>
+                                    {{ department.name }}
+                                </span>
+
+                            {% else %}
+
+                                <span>
+                                    No departments assigned
+                                </span>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ORGANISATION SIDEBAR
+        ================================================== -->
+
+        <aside class="organisation-sidebar">
+
+
+            <!-- =============================================
+                 ORGANISATION DETAILS
+            ============================================== -->
+
+            <section class="organisation-side-card">
+
+                <span class="section-eyebrow">
+                    ORGANISATION
+                </span>
+
+                <h3>
+                    Corporate Profile
+                </h3>
+
+
+                <div class="organisation-detail-list">
+
+
+                    <div>
+
+                        <span>
+                            Legal name
+                        </span>
+
+                        <strong>
+                            {{ organisation.legal_name }}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Organisation code
+                        </span>
+
+                        <strong>
+                            {{ organisation.organisation_code }}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Email domain
+                        </span>
+
+                        <strong>
+                            {{ organisation.email_domain }}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Operational status
+                        </span>
+
+                        <strong class="status-active-text">
+                            {{ organisation.status }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 IDENTITY
+            ============================================== -->
+
+            <section class="organisation-side-card enterprise-identity-card">
+
+                <span class="section-eyebrow">
+                    ENTERPRISE IDENTITY
+                </span>
+
+                <h3>
+                    Workforce Authentication
+                </h3>
+
+                <p>
+                    Workforce accounts currently use MedSecure's
+                    local development authentication.
+                </p>
+
+
+                <div class="identity-provider-state">
+
+                    <div class="identity-provider-icon">
+                        ID
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Current provider
+                        </span>
+
+                        <strong>
+                            Local Development Identity
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="identity-future">
+
+                    <span>
+                        TARGET ARCHITECTURE
+                    </span>
+
+                    <strong>
+                        Microsoft Entra ID / SSO
+                    </strong>
+
+                    <small>
+                        Planned enterprise integration
+                    </small>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 QUICK ACTION
+            ============================================== -->
+
+            <section class="organisation-side-card">
+
+                <span class="section-eyebrow">
+                    WORKFORCE
+                </span>
+
+                <h3>
+                    Employee Directory
+                </h3>
+
+                <p>
+                    Review provisioned workforce identities,
+                    departments and MedSecure roles.
+                </p>
+
+
+                <a
+                    href="{{ url_for('employee_directory') }}"
+                    class="organisation-primary-button"
+                >
+                    Open Workforce Directory →
+                </a>
+
+            </section>
+
+        </aside>
+
+    </div>
+
+
+    <!-- =====================================================
+         DEPARTMENTS
+    ====================================================== -->
+
+    <section class="organisation-department-section">
+
+        <div class="organisation-panel-header">
+
+            <div>
+
+                <span class="section-eyebrow">
+                    ORGANISATIONAL STRUCTURE
+                </span>
+
+                <h2>
+                    Departments
+                </h2>
+
+                <p>
+                    Clinical, governance and corporate
+                    departments across the network.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="department-grid">
+
+            {% for department in departments %}
+
+                <article class="department-card">
+
+                    <div class="department-card-header">
+
+                        <div class="department-code">
+                            {{ department.department_code }}
+                        </div>
+
+                        <span class="active-badge">
+                            {{ department.status }}
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        {{ department.name }}
+                    </h3>
+
+
+                    <p>
+                        {{ department.department_type or "Department" }}
+                    </p>
+
+
+                    <div class="department-divider"></div>
+
+
+                    <div class="department-location">
+
+                        <span>
+                            Facility
+                        </span>
+
+                        <strong>
+                            {{ department.facility.name }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="department-location">
+
+                        <span>
+                            Workforce
+                        </span>
+
+                        <strong>
+                            {{ department.employees|length }}
+                            employee{% if department.employees|length != 1 %}s{% endif %}
+                        </strong>
+
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

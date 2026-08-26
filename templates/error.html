@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card error-card">
+
+    <h1>{{ message }}</h1>
+
+    <p>
+        MedSecure blocked this request because your account
+        does not have permission to access this resource.
+    </p>
+
+    <a
+        class="button"
+        href="{{ url_for('dashboard') }}"
+    >
+        Return to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}

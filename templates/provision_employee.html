@@ -1,0 +1,488 @@
+﻿{% extends "base.html" %}
+
+{% block title %}
+Provision Employee | MedSecure
+{% endblock %}
+
+{% block content %}
+
+<div class="workforce-page">
+
+    <header class="workforce-header">
+
+        <div>
+
+            <span class="workforce-eyebrow">
+                MEDSECURE IDENTITY & ACCESS MANAGEMENT
+            </span>
+
+            <h1>
+                Provision Employee
+            </h1>
+
+            <p>
+                Create a workforce identity and assign the employee
+                to an organisational department and MedSecure role.
+            </p>
+
+        </div>
+
+        <div class="workforce-header-status">
+
+            <span class="workforce-live-dot"></span>
+
+            <div>
+                <strong>
+                    Admin provisioning
+                </strong>
+
+                <span>
+                    Authorised administrators only
+                </span>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <section
+        class="workforce-directory-panel"
+        style="max-width:900px;margin-left:auto;margin-right:auto;"
+    >
+
+        <div class="workforce-panel-header">
+
+            <div>
+
+                <span class="workforce-eyebrow">
+                    NEW WORKFORCE IDENTITY
+                </span>
+
+                <h2>
+                    Employee Details
+                </h2>
+
+                <p>
+                    Provision the employee's organisational profile
+                    and temporary MedSecure development identity.
+                </p>
+
+            </div>
+
+            <a
+                href="{{ url_for('employee_directory') }}"
+                class="workforce-secondary-button"
+            >
+                ← Workforce
+            </a>
+
+        </div>
+
+
+        <form
+            method="POST"
+            style="padding:28px;"
+        >
+
+            <input
+                type="hidden"
+                name="csrf_token"
+                value="{{ csrf_token() }}"
+            >
+
+
+            <!-- =============================================
+                 ORGANISATIONAL IDENTITY
+            ============================================== -->
+
+            <p class="workforce-eyebrow">
+                ORGANISATIONAL IDENTITY
+            </p>
+
+
+            <div
+                style="
+                    display:grid;
+                    grid-template-columns:1fr 1fr;
+                    gap:18px;
+                "
+            >
+
+                <div class="login-field">
+
+                    <label for="employee_code">
+                        Employee ID
+                    </label>
+
+                    <input
+                        id="employee_code"
+                        name="employee_code"
+                        type="text"
+                        placeholder="EMP-1004"
+                        maxlength="30"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="login-field">
+
+                    <label for="full_name">
+                        Full Name
+                    </label>
+
+                    <input
+                        id="full_name"
+                        name="full_name"
+                        type="text"
+                        placeholder="Employee full name"
+                        maxlength="150"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="login-field">
+
+                    <label for="work_email">
+                        Work Email
+                    </label>
+
+                    <input
+                        id="work_email"
+                        name="work_email"
+                        type="email"
+                        placeholder="employee@medsecure.local"
+                        maxlength="150"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="login-field">
+
+                    <label for="job_title">
+                        Position / Job Title
+                    </label>
+
+                    <input
+                        id="job_title"
+                        name="job_title"
+                        type="text"
+                        placeholder="Registered Nurse"
+                        maxlength="120"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 ORGANISATIONAL PLACEMENT
+            ============================================== -->
+
+            <p
+                class="workforce-eyebrow"
+                style="margin-top:30px;"
+            >
+                ORGANISATIONAL PLACEMENT
+            </p>
+
+
+            <div
+                style="
+                    display:grid;
+                    grid-template-columns:1fr 1fr;
+                    gap:18px;
+                "
+            >
+
+                <div class="login-field">
+
+                    <label for="department_id">
+                        Department
+                    </label>
+
+                    <select
+                        id="department_id"
+                        name="department_id"
+                        required
+                        style="
+                            width:100%;
+                            padding:12px;
+                            border:1px solid #ccdce5;
+                            border-radius:9px;
+                            background:white;
+                        "
+                    >
+
+                        <option value="">
+                            Select department
+                        </option>
+
+                        {% for department in departments %}
+
+                            <option value="{{ department.id }}">
+
+                                {{ department.name }}
+                                —
+                                {{ department.facility.name }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <div class="login-field">
+
+                    <label for="employment_type">
+                        Employment Type
+                    </label>
+
+                    <select
+                        id="employment_type"
+                        name="employment_type"
+                        required
+                        style="
+                            width:100%;
+                            padding:12px;
+                            border:1px solid #ccdce5;
+                            border-radius:9px;
+                            background:white;
+                        "
+                    >
+
+                        <option value="">
+                            Select employment type
+                        </option>
+
+                        <option value="Permanent">
+                            Permanent
+                        </option>
+
+                        <option value="Part-time">
+                            Part-time
+                        </option>
+
+                        <option value="Casual">
+                            Casual
+                        </option>
+
+                        <option value="Contract">
+                            Contract
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 MEDSECURE ACCESS
+            ============================================== -->
+
+            <p
+                class="workforce-eyebrow"
+                style="margin-top:30px;"
+            >
+                MEDSECURE ACCESS
+            </p>
+
+
+            <div
+                style="
+                    display:grid;
+                    grid-template-columns:1fr 1fr;
+                    gap:18px;
+                "
+            >
+
+                <div class="login-field">
+
+                    <label for="username">
+                        MedSecure Username
+                    </label>
+
+                    <input
+                        id="username"
+                        name="username"
+                        type="text"
+                        placeholder="e.g. sarah.williams"
+                        maxlength="80"
+                        autocomplete="off"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="login-field">
+
+                    <label for="role">
+                        Application Role
+                    </label>
+
+                    <select
+                        id="role"
+                        name="role"
+                        required
+                        style="
+                            width:100%;
+                            padding:12px;
+                            border:1px solid #ccdce5;
+                            border-radius:9px;
+                            background:white;
+                        "
+                    >
+
+                        <option value="">
+                            Select MedSecure role
+                        </option>
+
+                        <option value="nurse">
+                            Nurse
+                        </option>
+
+                        <option value="doctor">
+                            Doctor
+                        </option>
+
+                        <option value="admin">
+                            Administrator
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div
+                    class="login-field"
+                    style="grid-column:1 / -1;"
+                >
+
+                    <label for="temporary_password">
+                        Temporary Development Password
+                    </label>
+
+                    <input
+                        id="temporary_password"
+                        name="temporary_password"
+                        type="password"
+                        minlength="12"
+                        autocomplete="new-password"
+                        placeholder="Minimum 12 characters"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 SECURITY NOTICE
+            ============================================== -->
+
+            <div
+                class="login-security-box"
+                style="margin-top:28px;"
+            >
+
+                <div class="login-security-icon">
+                    ✓
+                </div>
+
+                <div>
+
+                    <strong>
+                        Controlled workforce provisioning
+                    </strong>
+
+                    <p>
+                        Employees cannot self-register as a nurse,
+                        doctor or administrator. Workforce identities
+                        are provisioned by authorised administration.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="login-security-box"
+                style="margin-top:12px;"
+            >
+
+                <div class="login-security-icon">
+                    ID
+                </div>
+
+                <div>
+
+                    <strong>
+                        Development identity
+                    </strong>
+
+                    <p>
+                        This prototype currently creates a local
+                        development authentication account. Enterprise
+                        workforce authentication will later transition
+                        to Microsoft Entra ID / organisational SSO.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 ACTIONS
+            ============================================== -->
+
+            <div
+                style="
+                    display:flex;
+                    justify-content:flex-end;
+                    gap:10px;
+                    margin-top:28px;
+                "
+            >
+
+                <a
+                    href="{{ url_for('employee_directory') }}"
+                    class="workforce-secondary-button"
+                >
+                    Cancel
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="button button-primary"
+                >
+                    Provision Employee
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+</div>
+
+{% endblock %}

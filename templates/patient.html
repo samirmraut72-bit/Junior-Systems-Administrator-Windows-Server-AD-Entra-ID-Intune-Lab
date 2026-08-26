@@ -1,0 +1,771 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ patient.name }} | MedSecure
+{% endblock %}
+
+{% block content %}
+
+<section class="record-workspace">
+
+    <!-- =====================================================
+         PAGE NAVIGATION
+    ====================================================== -->
+
+    <div class="record-breadcrumb">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <span>›</span>
+
+        <span>
+            Patient Record
+        </span>
+
+        <span>›</span>
+
+        <strong>
+            {{ patient.patient_code }}
+        </strong>
+
+    </div>
+
+
+    <!-- =====================================================
+         PATIENT IDENTIFICATION BANNER
+    ====================================================== -->
+
+    <header class="patient-banner">
+
+        <div class="patient-banner-main">
+
+            <div class="patient-banner-avatar">
+                {{ patient.name[0] }}
+            </div>
+
+
+            <div>
+
+                <span class="record-eyebrow">
+                    CLINICAL RECORD
+                </span>
+
+                <h1>
+                    {{ patient.name }}
+                </h1>
+
+                <div class="patient-banner-meta">
+
+                    <span>
+                        <strong>Patient ID</strong>
+                        {{ patient.patient_code }}
+                    </span>
+
+                    <span class="meta-divider"></span>
+
+                    <span>
+                        <strong>Date of birth</strong>
+                        {{ patient.dob }}
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="patient-banner-security">
+
+            <span class="record-security-dot"></span>
+
+            <div>
+
+                <strong>
+                    Authorised access
+                </strong>
+
+                <span>
+                    {{ current_user.role|title }} session
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         ALLERGY SAFETY BANNER
+    ====================================================== -->
+
+    {% if patient.allergies
+          and patient.allergies|lower != "no known allergies"
+          and patient.allergies|lower != "none" %}
+
+        <section class="allergy-warning-banner">
+
+            <div class="allergy-warning-icon">
+                !
+            </div>
+
+            <div>
+
+                <span>
+                    CLINICAL ALERT
+                </span>
+
+                <strong>
+                    Allergy: {{ patient.allergies }}
+                </strong>
+
+                <p>
+                    Review allergy information before medication
+                    administration or clinical intervention.
+                </p>
+
+            </div>
+
+        </section>
+
+    {% else %}
+
+        <section class="allergy-clear-banner">
+
+            <div class="allergy-clear-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <span>
+                    ALLERGY STATUS
+                </span>
+
+                <strong>
+                    No known allergies
+                </strong>
+
+            </div>
+
+        </section>
+
+    {% endif %}
+
+
+    <!-- =====================================================
+         CLINICAL RECORD LAYOUT
+    ====================================================== -->
+
+    <div class="record-layout">
+
+
+        <!-- =================================================
+             MAIN CLINICAL COLUMN
+        ================================================== -->
+
+        <main class="record-main-column">
+
+
+            <!-- =============================================
+                 PATIENT SUMMARY
+            ============================================== -->
+
+            <section class="record-card">
+
+                <div class="record-card-header">
+
+                    <div>
+
+                        <span class="record-eyebrow">
+                            PATIENT SUMMARY
+                        </span>
+
+                        <h2>
+                            Demographic Information
+                        </h2>
+
+                    </div>
+
+
+                    <span class="record-status-pill">
+                        Active record
+                    </span>
+
+                </div>
+
+
+                <div class="patient-demographic-grid">
+
+                    <div class="record-data-field">
+
+                        <span>
+                            Full name
+                        </span>
+
+                        <strong>
+                            {{ patient.name }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="record-data-field">
+
+                        <span>
+                            Patient identifier
+                        </span>
+
+                        <strong>
+                            {{ patient.patient_code }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="record-data-field">
+
+                        <span>
+                            Date of birth
+                        </span>
+
+                        <strong>
+                            {{ patient.dob }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="record-data-field">
+
+                        <span>
+                            Allergy status
+                        </span>
+
+                        <strong>
+                            {{ patient.allergies }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 MEDICATIONS
+            ============================================== -->
+
+            <section class="record-card">
+
+                <div class="record-card-header">
+
+                    <div>
+
+                        <span class="record-eyebrow">
+                            MEDICATION MANAGEMENT
+                        </span>
+
+                        <h2>
+                            Current Medications
+                        </h2>
+
+                    </div>
+
+
+                    <span class="record-info-pill">
+                        Clinical information
+                    </span>
+
+                </div>
+
+
+                <div class="medication-record">
+
+                    <div class="medication-record-icon">
+                        Rx
+                    </div>
+
+
+                    <div class="medication-record-body">
+
+                        <span>
+                            Current documented medication
+                        </span>
+
+                        <strong>
+                            {{ patient.medication }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="medication-record-status">
+
+                        <span></span>
+
+                        Active
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 CLINICAL NOTES
+            ============================================== -->
+
+            <section class="record-card">
+
+                <div class="record-card-header">
+
+                    <div>
+
+                        <span class="record-eyebrow">
+                            CLINICAL DOCUMENTATION
+                        </span>
+
+                        <h2>
+                            Clinical Notes
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="clinical-note-history">
+
+                    <div class="clinical-note-timeline-marker"></div>
+
+
+                    <div class="clinical-note-entry">
+
+                        <div class="clinical-note-entry-header">
+
+                            <div>
+
+                                <strong>
+                                    Clinical documentation
+                                </strong>
+
+                                <span>
+                                    MedSecure patient record
+                                </span>
+
+                            </div>
+
+
+                            <span class="note-record-status">
+                                Recorded
+                            </span>
+
+                        </div>
+
+
+                        <div class="clinical-note-content">
+
+                            {% if patient.notes %}
+
+                                {{ patient.notes }}
+
+                            {% else %}
+
+                                No clinical notes have been recorded
+                                for this patient.
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 ADD CLINICAL NOTE
+            ============================================== -->
+
+            {% if current_user.role in ["nurse", "doctor"] %}
+
+                <section class="record-card clinical-entry-card">
+
+                    <div class="record-card-header">
+
+                        <div>
+
+                            <span class="record-eyebrow">
+                                DOCUMENTATION
+                            </span>
+
+                            <h2>
+                                Add Clinical Note
+                            </h2>
+
+                            <p>
+                                Add authorised clinical documentation
+                                to this patient record.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <form
+                        method="POST"
+                        action="/patient/{{ patient.id }}/note"
+                        class="clinical-note-entry-form"
+                    >
+
+                        <input
+                            type="hidden"
+                            name="csrf_token"
+                            value="{{ csrf_token() }}"
+                        >
+
+
+                        <label for="note">
+                            Clinical note
+                        </label>
+
+
+                        <textarea
+                            id="note"
+                            name="note"
+                            maxlength="1000"
+                            required
+                            placeholder="Enter clinical documentation..."
+                        ></textarea>
+
+
+                        <div class="clinical-form-footer">
+
+                            <div class="clinical-documentation-notice">
+
+                                <span class="documentation-lock">
+                                    ✓
+                                </span>
+
+                                <span>
+                                    This action is associated with your
+                                    authenticated MedSecure account.
+                                </span>
+
+                            </div>
+
+
+                            <button
+                                type="submit"
+                                class="save-clinical-note"
+                            >
+                                Save clinical note
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+            {% endif %}
+
+        </main>
+
+
+        <!-- =================================================
+             RIGHT SIDEBAR
+        ================================================== -->
+
+        <aside class="record-side-column">
+
+
+            <!-- =============================================
+                 CLINICAL SNAPSHOT
+            ============================================== -->
+
+            <section class="record-side-card">
+
+                <span class="record-eyebrow">
+                    CLINICAL SNAPSHOT
+                </span>
+
+                <h3>
+                    Patient Overview
+                </h3>
+
+
+                <div class="snapshot-list">
+
+                    <div class="snapshot-row">
+
+                        <span>
+                            Patient ID
+                        </span>
+
+                        <strong>
+                            {{ patient.patient_code }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="snapshot-row">
+
+                        <span>
+                            DOB
+                        </span>
+
+                        <strong>
+                            {{ patient.dob }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="snapshot-row">
+
+                        <span>
+                            Allergy
+                        </span>
+
+                        {% if patient.allergies
+                              and patient.allergies|lower != "no known allergies"
+                              and patient.allergies|lower != "none" %}
+
+                            <strong class="snapshot-alert">
+                                {{ patient.allergies }}
+                            </strong>
+
+                        {% else %}
+
+                            <strong class="snapshot-clear">
+                                None known
+                            </strong>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="snapshot-row">
+
+                        <span>
+                            Medication
+                        </span>
+
+                        <strong>
+                            {{ patient.medication }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 ACCESS SECURITY
+            ============================================== -->
+
+            <section class="record-side-card">
+
+                <span class="record-eyebrow">
+                    RECORD SECURITY
+                </span>
+
+                <h3>
+                    Access Controls
+                </h3>
+
+
+                <div class="record-security-list">
+
+                    <div class="record-security-item">
+
+                        <span class="security-check-circle">
+                            ✓
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Identity verified
+                            </strong>
+
+                            <span>
+                                Authenticated user session
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="record-security-item">
+
+                        <span class="security-check-circle">
+                            ✓
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Role authorised
+                            </strong>
+
+                            <span>
+                                {{ current_user.role|title }}
+                                permissions active
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="record-security-item">
+
+                        <span class="security-check-circle">
+                            ✓
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Access monitored
+                            </strong>
+
+                            <span>
+                                Security events are logged
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="record-security-item">
+
+                        <span class="security-check-circle">
+                            ✓
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Request protected
+                            </strong>
+
+                            <span>
+                                CSRF controls enabled
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 ROLE INFORMATION
+            ============================================== -->
+
+            <section class="record-side-card role-access-card">
+
+                <span class="record-eyebrow">
+                    CURRENT ACCESS
+                </span>
+
+
+                <div class="role-access-display">
+
+                    <div class="role-access-symbol">
+                        {{ current_user.role[0]|upper }}
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            {{ current_user.role|title }}
+                        </strong>
+
+                        <span>
+                            MedSecure authorised role
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                {% if current_user.role == "patient" %}
+
+                    <p>
+                        Patient accounts are restricted to their
+                        own linked clinical record.
+                    </p>
+
+                {% else %}
+
+                    <p>
+                        Clinical access is provided according
+                        to role-based permissions and
+                        organisational responsibilities.
+                    </p>
+
+                {% endif %}
+
+            </section>
+
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="return-dashboard-button"
+            >
+                ← Return to dashboard
+            </a>
+
+        </aside>
+
+    </div>
+
+
+    <!-- =====================================================
+         RECORD FOOTER
+    ====================================================== -->
+
+    <footer class="record-security-footer">
+
+        <div>
+
+            <span class="record-footer-dot"></span>
+
+            <strong>
+                Protected clinical record
+            </strong>
+
+        </div>
+
+        <span>
+            MedSecure Clinical Information Platform
+        </span>
+
+    </footer>
+
+</section>
+
+{% endblock %}

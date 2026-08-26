@@ -1,0 +1,508 @@
+{% extends "base.html" %}
+
+{% block title %}
+Workforce Directory | MedSecure
+{% endblock %}
+
+{% block content %}
+
+<div class="workforce-page">
+
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <header class="workforce-header">
+
+        <div>
+
+            <span class="workforce-eyebrow">
+                MEDSECURE WORKFORCE MANAGEMENT
+            </span>
+
+            <h1>
+                Employee Directory
+            </h1>
+
+            <p>
+                Organisational workforce identities,
+                departments, facilities and application access.
+            </p>
+
+        </div>
+
+
+        <div class="workforce-header-status">
+
+            <span class="workforce-live-dot"></span>
+
+            <div>
+
+                <strong>
+                    Directory active
+                </strong>
+
+                <span>
+                    {{ employees|length }} provisioned employees
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         SUMMARY
+    ====================================================== -->
+
+    {% set active_count = namespace(value=0) %}
+    {% set clinical_count = namespace(value=0) %}
+    {% set admin_count = namespace(value=0) %}
+
+
+    {% for employee in employees %}
+
+        {% if employee.account_status|upper == "ACTIVE" %}
+            {% set active_count.value = active_count.value + 1 %}
+        {% endif %}
+
+
+        {% if employee.user.role in ["nurse", "doctor"] %}
+            {% set clinical_count.value = clinical_count.value + 1 %}
+        {% endif %}
+
+
+        {% if employee.user.role == "admin" %}
+            {% set admin_count.value = admin_count.value + 1 %}
+        {% endif %}
+
+    {% endfor %}
+
+
+    <section class="workforce-summary">
+
+        <article>
+
+            <span>
+                TOTAL WORKFORCE
+            </span>
+
+            <strong>
+                {{ employees|length }}
+            </strong>
+
+            <small>
+                Provisioned identities
+            </small>
+
+        </article>
+
+
+        <article>
+
+            <span>
+                ACTIVE ACCOUNTS
+            </span>
+
+            <strong>
+                {{ active_count.value }}
+            </strong>
+
+            <small>
+                Enabled workforce profiles
+            </small>
+
+        </article>
+
+
+        <article>
+
+            <span>
+                CLINICAL STAFF
+            </span>
+
+            <strong>
+                {{ clinical_count.value }}
+            </strong>
+
+            <small>
+                Nurse and medical roles
+            </small>
+
+        </article>
+
+
+        <article>
+
+            <span>
+                SECURITY / ADMIN
+            </span>
+
+            <strong>
+                {{ admin_count.value }}
+            </strong>
+
+            <small>
+                Administrative access
+            </small>
+
+        </article>
+
+    </section>
+
+
+    <!-- =====================================================
+         DIRECTORY
+    ====================================================== -->
+
+    <section class="workforce-directory-panel">
+
+
+        <div class="workforce-panel-header">
+
+            <div>
+
+                <span class="workforce-eyebrow">
+                    WORKFORCE
+                </span>
+
+                <h2>
+                    Organisational Directory
+                </h2>
+
+                <p>
+                    Review workforce identity, employment and
+                    MedSecure access information.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{{ url_for('organisation_overview') }}"
+                class="workforce-secondary-button"
+            >
+                Organisation
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+             SEARCH
+        ================================================== -->
+
+        <div class="workforce-toolbar">
+
+            <div class="workforce-search">
+
+                <span>
+                    ⌕
+                </span>
+
+                <input
+                    id="employeeSearch"
+                    type="search"
+                    placeholder="Search employee, ID, department or role"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <select id="employeeRoleFilter">
+
+                <option value="all">
+                    All roles
+                </option>
+
+                <option value="nurse">
+                    Nurses
+                </option>
+
+                <option value="doctor">
+                    Doctors
+                </option>
+
+                <option value="admin">
+                    Administrators
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- =================================================
+             TABLE HEADER
+        ================================================== -->
+
+        <div class="workforce-table-header">
+
+            <span>
+                Employee
+            </span>
+
+            <span>
+                Department
+            </span>
+
+            <span>
+                Facility
+            </span>
+
+            <span>
+                MedSecure Role
+            </span>
+
+            <span>
+                Status
+            </span>
+
+            <span></span>
+
+        </div>
+
+
+        <!-- =================================================
+             EMPLOYEES
+        ================================================== -->
+
+        <div id="employeeDirectory">
+
+
+            {% for employee in employees %}
+
+
+                <article
+                    class="workforce-row"
+
+                    data-search="
+                        {{ employee.full_name|lower }}
+                        {{ employee.employee_code|lower }}
+                        {{ employee.job_title|lower }}
+                        {{ employee.work_email|lower }}
+                        {{ employee.department.name|lower }}
+                        {{ employee.facility.name|lower }}
+                        {{ employee.user.role|lower }}
+                    "
+
+                    data-role="{{ employee.user.role|lower }}"
+                >
+
+
+                    <!-- EMPLOYEE -->
+
+                    <div class="workforce-person">
+
+                        <div class="workforce-avatar">
+
+                            {{ employee.full_name[0]|upper }}
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                {{ employee.full_name }}
+                            </strong>
+
+                            <span>
+                                {{ employee.job_title }}
+                            </span>
+
+                            <small>
+                                {{ employee.employee_code }}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DEPARTMENT -->
+
+                    <div class="workforce-detail">
+
+                        <strong>
+                            {{ employee.department.name }}
+                        </strong>
+
+                        <span>
+                            {{ employee.department.department_code }}
+                        </span>
+
+                    </div>
+
+
+                    <!-- FACILITY -->
+
+                    <div class="workforce-detail">
+
+                        <strong>
+                            {{ employee.facility.name }}
+                        </strong>
+
+                        <span>
+                            {{ employee.facility.facility_code }}
+                        </span>
+
+                    </div>
+
+
+                    <!-- APPLICATION ROLE -->
+
+                    <div>
+
+                        <span class="workforce-role workforce-role-{{ employee.user.role }}">
+
+                            {{ employee.user.role|upper }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- ACCOUNT STATUS -->
+
+                    <div>
+
+                        {% if employee.account_status|upper == "ACTIVE" %}
+
+                            <span class="workforce-account-active">
+                                ● ACTIVE
+                            </span>
+
+                        {% else %}
+
+                            <span class="workforce-account-inactive">
+                                ● {{ employee.account_status }}
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- OPEN PROFILE -->
+
+                    <div class="workforce-row-action">
+
+                        <a
+                            href="{{ url_for(
+                                'employee_record',
+                                employee_id=employee.id
+                            ) }}"
+                        >
+                            View →
+                        </a>
+
+                    </div>
+
+
+                </article>
+
+
+            {% else %}
+
+
+                <div class="workforce-empty">
+
+                    <strong>
+                        No workforce profiles found
+                    </strong>
+
+                    <p>
+                        Employee identities will appear here
+                        after organisational provisioning.
+                    </p>
+
+                </div>
+
+
+            {% endfor %}
+
+
+            <div
+                id="employeeNoResults"
+                class="workforce-empty"
+                hidden
+            >
+
+                <strong>
+                    No matching employees
+                </strong>
+
+                <p>
+                    Try changing the search or role filter.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         IDENTITY ARCHITECTURE
+    ====================================================== -->
+
+    <section class="workforce-identity-banner">
+
+        <div>
+
+            <span class="workforce-eyebrow">
+                IDENTITY & ACCESS MANAGEMENT
+            </span>
+
+            <h3>
+                Workforce identity lifecycle
+            </h3>
+
+            <p>
+                Employee information is separated from
+                authentication so MedSecure can transition
+                from local development accounts to enterprise
+                Microsoft identity without redesigning the
+                workforce directory.
+            </p>
+
+        </div>
+
+
+        <div class="workforce-identity-flow">
+
+            <span>
+                HR / IT
+            </span>
+
+            <strong>→</strong>
+
+            <span>
+                Enterprise Identity
+            </span>
+
+            <strong>→</strong>
+
+            <span>
+                MedSecure Role
+            </span>
+
+            <strong>→</strong>
+
+            <span>
+                Clinical Access
+            </span>
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

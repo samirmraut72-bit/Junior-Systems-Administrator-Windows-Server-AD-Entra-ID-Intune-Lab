@@ -1,0 +1,1114 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard | MedSecure
+{% endblock %}
+
+{% block content %}
+
+
+{% if current_user.role in ["nurse", "doctor"] %}
+
+{% set workforce_display_name =
+    current_employee_profile.full_name
+    if current_employee_profile
+    else current_user.username
+%}
+
+<div class="clinical-app-shell">
+
+    <!-- =====================================================
+         LEFT WORKSPACE NAVIGATION
+    ====================================================== -->
+
+    <aside class="clinical-sidebar">
+
+        <div class="sidebar-workspace">
+
+            <span class="sidebar-label">
+                WORKSPACE
+            </span>
+
+            <h2>
+                Clinical Care
+            </h2>
+
+            <p>
+                {{ current_user.role|title }} access
+            </p>
+
+        </div>
+
+
+        <nav class="clinical-sidebar-nav">
+
+            <a
+                href="#workspace-home"
+                class="clinical-nav-item active"
+            >
+                <span class="clinical-nav-icon">⌂</span>
+
+                <span>
+                    Overview
+                </span>
+            </a>
+
+
+            <a
+                href="#patient-worklist"
+                class="clinical-nav-item"
+            >
+                <span class="clinical-nav-icon">PT</span>
+
+                <span>
+                    Patients
+                </span>
+
+                <span class="clinical-nav-count">
+                    {{ patients|length }}
+                </span>
+            </a>
+
+
+            <a
+                href="#clinical-alerts"
+                class="clinical-nav-item"
+            >
+                <span class="clinical-nav-icon">!</span>
+
+                <span>
+                    Clinical Alerts
+                </span>
+            </a>
+
+
+            <a
+                href="#security-controls"
+                class="clinical-nav-item"
+            >
+                <span class="clinical-nav-icon">✓</span>
+
+                <span>
+                    Access Security
+                </span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-session-card">
+
+            <div class="sidebar-session-status">
+
+                <span class="live-dot"></span>
+
+                Secure session
+
+            </div>
+
+            <strong>
+                {{ workforce_display_name }}
+            </strong>
+
+            <span>
+                {{ current_user.role|title }}
+            </span>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CLINICAL AREA
+    ====================================================== -->
+
+    <section
+        class="clinical-main-workspace"
+        id="workspace-home"
+    >
+
+        <!-- =================================================
+             TOP HEADER
+        ================================================== -->
+
+        <header class="clinical-topbar">
+
+            <div>
+
+                <span class="clinical-kicker">
+                    MEDSECURE CLINICAL WORKSPACE
+                </span>
+
+                <h1>
+                    {{ current_user.role|title }} Dashboard
+                </h1>
+
+                <p>
+                    Patient care workspace for
+                    <strong>{{ workforce_display_name }}</strong>
+                </p>
+
+            </div>
+
+
+            <div class="clinical-system-state">
+
+                <span class="system-state-dot"></span>
+
+                <div>
+
+                    <strong>
+                        System operational
+                    </strong>
+
+                    <span>
+                        Protected clinical session
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             REAL SUMMARY DATA
+        ================================================== -->
+
+        {% set allergy_flags = namespace(count=0) %}
+
+        {% for p in patients %}
+
+            {% if p.allergies
+                and p.allergies|lower != "no known allergies"
+                and p.allergies|lower != "none" %}
+
+                {% set allergy_flags.count = allergy_flags.count + 1 %}
+
+            {% endif %}
+
+        {% endfor %}
+
+
+        <div class="clinical-summary-strip">
+
+            <div class="summary-strip-item">
+
+                <span>
+                    Patients
+                </span>
+
+                <strong>
+                    {{ patients|length }}
+                </strong>
+
+                <small>
+                    Available records
+                </small>
+
+            </div>
+
+
+            <div class="summary-strip-item alert-summary">
+
+                <span>
+                    Allergy alerts
+                </span>
+
+                <strong>
+                    {{ allergy_flags.count }}
+                </strong>
+
+                <small>
+                    Require awareness
+                </small>
+
+            </div>
+
+
+            <div class="summary-strip-item">
+
+                <span>
+                    Access level
+                </span>
+
+                <strong class="summary-text-value">
+                    {{ current_user.role|title }}
+                </strong>
+
+                <small>
+                    RBAC enforced
+                </small>
+
+            </div>
+
+
+            <div class="summary-strip-item secure-summary">
+
+                <span>
+                    Security
+                </span>
+
+                <strong class="summary-text-value">
+                    Protected
+                </strong>
+
+                <small>
+                    Session active
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             MAIN CLINICAL CONTENT
+        ================================================== -->
+
+        <div class="clinical-content-layout">
+
+
+            <!-- =============================================
+                 LEFT — PATIENT WORKLIST
+            ============================================== -->
+
+            <section
+                class="clinical-worklist-panel"
+                id="patient-worklist"
+            >
+
+                <div class="clinical-panel-heading">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            PATIENT WORKLIST
+                        </span>
+
+                        <h2>
+                            Patient Records
+                        </h2>
+
+                        <p>
+                            Search and open authorised clinical records.
+                        </p>
+
+                    </div>
+
+
+                    <span class="record-total">
+                        {{ patients|length }} records
+                    </span>
+
+                </div>
+
+
+                <!-- =========================================
+                     WORKING SEARCH + FILTER
+                ========================================== -->
+
+                <div class="patient-toolbar">
+
+                    <div class="patient-search-box">
+
+                        <span class="search-symbol">
+                            ⌕
+                        </span>
+
+                        <input
+                            id="patientSearch"
+                            type="search"
+                            placeholder="Search by patient name or ID"
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+
+                    <select
+                        id="patientFilter"
+                        class="patient-filter"
+                    >
+
+                        <option value="all">
+                            All patients
+                        </option>
+
+                        <option value="alert">
+                            Allergy alerts
+                        </option>
+
+                        <option value="clear">
+                            No known allergies
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div
+                    class="patient-worklist"
+                    id="patientList"
+                >
+
+                    {% for p in patients %}
+
+                        {% set has_alert =
+                            p.allergies
+                            and p.allergies|lower != "no known allergies"
+                            and p.allergies|lower != "none"
+                        %}
+
+                        <article
+                            class="patient-worklist-row"
+                            data-name="{{ p.name|lower }}"
+                            data-patient-id="{{ p.patient_id|lower }}"
+                            data-alert="{% if has_alert %}alert{% else %}clear{% endif %}"
+                        >
+
+                            <div class="patient-identity">
+
+                                <div class="patient-row-avatar">
+                                    {{ p.name[0] }}
+                                </div>
+
+
+                                <div>
+
+                                    <strong>
+                                        {{ p.name }}
+                                    </strong>
+
+                                    <span>
+                                        {{ p.patient_id }}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="patient-detail-cell">
+
+                                <span class="patient-cell-label">
+                                    Date of birth
+                                </span>
+
+                                <strong>
+                                    {{ p.date_of_birth }}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="patient-detail-cell">
+
+                                <span class="patient-cell-label">
+                                    Allergy status
+                                </span>
+
+
+                                {% if has_alert %}
+
+                                    <span class="patient-allergy-alert">
+
+                                        <span>
+                                            !
+                                        </span>
+
+                                        {{ p.allergies }}
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="patient-allergy-clear">
+
+                                        <span>
+                                            ✓
+                                        </span>
+
+                                        No known allergies
+
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <div class="patient-row-action">
+
+                                <a
+                                    href="/patient/{{ p.id }}"
+                                    class="open-clinical-record"
+                                >
+                                    Open record
+
+                                    <span>
+                                        →
+                                    </span>
+                                </a>
+
+                            </div>
+
+                        </article>
+
+                    {% endfor %}
+
+
+                    <div
+                        id="noPatientsFound"
+                        class="no-patients-found"
+                        hidden
+                    >
+
+                        <strong>
+                            No matching patient records
+                        </strong>
+
+                        <span>
+                            Change the search or filter criteria.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 RIGHT CLINICAL COLUMN
+            ============================================== -->
+
+            <aside class="clinical-right-column">
+
+
+                <!-- =========================================
+                     PRIORITY ALERTS
+                ========================================== -->
+
+                <section
+                    class="clinical-side-panel"
+                    id="clinical-alerts"
+                >
+
+                    <div class="clinical-side-heading">
+
+                        <span class="section-eyebrow">
+                            CLINICAL SAFETY
+                        </span>
+
+                        <h3>
+                            Priority Alerts
+                        </h3>
+
+                    </div>
+
+
+                    <div class="priority-alert-list">
+
+                        {% for p in patients %}
+
+                            {% if p.allergies
+                                and p.allergies|lower != "no known allergies"
+                                and p.allergies|lower != "none" %}
+
+                                <a
+                                    href="/patient/{{ p.id }}"
+                                    class="priority-alert-item"
+                                >
+
+                                    <span class="priority-alert-icon">
+                                        !
+                                    </span>
+
+
+                                    <div>
+
+                                        <strong>
+                                            {{ p.name }}
+                                        </strong>
+
+                                        <span>
+                                            Allergy: {{ p.allergies }}
+                                        </span>
+
+                                    </div>
+
+
+                                    <span class="priority-arrow">
+                                        →
+                                    </span>
+
+                                </a>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                    </div>
+
+                </section>
+
+
+                <!-- =========================================
+                     SECURITY
+                ========================================== -->
+
+                <section
+                    class="clinical-side-panel"
+                    id="security-controls"
+                >
+
+                    <div class="clinical-side-heading">
+
+                        <span class="section-eyebrow">
+                            ACCESS CONTROL
+                        </span>
+
+                        <h3>
+                            Security Controls
+                        </h3>
+
+                    </div>
+
+
+                    <div class="security-control-list">
+
+
+                        <div class="security-control-item">
+
+                            <span class="security-control-check">
+                                ✓
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Identity verified
+                                </strong>
+
+                                <span>
+                                    Authenticated account
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="security-control-item">
+
+                            <span class="security-control-check">
+                                ✓
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Role authorised
+                                </strong>
+
+                                <span>
+                                    {{ current_user.role|title }}
+                                    permissions active
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="security-control-item">
+
+                            <span class="security-control-check">
+                                ✓
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Activity monitored
+                                </strong>
+
+                                <span>
+                                    Security events recorded
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="security-control-item">
+
+                            <span class="security-control-check">
+                                ✓
+                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Request protected
+                                </strong>
+
+                                <span>
+                                    CSRF controls enabled
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =========================================
+                     WORKSPACE INFORMATION
+                ========================================== -->
+
+                <section class="clinical-side-panel workspace-information">
+
+                    <span class="section-eyebrow">
+                        WORKSPACE
+                    </span>
+
+                    <h3>
+                        Clinical access
+                    </h3>
+
+                    <p>
+                        Patient information is available only
+                        according to the permissions assigned
+                        to your clinical role.
+                    </p>
+
+
+                    <div class="workspace-access-state">
+
+                        <span class="live-dot"></span>
+
+                        Access controls active
+
+                    </div>
+
+                </section>
+
+            </aside>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+{% elif current_user.role == "patient" %}
+
+
+<section class="patient-portal-dashboard">
+
+    <header class="patient-portal-header">
+
+        <span class="clinical-kicker">
+            MEDSECURE PATIENT PORTAL
+        </span>
+
+        <h1>
+            My Health Record
+        </h1>
+
+        <p>
+            Secure access to your clinical information.
+        </p>
+
+    </header>
+
+
+    {% if patient %}
+
+        <div class="patient-home-layout">
+
+
+            <section class="patient-profile-card">
+
+                <div class="patient-large-avatar">
+                    {{ patient.name[0] }}
+                </div>
+
+
+                <div>
+
+                    <span class="section-eyebrow">
+                        PATIENT
+                    </span>
+
+                    <h2>
+                        {{ patient.name }}
+                    </h2>
+
+                    <p>
+                        {{ patient.patient_id }}
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <section class="patient-health-summary">
+
+                <div>
+
+                    <span>
+                        Date of birth
+                    </span>
+
+                    <strong>
+                        {{ patient.date_of_birth }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Allergies
+                    </span>
+
+                    <strong>
+                        {{ patient.allergies }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Medication
+                    </span>
+
+                    <strong>
+                        {{ patient.medications }}
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+            <a
+                href="/patient/{{ patient.id }}"
+                class="patient-record-action"
+            >
+                View full clinical record
+
+                <span>
+                    →
+                </span>
+            </a>
+
+
+            <section class="patient-security-panel">
+
+                <span class="security-control-check">
+                    ✓
+                </span>
+
+                <div>
+
+                    <strong>
+                        Your record is protected
+                    </strong>
+
+                    <p>
+                        Your patient account can access only
+                        the clinical record linked to your identity.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+
+{% elif current_user.role == "admin" %}
+
+
+<section class="admin-workspace-dashboard">
+
+    <header class="clinical-topbar">
+
+        <div>
+
+            <span class="clinical-kicker">
+                SECURITY ADMINISTRATION
+            </span>
+
+            <h1>
+                MedSecure Administration
+            </h1>
+
+            <p>
+                Identity, role and application security management.
+            </p>
+
+        </div>
+
+
+        <div class="clinical-system-state">
+
+            <span class="system-state-dot"></span>
+
+            <div>
+
+                <strong>
+                    Administrative session
+                </strong>
+
+                <span>
+                    Least privilege active
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <div class="admin-overview-grid">
+
+        <div>
+            <span>Accounts</span>
+            <strong>{{ users|length }}</strong>
+        </div>
+
+        <div>
+            <span>Access model</span>
+            <strong>RBAC</strong>
+        </div>
+
+        <div>
+            <span>Audit logging</span>
+            <strong>Active</strong>
+        </div>
+
+        <div class="admin-restricted">
+            <span>Clinical access</span>
+            <strong>Restricted</strong>
+        </div>
+
+    </div>
+
+
+    <div class="admin-content-layout">
+
+        <section class="clinical-worklist-panel">
+
+            <div class="clinical-panel-heading">
+
+                <div>
+
+                    <span class="section-eyebrow">
+                        IDENTITY DIRECTORY
+                    </span>
+
+                    <h2>
+                        User Accounts
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="admin-user-list">
+
+                {% for user in users %}
+
+                    {% set employee = user.employee_profile %}
+
+                    {% if user.role == "patient" and user.patient_id %}
+
+                        {% set patient_account =
+                            patients
+                            | selectattr("id", "equalto", user.patient_id)
+                            | first
+                        %}
+
+                    {% else %}
+
+                        {% set patient_account = none %}
+
+                    {% endif %}
+
+
+                    {% if employee %}
+
+                        {% set display_name = employee.full_name %}
+
+                    {% elif patient_account %}
+
+                        {% set display_name = patient_account.name %}
+
+                    {% else %}
+
+                        {% set display_name = "MedSecure Account" %}
+
+                    {% endif %}
+
+
+                    <div class="admin-user-row">
+
+                        <div class="patient-identity">
+
+                            <div class="patient-row-avatar">
+                                {{ display_name[0]|upper }}
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    {{ display_name }}
+                                </strong>
+
+                                <span>
+
+                                    {% if employee %}
+
+                                        {% if employee.identity_provider == "Microsoft Entra ID" %}
+
+                                            Microsoft Entra ID
+
+                                        {% else %}
+
+                                            Workforce identity · Local fallback
+
+                                        {% endif %}
+
+                                    {% elif patient_account %}
+
+                                        MedSecure Patient Identity
+
+                                    {% else %}
+
+                                        MedSecure identity
+
+                                    {% endif %}
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <span class="admin-user-role">
+
+                            {% if user.role == "admin" %}
+
+                                Administrator
+
+                            {% else %}
+
+                                {{ user.role|title }}
+
+                            {% endif %}
+
+                        </span>
+
+
+                        <span class="admin-user-status">
+
+                            {% if employee
+                                  and employee.account_status|upper == "DISABLED" %}
+
+                                Disabled
+
+                            {% else %}
+
+                                ✓ Active
+
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+        <aside class="clinical-right-column">
+
+            <section class="clinical-side-panel">
+
+                <span class="section-eyebrow">
+                    SECURITY CENTRE
+                </span>
+
+                <h3>
+                    Audit Monitoring
+                </h3>
+
+
+                <a
+                    href="/security-logs"
+                    class="admin-security-action"
+                    style="margin-top: 16px;"
+                >
+
+                    Review security logs
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+            </section>
+
+
+            <section class="clinical-side-panel admin-warning-panel">
+
+                <strong>
+                    Least privilege enforced
+                </strong>
+
+                <p>
+                    Administrative accounts can review
+                    application security but are blocked
+                    from patient clinical records.
+                </p>
+
+            </section>
+
+        </aside>
+
+    </div>
+
+</section>
+
+
+{% endif %}
+
+{% endblock %}

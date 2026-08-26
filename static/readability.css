@@ -1,0 +1,456 @@
+/* =========================================================
+   MEDSECURE READABILITY ENHANCEMENT
+   Medium enterprise/clinical typography
+========================================================= */
+
+
+/* =========================================================
+   DASHBOARD MAIN HEADINGS
+========================================================= */
+
+.clinical-topbar h1 {
+    font-size: 34px;
+    line-height: 1.2;
+}
+
+.clinical-topbar p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.clinical-kicker,
+.section-eyebrow {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar-label {
+    font-size: 10px;
+}
+
+.sidebar-workspace h2 {
+    font-size: 20px;
+}
+
+.sidebar-workspace p {
+    font-size: 12px;
+}
+
+.clinical-nav-item {
+    font-size: 13px;
+}
+
+.clinical-nav-icon {
+    font-size: 10px;
+}
+
+.clinical-nav-count {
+    font-size: 10px;
+}
+
+.sidebar-session-status {
+    font-size: 11px;
+}
+
+.sidebar-session-card strong {
+    font-size: 13px;
+}
+
+.sidebar-session-card > span:last-child {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   SYSTEM STATUS
+========================================================= */
+
+.clinical-system-state strong {
+    font-size: 12px;
+}
+
+.clinical-system-state span:last-child {
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   SUMMARY STRIP
+========================================================= */
+
+.summary-strip-item > span {
+    font-size: 10px;
+}
+
+.summary-strip-item strong {
+    font-size: 26px;
+}
+
+.summary-strip-item .summary-text-value {
+    font-size: 19px;
+}
+
+.summary-strip-item small {
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   PATIENT WORKLIST HEADER
+========================================================= */
+
+.clinical-panel-heading h2 {
+    font-size: 20px;
+}
+
+.clinical-panel-heading p {
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.record-total {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   SEARCH / FILTER
+========================================================= */
+
+.patient-search-box input,
+.patient-filter {
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   PATIENT ROWS
+========================================================= */
+
+.patient-identity strong {
+    font-size: 14px;
+}
+
+.patient-identity span {
+    font-size: 11px;
+}
+
+.patient-cell-label {
+    font-size: 9px;
+}
+
+.patient-detail-cell strong {
+    font-size: 12px;
+}
+
+.patient-allergy-alert,
+.patient-allergy-clear {
+    font-size: 10px;
+}
+
+.open-clinical-record {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   RIGHT-SIDE PANELS
+========================================================= */
+
+.clinical-side-heading h3,
+.clinical-side-panel > h3 {
+    font-size: 17px;
+}
+
+.priority-alert-item strong {
+    font-size: 12px;
+}
+
+.priority-alert-item div span {
+    font-size: 10px;
+}
+
+.security-control-item strong {
+    font-size: 12px;
+}
+
+.security-control-item div span {
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.workspace-information p {
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.workspace-access-state {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   ADMIN DASHBOARD
+========================================================= */
+
+.admin-overview-grid span {
+    font-size: 10px;
+}
+
+.admin-overview-grid strong {
+    font-size: 21px;
+}
+
+.admin-user-role,
+.admin-user-status {
+    font-size: 11px;
+}
+
+.admin-warning-panel strong {
+    font-size: 12px;
+}
+
+.admin-warning-panel p {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   PATIENT PORTAL DASHBOARD
+========================================================= */
+
+.patient-portal-header h1 {
+    font-size: 34px;
+}
+
+.patient-portal-header p {
+    font-size: 14px;
+}
+
+.patient-profile-card h2 {
+    font-size: 20px;
+}
+
+.patient-profile-card p {
+    font-size: 12px;
+}
+
+.patient-health-summary span {
+    font-size: 10px;
+}
+
+.patient-health-summary strong {
+    font-size: 13px;
+}
+
+.patient-record-action {
+    font-size: 12px;
+}
+
+.patient-security-panel strong {
+    font-size: 12px;
+}
+
+.patient-security-panel p {
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   PATIENT RECORD PAGE
+========================================================= */
+
+.record-breadcrumb {
+    font-size: 12px;
+}
+
+.patient-banner .record-eyebrow,
+.record-eyebrow {
+    font-size: 10px;
+}
+
+.patient-banner h1 {
+    font-size: 31px;
+}
+
+.patient-banner-meta {
+    font-size: 12px;
+}
+
+.patient-banner-security strong {
+    font-size: 11px;
+}
+
+.patient-banner-security span:last-child {
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   CLINICAL ALERT
+========================================================= */
+
+.allergy-warning-banner span,
+.allergy-clear-banner span {
+    font-size: 9px;
+}
+
+.allergy-warning-banner strong,
+.allergy-clear-banner strong {
+    font-size: 15px;
+}
+
+.allergy-warning-banner p {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   PATIENT RECORD CARDS
+========================================================= */
+
+.record-card-header h2 {
+    font-size: 19px;
+}
+
+.record-card-header p {
+    font-size: 11px;
+}
+
+.record-status-pill,
+.record-info-pill,
+.note-record-status {
+    font-size: 10px;
+}
+
+.record-data-field span {
+    font-size: 9px;
+}
+
+.record-data-field strong {
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   MEDICATION
+========================================================= */
+
+.medication-record-body span {
+    font-size: 10px;
+}
+
+.medication-record-body strong {
+    font-size: 13px;
+}
+
+.medication-record-status {
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   CLINICAL NOTES
+========================================================= */
+
+.clinical-note-entry-header strong {
+    font-size: 12px;
+}
+
+.clinical-note-entry-header div span {
+    font-size: 10px;
+}
+
+.clinical-note-content {
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   NOTE FORM
+========================================================= */
+
+.clinical-note-entry-form label {
+    font-size: 12px;
+}
+
+.clinical-note-entry-form textarea {
+    font-size: 13px;
+}
+
+.clinical-documentation-notice {
+    font-size: 10px;
+}
+
+.save-clinical-note {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   PATIENT RECORD SIDEBAR
+========================================================= */
+
+.record-side-card h3 {
+    font-size: 16px;
+}
+
+.snapshot-row span {
+    font-size: 10px;
+}
+
+.snapshot-row strong {
+    font-size: 11px;
+}
+
+.record-security-item strong {
+    font-size: 11px;
+}
+
+.record-security-item div span {
+    font-size: 10px;
+}
+
+.role-access-display strong {
+    font-size: 12px;
+}
+
+.role-access-display span {
+    font-size: 10px;
+}
+
+.role-access-card p {
+    font-size: 10px;
+}
+
+.return-dashboard-button {
+    font-size: 11px;
+}
+
+.record-security-footer {
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 720px) {
+
+    .clinical-topbar h1,
+    .patient-portal-header h1 {
+        font-size: 28px;
+    }
+
+    .patient-banner h1 {
+        font-size: 26px;
+    }
+
+}

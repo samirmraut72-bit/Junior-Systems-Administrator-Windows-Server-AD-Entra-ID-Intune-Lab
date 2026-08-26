@@ -1,0 +1,146 @@
+﻿/* =========================================================
+   MEDSECURE WORKFORCE ACCOUNT ADMINISTRATION
+========================================================= */
+
+.employee-account-admin {
+    padding: 22px;
+
+    border: 1px solid #dce7ed;
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 7px 22px rgba(25, 61, 88, 0.04);
+}
+
+
+.employee-account-admin h3 {
+    margin: 0 0 8px;
+
+    color: #173f5d;
+
+    font-size: 16px;
+}
+
+
+.employee-account-admin p {
+    margin: 0 0 18px;
+
+    color: #778e9c;
+
+    font-size: 10px;
+    line-height: 1.65;
+}
+
+
+.employee-account-control-state {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    margin-bottom: 15px;
+    padding: 13px;
+
+    border: 1px solid #e1e9ee;
+    border-radius: 9px;
+
+    background: #f8fafb;
+}
+
+
+.employee-account-control-state span {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #8799a5;
+
+    font-size: 8px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+.employee-account-control-state strong {
+    color: #39576c;
+
+    font-size: 11px;
+}
+
+
+.employee-account-control-active {
+    color: #27845e !important;
+}
+
+
+.employee-account-control-disabled {
+    color: #a44f4f !important;
+}
+
+
+.employee-disable-button,
+.employee-enable-button {
+    width: 100%;
+
+    padding: 11px 13px;
+
+    border: none;
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+
+.employee-disable-button {
+    background: #faeaea;
+    color: #9e4747;
+}
+
+
+.employee-disable-button:hover {
+    background: #f4dada;
+}
+
+
+.employee-enable-button {
+    background: #e4f4ec;
+    color: #267d59;
+}
+
+
+.employee-enable-button:hover {
+    background: #d6ecdf;
+}
+
+
+.employee-account-warning {
+    margin-top: 13px;
+    padding: 11px;
+
+    border-radius: 8px;
+
+    background: #fff5e7;
+    color: #8a651e;
+
+    font-size: 9px;
+    line-height: 1.55;
+}
+
+
+.employee-self-protection {
+    padding: 12px;
+
+    border-radius: 8px;
+
+    background: #edf5f8;
+    color: #41677c;
+
+    font-size: 9px;
+    line-height: 1.55;
+}

@@ -1,0 +1,279 @@
+/* =========================================================
+   MEDSECURE SECURITY CENTRE
+   READABILITY ENHANCEMENT
+========================================================= */
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.security-kicker,
+.security-section-label {
+    font-size: 11px;
+}
+
+.security-centre-header h1 {
+    font-size: 36px;
+    line-height: 1.2;
+}
+
+.security-centre-header p {
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   MONITORING STATUS
+========================================================= */
+
+.security-system-state strong {
+    font-size: 13px;
+}
+
+.security-system-state span:last-child {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   SECURITY SUMMARY CARDS
+========================================================= */
+
+.security-card-label {
+    font-size: 11px;
+}
+
+.security-overview-card strong {
+    font-size: 30px;
+}
+
+.security-overview-card small {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   AUDIT PANEL HEADER
+========================================================= */
+
+.security-panel-header h2 {
+    font-size: 21px;
+}
+
+.security-panel-header p {
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.security-event-count {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   SEARCH / FILTER
+========================================================= */
+
+.security-search input,
+.security-filter-bar select {
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   TABLE HEADERS
+========================================================= */
+
+.security-events-header {
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   SECURITY EVENT ROWS
+========================================================= */
+
+.security-event-row {
+    min-height: 82px;
+}
+
+.security-event-time strong {
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.security-event-user strong,
+.security-event-type strong {
+    font-size: 13px;
+}
+
+.security-event-user span,
+.security-event-type span {
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   USER AVATAR
+========================================================= */
+
+.security-user-avatar {
+    width: 36px;
+    height: 36px;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   SOURCE
+========================================================= */
+
+.ip-address {
+    padding: 6px 9px;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   RESULT BADGES
+========================================================= */
+
+.security-outcome {
+    padding: 6px 10px;
+
+    font-size: 10px;
+}
+
+.security-outcome > span {
+    width: 17px;
+    height: 17px;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   RIGHT-SIDE SECURITY PANELS
+========================================================= */
+
+.security-side-card h3 {
+    font-size: 18px;
+}
+
+.security-posture-item {
+    padding: 12px 0;
+}
+
+.security-posture-item strong {
+    font-size: 12px;
+}
+
+.security-posture-item div span {
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.posture-check {
+    width: 25px;
+    height: 25px;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   LEAST PRIVILEGE
+========================================================= */
+
+.privilege-card p {
+    font-size: 11px;
+    line-height: 1.65;
+}
+
+.privilege-state {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   DEVSECOPS SECTION
+========================================================= */
+
+.assurance-list span {
+    font-size: 11px;
+}
+
+.assurance-list strong {
+    font-size: 12px;
+}
+
+.assurance-note {
+    font-size: 10px;
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   RETURN BUTTON
+========================================================= */
+
+.security-return-button {
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   EMPTY SEARCH RESULTS
+========================================================= */
+
+.security-empty-state strong {
+    font-size: 14px;
+}
+
+.security-empty-state p {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   LARGE DESKTOPS
+========================================================= */
+
+@media (min-width: 1400px) {
+
+    .security-event-row {
+        min-height: 86px;
+    }
+
+    .security-event-time strong {
+        font-size: 12px;
+    }
+
+    .security-event-user strong,
+    .security-event-type strong {
+        font-size: 13px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE / TABLET
+========================================================= */
+
+@media (max-width: 720px) {
+
+    .security-centre-header h1 {
+        font-size: 29px;
+    }
+
+    .security-centre-header p {
+        font-size: 13px;
+    }
+
+}

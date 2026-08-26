@@ -1,0 +1,893 @@
+/* =========================================================
+   MEDSECURE EMPLOYEE / WORKFORCE PROFILE
+========================================================= */
+
+.employee-profile-page {
+    width: min(1320px, calc(100% - 48px));
+    margin: 30px auto 70px;
+    color: #173c59;
+}
+
+
+/* =========================================================
+   BREADCRUMB
+========================================================= */
+
+.employee-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-bottom: 13px;
+
+    color: #8296a4;
+
+    font-size: 11px;
+}
+
+
+.employee-breadcrumb a {
+    color: #236b8d;
+    text-decoration: none;
+}
+
+
+.employee-breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+
+.employee-breadcrumb strong {
+    color: #486579;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.employee-profile-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+
+    padding: 30px 34px;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #102f49,
+            #174f72
+        );
+
+    color: #ffffff;
+
+    box-shadow:
+        0 16px 38px rgba(15, 47, 73, 0.13);
+}
+
+
+.employee-profile-identity {
+    display: flex;
+    align-items: center;
+    gap: 19px;
+}
+
+
+.employee-profile-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 68px;
+    height: 68px;
+
+    flex-shrink: 0;
+
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    border-radius: 17px;
+
+    background: rgba(255, 255, 255, 0.13);
+    color: #ffffff;
+
+    font-size: 25px;
+    font-weight: 800;
+}
+
+
+.employee-profile-eyebrow,
+.employee-section-eyebrow {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #1784a6;
+
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 1.1px;
+}
+
+
+.employee-profile-eyebrow {
+    color: #7bd7e9;
+}
+
+
+.employee-profile-title h1 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+
+.employee-profile-title > p {
+    margin: 5px 0 0;
+
+    color: #c4d7e3;
+
+    font-size: 13px;
+}
+
+
+.employee-profile-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+
+    margin-top: 13px;
+}
+
+
+.employee-profile-tags span {
+    padding: 6px 9px;
+
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 7px;
+
+    background: rgba(255, 255, 255, 0.08);
+    color: #dbe9f1;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+
+.employee-account-state {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+
+.employee-state-label {
+    color: #9fb9ca;
+
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+}
+
+
+.employee-state-active {
+    color: #80e0af;
+
+    font-size: 12px;
+}
+
+
+.employee-state-inactive {
+    color: #ffabab;
+
+    font-size: 12px;
+}
+
+
+.employee-account-state small {
+    color: #9fb7c7;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.employee-profile-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+
+    margin-top: 16px;
+}
+
+
+.employee-profile-summary article {
+    padding: 19px 21px;
+
+    border: 1px solid #dae5eb;
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 7px 20px rgba(25, 61, 88, 0.04);
+}
+
+
+.employee-profile-summary span {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #7b909e;
+
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: 0.65px;
+}
+
+
+.employee-profile-summary strong {
+    display: block;
+
+    color: #183f5b;
+
+    font-size: 16px;
+}
+
+
+.employee-profile-summary small {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #8799a5;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   MAIN LAYOUT
+========================================================= */
+
+.employee-profile-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 325px;
+    gap: 17px;
+
+    margin-top: 17px;
+}
+
+
+.employee-profile-main,
+.employee-profile-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.employee-profile-card,
+.employee-side-card {
+    border: 1px solid #dce7ed;
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 7px 22px rgba(25, 61, 88, 0.04);
+}
+
+
+.employee-profile-card {
+    padding: 24px 26px;
+}
+
+
+.employee-side-card {
+    padding: 22px;
+}
+
+
+.employee-card-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+
+    margin-bottom: 20px;
+}
+
+
+.employee-card-heading h2 {
+    margin: 0;
+
+    color: #173f5d;
+
+    font-size: 19px;
+}
+
+
+.employee-card-heading p {
+    margin: 6px 0 0;
+
+    color: #8094a1;
+
+    font-size: 11px;
+    line-height: 1.55;
+}
+
+
+.employee-card-status {
+    padding: 6px 8px;
+
+    border-radius: 999px;
+
+    background: #e8f5ee;
+    color: #26835c;
+
+    font-size: 8px;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   INFORMATION GRID
+========================================================= */
+
+.employee-information-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+
+.employee-information-item {
+    padding: 14px 15px;
+
+    border: 1px solid #e3ebef;
+    border-radius: 9px;
+
+    background: #f9fbfc;
+}
+
+
+.employee-information-item span,
+.employee-side-detail span {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #8799a5;
+
+    font-size: 8px;
+    font-weight: 750;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+.employee-information-item strong {
+    color: #38576d;
+
+    font-size: 11px;
+}
+
+
+.employee-wide {
+    grid-column: span 2;
+}
+
+
+.employee-green-text {
+    color: #27845e !important;
+}
+
+
+/* =========================================================
+   ORGANISATION CHAIN
+========================================================= */
+
+.employee-organisation-chain {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+
+.employee-chain-item {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    padding: 13px 14px;
+
+    border: 1px solid #e1eaef;
+    border-radius: 9px;
+
+    background: #f9fbfc;
+}
+
+
+.employee-chain-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 37px;
+    height: 37px;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: #e5f1f6;
+    color: #1a6283;
+
+    font-size: 8px;
+    font-weight: 900;
+}
+
+
+.employee-chain-item span {
+    display: block;
+
+    color: #889aa6;
+
+    font-size: 8px;
+    text-transform: uppercase;
+}
+
+
+.employee-chain-item strong {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #36566d;
+
+    font-size: 11px;
+}
+
+
+.employee-chain-item small {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #91a0aa;
+
+    font-size: 8px;
+}
+
+
+.employee-chain-arrow {
+    padding-left: 27px;
+
+    color: #91a7b4;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   ACCESS PROFILE
+========================================================= */
+
+.employee-access-role {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    background: #f4f8fa;
+}
+
+
+.employee-access-role > div span {
+    display: block;
+
+    color: #8296a3;
+
+    font-size: 8px;
+    font-weight: 750;
+}
+
+
+.employee-access-role > div strong {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #244f69;
+
+    font-size: 13px;
+}
+
+
+.employee-role-large {
+    padding: 7px 11px;
+
+    border-radius: 999px;
+
+    font-size: 9px;
+    font-weight: 850;
+}
+
+
+.employee-role-nurse {
+    background: #e7f3fa;
+    color: #226889;
+}
+
+
+.employee-role-doctor {
+    background: #eceafa;
+    color: #5b54a0;
+}
+
+
+.employee-role-admin {
+    background: #fbeaea;
+    color: #9a4e4e;
+}
+
+
+.employee-access-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 9px;
+
+    margin-top: 12px;
+}
+
+
+.employee-access-allowed,
+.employee-access-denied {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 13px;
+
+    border: 1px solid #e2eaef;
+    border-radius: 9px;
+}
+
+
+.employee-access-allowed > span,
+.employee-access-denied > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 23px;
+    height: 23px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    font-size: 9px;
+    font-weight: 850;
+}
+
+
+.employee-access-allowed > span {
+    background: #e2f4eb;
+    color: #27835d;
+}
+
+
+.employee-access-denied > span {
+    background: #f9e9e9;
+    color: #a24f4f;
+}
+
+
+.employee-access-list strong {
+    display: block;
+
+    color: #39576c;
+
+    font-size: 10px;
+}
+
+
+.employee-access-list small {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #8799a5;
+
+    font-size: 8px;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.employee-side-card h3 {
+    margin: 0 0 15px;
+
+    color: #173f5d;
+
+    font-size: 16px;
+}
+
+
+.employee-side-card > p {
+    margin: 0;
+
+    color: #778e9c;
+
+    font-size: 10px;
+    line-height: 1.65;
+}
+
+
+.employee-identity-provider {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    padding: 13px;
+
+    border: 1px solid #e1e9ee;
+    border-radius: 9px;
+
+    background: #f8fafb;
+}
+
+
+.employee-provider-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+
+    border-radius: 8px;
+
+    background: #173f5b;
+    color: #ffffff;
+
+    font-size: 8px;
+    font-weight: 900;
+}
+
+
+.employee-identity-provider span {
+    display: block;
+
+    color: #8799a5;
+
+    font-size: 8px;
+    text-transform: uppercase;
+}
+
+
+.employee-identity-provider strong {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #39576c;
+
+    font-size: 10px;
+}
+
+
+.employee-side-detail {
+    padding: 11px 0;
+
+    border-bottom: 1px solid #edf2f5;
+}
+
+
+.employee-side-detail strong {
+    color: #3c5a6e;
+
+    font-size: 10px;
+}
+
+
+.employee-target-identity {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    margin-top: 14px;
+    padding: 13px;
+
+    border-radius: 9px;
+
+    background: #edf6f9;
+}
+
+
+.employee-target-identity span {
+    color: #7390a0;
+
+    font-size: 7px;
+    font-weight: 800;
+}
+
+
+.employee-target-identity strong {
+    color: #176080;
+
+    font-size: 11px;
+}
+
+
+.employee-target-identity small {
+    color: #8096a3;
+
+    font-size: 8px;
+}
+
+
+/* =========================================================
+   SECURITY CONTROL LIST
+========================================================= */
+
+.employee-control-list {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.employee-control-list > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 10px 0;
+
+    border-bottom: 1px solid #edf2f5;
+}
+
+
+.employee-control-list > div:last-child {
+    border-bottom: none;
+}
+
+
+.employee-control-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 23px;
+    height: 23px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #e2f4eb;
+    color: #28835e;
+
+    font-size: 8px;
+    font-weight: 900;
+}
+
+
+.employee-control-list strong {
+    display: block;
+
+    color: #39586d;
+
+    font-size: 10px;
+}
+
+
+.employee-control-list small {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #899aa5;
+
+    font-size: 8px;
+}
+
+
+/* =========================================================
+   RETURN BUTTON
+========================================================= */
+
+.employee-return-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 11px 13px;
+
+    border: 1px solid #d8e4ea;
+    border-radius: 9px;
+
+    background: #ffffff;
+    color: #315a72;
+
+    text-decoration: none;
+
+    font-size: 10px;
+    font-weight: 750;
+}
+
+
+.employee-return-button:hover {
+    background: #f5f8fa;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .employee-profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .employee-profile-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .employee-profile-page {
+        width: calc(100% - 24px);
+        margin-top: 20px;
+    }
+
+    .employee-profile-hero {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .employee-account-state {
+        align-items: flex-start;
+    }
+
+    .employee-profile-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .employee-information-grid,
+    .employee-access-list {
+        grid-template-columns: 1fr;
+    }
+
+    .employee-wide {
+        grid-column: auto;
+    }
+
+}

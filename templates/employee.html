@@ -1,0 +1,975 @@
+﻿{% extends "base.html" %}
+
+{% block title %}
+{{ employee.full_name }} | MedSecure Workforce
+{% endblock %}
+
+{% block content %}
+
+<div class="employee-profile-page">
+
+    <div class="employee-breadcrumb">
+
+        {% if own_profile %}
+
+            <a href="{{ url_for('dashboard') }}">
+                Dashboard
+            </a>
+
+            <span>›</span>
+
+            <strong>My Profile</strong>
+
+        {% else %}
+
+            <a href="{{ url_for('organisation_overview') }}">
+                Organisation
+            </a>
+
+            <span>›</span>
+
+            <a href="{{ url_for('employee_directory') }}">
+                Workforce
+            </a>
+
+            <span>›</span>
+
+            <strong>
+                {{ employee.employee_code }}
+            </strong>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- =====================================================
+         EMPLOYEE HEADER
+    ====================================================== -->
+
+    <section class="employee-profile-hero">
+
+        <div class="employee-profile-identity">
+
+            <div class="employee-profile-avatar">
+                {{ employee.full_name[0]|upper }}
+            </div>
+
+
+            <div class="employee-profile-title">
+
+                <span class="employee-profile-eyebrow">
+
+                    {% if own_profile %}
+                        MY WORKFORCE PROFILE
+                    {% else %}
+                        MEDSECURE WORKFORCE IDENTITY
+                    {% endif %}
+
+                </span>
+
+                <h1>
+                    {{ employee.full_name }}
+                </h1>
+
+                <p>
+                    {{ employee.job_title }}
+                </p>
+
+                <div class="employee-profile-tags">
+
+                    <span>
+                        {{ employee.employee_code }}
+                    </span>
+
+                    <span>
+                        {{ employee.department.name }}
+                    </span>
+
+                    <span>
+                        {{ employee.user.role|upper }}
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="employee-account-state">
+
+            <span class="employee-state-label">
+                ACCOUNT STATUS
+            </span>
+
+            {% if employee.account_status|upper == "ACTIVE" %}
+
+                <strong class="employee-state-active">
+                    ● ACTIVE
+                </strong>
+
+            {% else %}
+
+                <strong class="employee-state-inactive">
+                    ● {{ employee.account_status }}
+                </strong>
+
+            {% endif %}
+
+            <small>
+                MedSecure workforce identity
+            </small>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SUMMARY
+    ====================================================== -->
+
+    <section class="employee-profile-summary">
+
+        <article>
+
+            <span>
+                EMPLOYEE ID
+            </span>
+
+            <strong>
+                {{ employee.employee_code }}
+            </strong>
+
+            <small>
+                Organisational identifier
+            </small>
+
+        </article>
+
+
+        <article>
+
+            <span>
+                MEDSECURE ROLE
+            </span>
+
+            <strong>
+                {{ employee.user.role|upper }}
+            </strong>
+
+            <small>
+                Application authorisation
+            </small>
+
+        </article>
+
+
+        <article>
+
+            <span>
+                DEPARTMENT
+            </span>
+
+            <strong>
+                {{ employee.department.department_code }}
+            </strong>
+
+            <small>
+                {{ employee.department.name }}
+            </small>
+
+        </article>
+
+
+        <article>
+
+            <span>
+                EMPLOYMENT
+            </span>
+
+            <strong>
+                {{ employee.employment_type }}
+            </strong>
+
+            <small>
+                Workforce relationship
+            </small>
+
+        </article>
+
+    </section>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <div class="employee-profile-grid">
+
+
+        <div class="employee-profile-main">
+
+
+            <!-- =================================================
+                 EMPLOYMENT
+            ================================================== -->
+
+            <section class="employee-profile-card">
+
+                <div class="employee-card-heading">
+
+                    <div>
+
+                        <span class="employee-section-eyebrow">
+                            WORKFORCE
+                        </span>
+
+                        <h2>
+                            Employment Details
+                        </h2>
+
+                    </div>
+
+                    <span class="employee-card-status">
+                        Organisational profile
+                    </span>
+
+                </div>
+
+
+                <div class="employee-information-grid">
+
+                    <div class="employee-information-item">
+
+                        <span>
+                            Full name
+                        </span>
+
+                        <strong>
+                            {{ employee.full_name }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="employee-information-item">
+
+                        <span>
+                            Employee ID
+                        </span>
+
+                        <strong>
+                            {{ employee.employee_code }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="employee-information-item">
+
+                        <span>
+                            Position
+                        </span>
+
+                        <strong>
+                            {{ employee.job_title }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="employee-information-item">
+
+                        <span>
+                            Employment type
+                        </span>
+
+                        <strong>
+                            {{ employee.employment_type }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="employee-information-item employee-wide">
+
+                        <span>
+                            Work email
+                        </span>
+
+                        <strong>
+                            {{ employee.work_email }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="employee-information-item">
+
+                        <span>
+                            Account status
+                        </span>
+
+                        {% if employee.account_status|upper == "ACTIVE" %}
+
+                            <strong class="employee-green-text">
+                                ACTIVE
+                            </strong>
+
+                        {% else %}
+
+                            <strong>
+                                {{ employee.account_status }}
+                            </strong>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ORGANISATION
+            ================================================== -->
+
+            <section class="employee-profile-card">
+
+                <div class="employee-card-heading">
+
+                    <div>
+
+                        <span class="employee-section-eyebrow">
+                            ORGANISATION
+                        </span>
+
+                        <h2>
+                            Organisational Placement
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="employee-organisation-chain">
+
+                    <div class="employee-chain-item">
+
+                        <div class="employee-chain-icon">
+                            HN
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Organisation
+                            </span>
+
+                            <strong>
+                                {{ employee.organisation.name }}
+                            </strong>
+
+                            <small>
+                                {{ employee.organisation.organisation_code }}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="employee-chain-arrow">
+                        ↓
+                    </div>
+
+
+                    <div class="employee-chain-item">
+
+                        <div class="employee-chain-icon">
+                            FC
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Facility
+                            </span>
+
+                            <strong>
+                                {{ employee.facility.name }}
+                            </strong>
+
+                            <small>
+                                {{ employee.facility.facility_code }}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="employee-chain-arrow">
+                        ↓
+                    </div>
+
+
+                    <div class="employee-chain-item">
+
+                        <div class="employee-chain-icon">
+                            DP
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Department
+                            </span>
+
+                            <strong>
+                                {{ employee.department.name }}
+                            </strong>
+
+                            <small>
+                                {{ employee.department.department_code }}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ACCESS PROFILE
+            ================================================== -->
+
+            <section class="employee-profile-card">
+
+                <div class="employee-card-heading">
+
+                    <div>
+
+                        <span class="employee-section-eyebrow">
+                            AUTHORISATION
+                        </span>
+
+                        <h2>
+                            MedSecure Access Profile
+                        </h2>
+
+                        <p>
+                            Application permissions are determined by
+                            the employee's assigned MedSecure role.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="employee-access-role">
+
+                    <div>
+
+                        <span>
+                            ASSIGNED APPLICATION ROLE
+                        </span>
+
+                        <strong>
+                            {{ employee.user.role|upper }}
+                        </strong>
+
+                    </div>
+
+                    <span class="employee-role-large employee-role-{{ employee.user.role }}">
+                        {{ employee.user.role|upper }}
+                    </span>
+
+                </div>
+
+
+                <div class="employee-access-list">
+
+                    {% if employee.user.role in ["nurse", "doctor"] %}
+
+                        <div class="employee-access-allowed">
+                            <span>✓</span>
+
+                            <div>
+                                <strong>Clinical dashboard</strong>
+                                <small>Authorised</small>
+                            </div>
+                        </div>
+
+
+                        <div class="employee-access-allowed">
+                            <span>✓</span>
+
+                            <div>
+                                <strong>Patient clinical records</strong>
+                                <small>Authorised</small>
+                            </div>
+                        </div>
+
+
+                        <div class="employee-access-allowed">
+                            <span>✓</span>
+
+                            <div>
+                                <strong>Clinical documentation</strong>
+                                <small>Authorised</small>
+                            </div>
+                        </div>
+
+
+                        <div class="employee-access-denied">
+                            <span>×</span>
+
+                            <div>
+                                <strong>Security administration</strong>
+                                <small>Restricted</small>
+                            </div>
+                        </div>
+
+
+                    {% elif employee.user.role == "admin" %}
+
+                        <div class="employee-access-allowed">
+                            <span>✓</span>
+
+                            <div>
+                                <strong>Organisation administration</strong>
+                                <small>Authorised</small>
+                            </div>
+                        </div>
+
+
+                        <div class="employee-access-allowed">
+                            <span>✓</span>
+
+                            <div>
+                                <strong>Workforce directory</strong>
+                                <small>Authorised</small>
+                            </div>
+                        </div>
+
+
+                        <div class="employee-access-allowed">
+                            <span>✓</span>
+
+                            <div>
+                                <strong>Security Centre</strong>
+                                <small>Authorised</small>
+                            </div>
+                        </div>
+
+
+                        <div class="employee-access-denied">
+                            <span>×</span>
+
+                            <div>
+                                <strong>Patient clinical records</strong>
+                                <small>Restricted by least privilege</small>
+                            </div>
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- =================================================
+             SIDEBAR
+        ================================================== -->
+
+        <aside class="employee-profile-sidebar">
+
+
+            <!-- =================================================
+                 AUTHENTICATION IDENTITY
+            ================================================== -->
+
+            <section class="employee-side-card">
+
+                <span class="employee-section-eyebrow">
+                    IDENTITY & ACCESS
+                </span>
+
+                <h3>
+                    Authentication Identity
+                </h3>
+
+
+                <div class="employee-identity-provider">
+
+                    <div class="employee-provider-icon">
+                        ID
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Identity provider
+                        </span>
+
+                        <strong>
+                            {{ employee.identity_provider }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="employee-side-detail">
+
+                    <span>
+                        Username
+                    </span>
+
+                    <strong>
+                        {{ employee.user.username }}
+                    </strong>
+
+                </div>
+
+
+                <div class="employee-side-detail">
+
+                    <span>
+                        Application role
+                    </span>
+
+                    <strong>
+                        {{ employee.user.role|upper }}
+                    </strong>
+
+                </div>
+
+
+                <div class="employee-side-detail">
+
+                    <span>
+                        Account status
+                    </span>
+
+                    {% if employee.account_status|upper == "ACTIVE" %}
+
+                        <strong class="employee-green-text">
+                            ACTIVE
+                        </strong>
+
+                    {% else %}
+
+                        <strong>
+                            {{ employee.account_status }}
+                        </strong>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="employee-target-identity">
+
+                    <span>
+                        TARGET ENTERPRISE ARCHITECTURE
+                    </span>
+
+                    <strong>
+                        Microsoft Entra ID
+                    </strong>
+
+                    <small>
+                        Central workforce identity + SSO
+                    </small>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ADMIN ACCOUNT CONTROL
+            ================================================== -->
+
+            {% if current_user.role == "admin" and not own_profile %}
+
+                <section class="employee-account-admin">
+
+                    <span class="employee-section-eyebrow">
+                        ACCOUNT ADMINISTRATION
+                    </span>
+
+                    <h3>
+                        Workforce Account Control
+                    </h3>
+
+
+                    {% if employee.user_id == current_user.id %}
+
+                        <div class="employee-self-protection">
+
+                            Your currently authenticated
+                            administrator identity cannot be
+                            disabled from this session.
+
+                        </div>
+
+
+                    {% else %}
+
+                        <p>
+                            Control whether this workforce identity
+                            is permitted to authenticate to MedSecure.
+                        </p>
+
+
+                        <div class="employee-account-control-state">
+
+                            <div>
+
+                                <span>
+                                    Current state
+                                </span>
+
+                                {% if employee.account_status|upper == "ACTIVE" %}
+
+                                    <strong class="employee-account-control-active">
+                                        ● ACTIVE
+                                    </strong>
+
+                                {% else %}
+
+                                    <strong class="employee-account-control-disabled">
+                                        ● DISABLED
+                                    </strong>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        {% if employee.account_status|upper == "ACTIVE" %}
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'update_employee_status',
+                                    employee_id=employee.id
+                                ) }}"
+                            >
+
+                                <input
+                                    type="hidden"
+                                    name="csrf_token"
+                                    value="{{ csrf_token() }}"
+                                >
+
+                                <input
+                                    type="hidden"
+                                    name="status"
+                                    value="DISABLED"
+                                >
+
+                                <button
+                                    type="submit"
+                                    class="employee-disable-button"
+                                >
+                                    Disable Employee Account
+                                </button>
+
+                            </form>
+
+
+                            <div class="employee-account-warning">
+
+                                Disabling this account blocks future
+                                MedSecure sign-in attempts. Existing
+                                workforce and audit records remain
+                                retained.
+
+                            </div>
+
+
+                        {% else %}
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'update_employee_status',
+                                    employee_id=employee.id
+                                ) }}"
+                            >
+
+                                <input
+                                    type="hidden"
+                                    name="csrf_token"
+                                    value="{{ csrf_token() }}"
+                                >
+
+                                <input
+                                    type="hidden"
+                                    name="status"
+                                    value="ACTIVE"
+                                >
+
+                                <button
+                                    type="submit"
+                                    class="employee-enable-button"
+                                >
+                                    Reactivate Employee Account
+                                </button>
+
+                            </form>
+
+                        {% endif %}
+
+                    {% endif %}
+
+                </section>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 SECURITY CONTROLS
+            ================================================== -->
+
+            <section class="employee-side-card">
+
+                <span class="employee-section-eyebrow">
+                    SECURITY CONTROLS
+                </span>
+
+                <h3>
+                    Account Protection
+                </h3>
+
+
+                <div class="employee-control-list">
+
+                    <div>
+
+                        <span class="employee-control-check">
+                            ✓
+                        </span>
+
+                        <div>
+                            <strong>Role-based access</strong>
+                            <small>Active</small>
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <span class="employee-control-check">
+                            ✓
+                        </span>
+
+                        <div>
+                            <strong>Session protection</strong>
+                            <small>15-minute lifetime</small>
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <span class="employee-control-check">
+                            ✓
+                        </span>
+
+                        <div>
+                            <strong>Audit logging</strong>
+                            <small>Security activity recorded</small>
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <span class="employee-control-check">
+                            ✓
+                        </span>
+
+                        <div>
+                            <strong>Login protection</strong>
+                            <small>Rate limiting active</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 PROFILE CLASSIFICATION
+            ================================================== -->
+
+            <section class="employee-side-card">
+
+                <span class="employee-section-eyebrow">
+                    PROFILE CLASSIFICATION
+                </span>
+
+                <h3>
+                    Workforce Information
+                </h3>
+
+                <p>
+                    This profile contains organisational workforce
+                    and access information. It is separated from
+                    patient clinical information.
+                </p>
+
+            </section>
+
+
+            {% if own_profile %}
+
+                <a
+                    href="{{ url_for('dashboard') }}"
+                    class="employee-return-button"
+                >
+                    ← Return to Dashboard
+                </a>
+
+            {% else %}
+
+                <a
+                    href="{{ url_for('employee_directory') }}"
+                    class="employee-return-button"
+                >
+                    ← Return to Workforce
+                </a>
+
+            {% endif %}
+
+        </aside>
+
+    </div>
+
+</div>
+
+{% endblock %}

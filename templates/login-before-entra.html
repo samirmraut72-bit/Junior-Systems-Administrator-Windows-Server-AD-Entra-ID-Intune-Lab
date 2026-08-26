@@ -1,0 +1,592 @@
+{% extends "base.html" %}
+
+{% block title %}
+Secure Sign In | MedSecure Health Network
+{% endblock %}
+
+{% block content %}
+
+<section class="login-shell">
+
+    <div class="login-grid">
+
+
+        <!-- =================================================
+             LEFT SIDE — ORGANISATIONAL SHOWCASE
+        ================================================== -->
+
+        <div class="login-showcase">
+
+
+            <div class="showcase-badge">
+                MEDSECURE HEALTH NETWORK
+            </div>
+
+
+            <h1 class="showcase-title">
+                One health network.
+                Secure access to care.
+            </h1>
+
+
+            <p class="showcase-copy">
+                MedSecure connects authorised healthcare
+                professionals, organisational teams and patients
+                through a protected clinical information environment.
+            </p>
+
+
+            <!-- =================================================
+                 HEALTHCARE SLIDESHOW
+            ================================================== -->
+
+            <div class="health-slider">
+
+
+                <!-- SLIDE 1 -->
+
+                <div class="health-slide slide-1">
+
+                    <img
+                        src="{{ url_for('static', filename='images/nurse-team.jpg') }}"
+                        alt="Healthcare clinical team"
+                    >
+
+                    <div class="slide-shade"></div>
+
+                    <div class="slide-content">
+
+                        <span class="photo-label">
+                            CLINICAL WORKFORCE
+                        </span>
+
+                        <h3>
+                            Connected clinical teams
+                        </h3>
+
+                        <p>
+                            Secure access for nurses, doctors and
+                            authorised healthcare professionals.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SLIDE 2 -->
+
+                <div class="health-slide slide-2">
+
+                    <img
+                        src="{{ url_for('static', filename='images/doctor-patient.jpg') }}"
+                        alt="Doctor consulting with patient"
+                    >
+
+                    <div class="slide-shade"></div>
+
+                    <div class="slide-content">
+
+                        <span class="photo-label">
+                            PATIENT CARE
+                        </span>
+
+                        <h3>
+                            Information available where care happens
+                        </h3>
+
+                        <p>
+                            Authorised clinicians can access relevant
+                            patient information within controlled
+                            organisational boundaries.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SLIDE 3 -->
+
+                <div class="health-slide slide-3">
+
+                    <img
+                        src="{{ url_for('static', filename='images/hospital-team.jpg') }}"
+                        alt="Hospital healthcare team"
+                    >
+
+                    <div class="slide-shade"></div>
+
+                    <div class="slide-content">
+
+                        <span class="photo-label">
+                            HEALTH NETWORK
+                        </span>
+
+                        <h3>
+                            Facilities working as one organisation
+                        </h3>
+
+                        <p>
+                            Clinical and administrative teams operate
+                            within a shared organisational structure.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SLIDE 4 -->
+
+                <div class="health-slide slide-4">
+
+                    <img
+                        src="{{ url_for('static', filename='images/clinical-consultation.jpg') }}"
+                        alt="Clinical consultation"
+                    >
+
+                    <div class="slide-shade"></div>
+
+                    <div class="slide-content">
+
+                        <span class="photo-label">
+                            DIGITAL HEALTH
+                        </span>
+
+                        <h3>
+                            Secure clinical information
+                        </h3>
+
+                        <p>
+                            Protected information supports clinical
+                            decision-making and continuity of care.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SLIDE 5 -->
+
+                <div class="health-slide slide-5">
+
+                    <img
+                        src="{{ url_for('static', filename='images/aged-care.jpg') }}"
+                        alt="Healthcare professional providing aged care"
+                    >
+
+                    <div class="slide-shade"></div>
+
+                    <div class="slide-content">
+
+                        <span class="photo-label">
+                            AGED CARE
+                        </span>
+
+                        <h3>
+                            Connected care across settings
+                        </h3>
+
+                        <p>
+                            Organisational access can support hospital,
+                            community and residential care environments.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SLIDE 6 -->
+
+                <div class="health-slide slide-6">
+
+                    <img
+                        src="{{ url_for('static', filename='images/senior-care.jpg') }}"
+                        alt="Healthcare professional supporting older person"
+                    >
+
+                    <div class="slide-shade"></div>
+
+                    <div class="slide-content">
+
+                        <span class="photo-label">
+                            PERSON-CENTRED CARE
+                        </span>
+
+                        <h3>
+                            Technology designed around people
+                        </h3>
+
+                        <p>
+                            Patient privacy and secure access remain
+                            central to the MedSecure architecture.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SLIDER INDICATORS -->
+
+                <div class="slider-indicators">
+
+                    <span class="slider-dot dot-1"></span>
+                    <span class="slider-dot dot-2"></span>
+                    <span class="slider-dot dot-3"></span>
+                    <span class="slider-dot dot-4"></span>
+                    <span class="slider-dot dot-5"></span>
+                    <span class="slider-dot dot-6"></span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ORGANISATIONAL SECURITY FEATURES
+            ================================================== -->
+
+            <div class="showcase-feature-list">
+
+
+                <div class="showcase-feature-item">
+
+                    <span class="showcase-icon">
+                        ✓
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Organisational workforce access
+                        </strong>
+
+                        <p>
+                            Nurses, doctors and administrators receive
+                            role-based access according to their
+                            organisational responsibilities.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="showcase-feature-item">
+
+                    <span class="showcase-icon">
+                        ✓
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Protected patient access
+                        </strong>
+
+                        <p>
+                            Patient identities remain separated from
+                            workforce privileges and can access only
+                            authorised patient information.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="showcase-feature-item">
+
+                    <span class="showcase-icon">
+                        ✓
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Security monitoring & accountability
+                        </strong>
+
+                        <p>
+                            Authentication, clinical access and
+                            authorisation activity is recorded in the
+                            MedSecure security audit trail.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             RIGHT SIDE — IDENTITY GATEWAY
+        ================================================== -->
+
+        <div class="login-panel-wrap">
+
+            <div class="login-card enterprise-login-card">
+
+
+                <!-- BRAND -->
+
+                <div class="login-brand-mobile">
+
+                    <div class="login-brand-symbol">
+                        +
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            MedSecure
+                        </strong>
+
+                        <span>
+                            Health Network
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <p class="dashboard-eyebrow">
+                    MEDSECURE IDENTITY GATEWAY
+                </p>
+
+
+                <h1>
+                    Secure sign in
+                </h1>
+
+
+                <p class="login-subtitle">
+                    Use your authorised workforce or patient
+                    identity to access MedSecure.
+                </p>
+
+
+                <!-- =================================================
+                     LOGIN FORM
+                ================================================== -->
+
+                <form method="POST">
+
+
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        value="{{ csrf_token() }}"
+                    >
+
+
+                    <!-- USERNAME -->
+
+                    <div class="login-field">
+
+                        <label for="username">
+                            MedSecure identity
+                        </label>
+
+                        <input
+                            id="username"
+                            name="username"
+                            type="text"
+                            autocomplete="username"
+                            placeholder="Enter your username"
+                            required
+                            autofocus
+                        >
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="login-field">
+
+                        <div class="login-label-row">
+
+                            <label for="password">
+                                Password
+                            </label>
+
+                            <span class="login-security-label">
+                                Protected access
+                            </span>
+
+                        </div>
+
+
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            autocomplete="current-password"
+                            placeholder="Enter your password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="button button-primary button-full login-submit"
+                    >
+                        Continue to MedSecure
+                    </button>
+
+                </form>
+
+
+                <!-- =================================================
+                     ACCOUNT ROUTING
+                ================================================== -->
+
+                <div class="login-security-box">
+
+                    <div class="login-security-icon">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Role-aware access
+                        </strong>
+
+                        <p>
+                            Your authenticated account determines the
+                            workspace and information you are authorised
+                            to access.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     ENTERPRISE IDENTITY
+                ================================================== -->
+
+                <div class="login-divider">
+
+                    <span>
+                        Identity architecture
+                    </span>
+
+                </div>
+
+
+                <div class="enterprise-note-box">
+
+                    <div class="enterprise-note-heading">
+
+
+                        <div class="microsoft-grid-icon">
+
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Workforce identity
+                            </strong>
+
+                            <p>
+                                Local development authentication is
+                                currently active.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <p
+                        style="
+                            display:none;
+                        "
+                    >
+                        Placeholder
+                    </p>
+
+                </div>
+
+
+                <!-- =================================================
+                     SECURITY NOTICE
+                ================================================== -->
+
+                <div class="login-security-box">
+
+                    <div class="login-security-icon">
+                        !
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Authorised use only
+                        </strong>
+
+                        <p>
+                            Authentication attempts and security-relevant
+                            access activity may be recorded for audit
+                            and security monitoring.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     FOOTER
+                ================================================== -->
+
+                <div class="login-footer-note">
+
+                    <span class="footer-status-dot"></span>
+
+                    MedSecure Health Network
+
+                    <span class="footer-divider">
+                        •
+                    </span>
+
+                    Development environment
+
+                    <span class="footer-divider">
+                        •
+                    </span>
+
+                    Synthetic patient data
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

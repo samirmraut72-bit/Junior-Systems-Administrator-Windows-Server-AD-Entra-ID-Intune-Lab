@@ -1,0 +1,965 @@
+/* =========================================================
+   MEDSECURE SECURITY CENTRE
+========================================================= */
+
+.security-centre {
+    width: 100%;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.security-centre-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 24px;
+
+    margin-bottom: 24px;
+}
+
+.security-kicker,
+.security-section-label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #1f7a97;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+
+    text-transform: uppercase;
+}
+
+.security-centre-header h1 {
+    margin: 0 0 6px;
+
+    color: #183b57;
+
+    font-size: 34px;
+    font-weight: 760;
+
+    letter-spacing: -0.6px;
+}
+
+.security-centre-header p {
+    margin: 0;
+
+    color: #7f91a0;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   MONITORING STATE
+========================================================= */
+
+.security-system-state {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    min-width: 210px;
+
+    padding: 13px 15px;
+
+    background: #ffffff;
+
+    border: 1px solid #dce6ed;
+    border-radius: 12px;
+
+    box-shadow:
+        0 8px 20px rgba(21, 52, 73, 0.035);
+}
+
+.security-live-dot {
+    width: 9px;
+    height: 9px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #2ca36d;
+
+    box-shadow:
+        0 0 0 5px rgba(44, 163, 109, 0.11);
+}
+
+.security-system-state strong {
+    display: block;
+
+    color: #36536a;
+
+    font-size: 12px;
+}
+
+.security-system-state span:last-child {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #93a2ae;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   OVERVIEW CARDS
+========================================================= */
+
+.security-overview-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+.security-overview-card {
+    padding: 18px;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe7ed;
+    border-radius: 14px;
+
+    box-shadow:
+        0 7px 20px rgba(25, 52, 72, 0.03);
+}
+
+.security-card-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #8999a7;
+
+    font-size: 10px;
+    font-weight: 750;
+
+    letter-spacing: 0.7px;
+
+    text-transform: uppercase;
+}
+
+.security-overview-card strong {
+    display: block;
+
+    color: #284b64;
+
+    font-size: 27px;
+    font-weight: 760;
+}
+
+.security-overview-card small {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #9ba9b4;
+
+    font-size: 10px;
+}
+
+.success-card {
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #f5fbf8 100%
+        );
+
+    border-color: #d7e8df;
+}
+
+.success-card strong {
+    color: #287957;
+}
+
+.warning-card {
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #fffaf3 100%
+        );
+
+    border-color: #eedfc7;
+}
+
+.warning-card strong {
+    color: #b36b1c;
+}
+
+
+/* =========================================================
+   MAIN SECURITY LAYOUT
+========================================================= */
+
+.security-workspace-layout {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 2.4fr)
+        minmax(270px, 0.7fr);
+
+    gap: 17px;
+}
+
+
+/* =========================================================
+   MAIN EVENT PANEL
+========================================================= */
+
+.security-event-panel {
+    min-width: 0;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe7ed;
+    border-radius: 15px;
+
+    box-shadow:
+        0 8px 22px rgba(22, 49, 69, 0.03);
+}
+
+.security-panel-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 18px;
+
+    padding: 20px 21px 16px;
+}
+
+.security-panel-header h2 {
+    margin: 0 0 4px;
+
+    color: #294a62;
+
+    font-size: 19px;
+    font-weight: 750;
+}
+
+.security-panel-header p {
+    margin: 0;
+
+    max-width: 600px;
+
+    color: #8999a6;
+
+    font-size: 11px;
+    line-height: 1.55;
+}
+
+.security-event-count {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 7px 10px;
+
+    border-radius: 9px;
+
+    background: #f0f5f8;
+    color: #61798a;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   FILTER BAR
+========================================================= */
+
+.security-filter-bar {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        170px;
+
+    gap: 10px;
+
+    padding: 13px 20px;
+
+    background: #f7fafb;
+
+    border-top: 1px solid #edf1f4;
+    border-bottom: 1px solid #e5ebef;
+}
+
+.security-search {
+    position: relative;
+}
+
+.security-search > span {
+    position: absolute;
+
+    left: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #8294a2;
+
+    font-size: 15px;
+
+    pointer-events: none;
+}
+
+.security-search input,
+.security-filter-bar select {
+    width: 100%;
+    height: 39px;
+
+    margin: 0;
+
+    padding: 0 12px;
+
+    border: 1px solid #d4dfe7;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #405c70;
+
+    font-size: 12px;
+}
+
+.security-search input {
+    padding-left: 34px;
+}
+
+
+/* =========================================================
+   EVENT TABLE HEADER
+========================================================= */
+
+.security-events-list {
+    width: 100%;
+}
+
+.security-events-header,
+.security-event-row {
+    display: grid;
+
+    grid-template-columns:
+        118px
+        minmax(190px, 1.2fr)
+        minmax(200px, 1.3fr)
+        125px
+        105px;
+
+    align-items: center;
+
+    gap: 16px;
+}
+
+.security-events-header {
+    padding: 12px 18px;
+
+    background: #f7f9fb;
+
+    border-bottom: 1px solid #e4eaf0;
+
+    color: #7f909f;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: 0.7px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   EVENT ROWS
+========================================================= */
+
+.security-event-row {
+    min-height: 82px;
+
+    padding: 16px 18px;
+
+    border-bottom: 1px solid #edf1f4;
+
+    transition:
+        background 0.15s ease;
+}
+
+.security-event-row:last-of-type {
+    border-bottom: 0;
+}
+
+.security-event-row:hover {
+    background: #fbfdfe;
+}
+
+.security-event-time strong {
+    color: #5b7183;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.security-event-user {
+    display: flex;
+    align-items: center;
+
+    min-width: 0;
+    gap: 9px;
+}
+
+.security-event-user > div:last-child,
+.security-event-type {
+    min-width: 0;
+}
+
+.security-event-user strong,
+.security-event-type strong {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-height: 1.35;
+}
+
+.security-user-avatar {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 9px;
+
+    background: #e3eef4;
+    color: #245f7f;
+
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.security-event-user strong,
+.security-event-type strong {
+    display: block;
+
+    color: #3d596d;
+
+    font-size: 11px;
+}
+
+.security-event-user span,
+.security-event-type span {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #98a6b1;
+
+    font-size: 9px;
+}
+
+.security-event-source {
+    min-width: 0;
+}
+
+.ip-address {
+    display: inline-flex;
+
+    max-width: 100%;
+
+    padding: 5px 8px;
+
+    overflow: hidden;
+
+    border-radius: 7px;
+
+    background: #f1f5f8;
+    color: #5c7487;
+
+    font-family: Consolas, "Courier New", monospace;
+
+    font-size: 9px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   OUTCOMES
+========================================================= */
+
+.security-outcome {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 5px 8px;
+
+    border-radius: 999px;
+
+    font-size: 9px;
+    font-weight: 750;
+}
+
+.security-outcome > span {
+    width: 15px;
+    height: 15px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-size: 8px;
+    font-weight: 900;
+}
+
+.security-outcome.success {
+    background: #eaf6ef;
+    color: #2b7755;
+}
+
+.security-outcome.success > span {
+    background: #d6eee1;
+    color: #247650;
+}
+
+.security-outcome.failure {
+    background: #fff0e4;
+    color: #a75a18;
+}
+
+.security-outcome.failure > span {
+    background: #e9a153;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.security-empty-state {
+    padding: 38px 20px;
+
+    text-align: center;
+}
+
+.security-empty-state strong {
+    display: block;
+
+    color: #536c7f;
+
+    font-size: 13px;
+}
+
+.security-empty-state p {
+    margin: 4px 0 0;
+
+    color: #97a5b0;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   RIGHT COLUMN
+========================================================= */
+
+.security-side-column {
+    display: flex;
+    flex-direction: column;
+
+    gap: 14px;
+}
+
+.security-side-card {
+    padding: 17px;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe7ed;
+    border-radius: 14px;
+
+    box-shadow:
+        0 7px 20px rgba(24, 52, 72, 0.025);
+}
+
+.security-side-card h3 {
+    margin: 0 0 13px;
+
+    color: #325168;
+
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   SECURITY POSTURE
+========================================================= */
+
+.security-posture-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.security-posture-item {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 9px;
+
+    padding: 10px 0;
+
+    border-top: 1px solid #edf1f4;
+}
+
+.security-posture-item:first-child {
+    border-top: 0;
+}
+
+.posture-check {
+    width: 23px;
+    height: 23px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #e5f4ec;
+    color: #277b57;
+
+    font-size: 9px;
+    font-weight: 900;
+}
+
+.security-posture-item strong {
+    display: block;
+
+    color: #435e71;
+
+    font-size: 11px;
+}
+
+.security-posture-item div span {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #96a4af;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   PRIVILEGE CARD
+========================================================= */
+
+.privilege-card {
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #fffaf0 100%
+        );
+
+    border-color: #eddfc1;
+}
+
+.privilege-card p {
+    margin: 0 0 13px;
+
+    color: #897a5e;
+
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+.privilege-state {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 9px 10px;
+
+    border-radius: 9px;
+
+    background: #f6eedb;
+    color: #7c612e;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.privilege-state span {
+    width: 20px;
+    height: 20px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #e9d8af;
+}
+
+
+/* =========================================================
+   DEVSECOPS ASSURANCE
+========================================================= */
+
+.assurance-list {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 12px;
+}
+
+.assurance-list > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    padding: 9px 0;
+
+    border-top: 1px solid #edf1f4;
+}
+
+.assurance-list > div:first-child {
+    border-top: 0;
+}
+
+.assurance-list span {
+    color: #8b9aa6;
+
+    font-size: 9px;
+}
+
+.assurance-list strong {
+    color: #476277;
+
+    font-size: 10px;
+}
+
+.assurance-note {
+    margin: 0;
+
+    padding-top: 11px;
+
+    border-top: 1px solid #edf1f4;
+
+    color: #94a2ad;
+
+    font-size: 9px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   RETURN BUTTON
+========================================================= */
+
+.security-return-button {
+    display: flex;
+
+    margin-top: 8px;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 40px;
+
+    border-radius: 10px;
+
+    background: #edf3f7;
+    color: #48677d;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    transition:
+        background 0.15s ease;
+}
+
+.security-return-button:hover {
+    background: #dfe9ef;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    .security-events-header,
+    .security-event-row {
+        grid-template-columns:
+            130px
+            135px
+            minmax(160px, 1fr)
+            120px
+            110px;
+    }
+
+}
+
+
+@media (max-width: 1050px) {
+
+    .security-workspace-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .security-side-column {
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .security-return-button {
+        grid-column: 1 / -1;
+    }
+
+}
+
+
+@media (max-width: 850px) {
+
+    .security-overview-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .security-events-list {
+        overflow-x: auto;
+    }
+
+    .security-events-header,
+    .security-event-row {
+        min-width: 760px;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .security-centre-header {
+        flex-direction: column;
+    }
+
+    .security-system-state {
+        width: 100%;
+    }
+
+    .security-overview-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .security-filter-bar {
+        grid-template-columns: 1fr;
+    }
+
+    .security-side-column {
+        grid-template-columns: 1fr;
+    }
+
+}
+/* =========================================================
+   SECURITY EVENT SEMANTIC STATES
+========================================================= */
+
+.security-event-time-detail {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #94a4b0;
+
+    font-size: 10px;
+}
+
+
+.security-category-badge {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 6px 9px;
+
+    border-radius: 7px;
+
+    background: #edf3f7;
+    color: #557185;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+.security-outcome.blocked {
+    background: #fdeaea;
+    color: #a54040;
+}
+
+
+.security-outcome.blocked > span {
+    background: #d95d5d;
+    color: #ffffff;
+}
+
+
+.security-outcome.warning {
+    background: #fff2dc;
+    color: #a96817;
+}
+
+
+.security-outcome.warning > span {
+    background: #e3a047;
+    color: #ffffff;
+}
+
+
+.security-outcome.neutral {
+    background: #edf3f7;
+    color: #597286;
+}

@@ -1,0 +1,10 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+instance/
+.pytest_cache/
+.coverage
+security.log
+*.log
+app-before-*.py

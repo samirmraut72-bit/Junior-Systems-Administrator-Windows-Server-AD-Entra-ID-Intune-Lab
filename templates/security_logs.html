@@ -1,0 +1,948 @@
+{% extends "base.html" %}
+
+{% block title %}
+Security Centre | MedSecure
+{% endblock %}
+
+{% block content %}
+
+<section class="security-centre">
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <header class="security-centre-header">
+
+        <div>
+
+            <span class="security-kicker">
+                MEDSECURE SECURITY OPERATIONS
+            </span>
+
+            <h1>
+                Security Centre
+            </h1>
+
+            <p>
+                Review authentication, authorisation,
+                clinical-access and security-relevant
+                application activity.
+            </p>
+
+        </div>
+
+
+        <div class="security-system-state">
+
+            <span class="security-live-dot"></span>
+
+            <div>
+
+                <strong>
+                    Monitoring active
+                </strong>
+
+                <span>
+                    Audit events available
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         METRIC CALCULATIONS
+    ====================================================== -->
+
+    {% set total_events = events|length %}
+
+    {% set successful_logins = namespace(count=0) %}
+    {% set blocked_events = namespace(count=0) %}
+    {% set clinical_events = namespace(count=0) %}
+
+
+    {% for event in events %}
+
+        {% set action_upper = event.action|upper %}
+        {% set result_upper = event.result|upper %}
+
+
+        <!-- Successful completed login -->
+
+        {% if (action_upper == "LOGIN"
+              or action_upper == "ENTRA_LOGIN")
+              and result_upper == "SUCCESS" %}
+
+            {% set successful_logins.count =
+                successful_logins.count + 1 %}
+
+        {% endif %}
+
+
+        <!-- Failed / blocked security events -->
+
+        {% if result_upper == "FAILED"
+              or result_upper == "BLOCKED"
+              or result_upper == "BLOCKED_LENGTH" %}
+
+            {% set blocked_events.count =
+                blocked_events.count + 1 %}
+
+        {% endif %}
+
+
+        <!-- Clinical access / record activity -->
+
+        {% if action_upper.startswith("VIEW_")
+              or action_upper.startswith("PATIENT_RECORD_")
+              or action_upper.startswith("ADD_NOTE_") %}
+
+            {% set clinical_events.count =
+                clinical_events.count + 1 %}
+
+        {% endif %}
+
+    {% endfor %}
+
+
+    <!-- =====================================================
+         SECURITY SUMMARY
+    ====================================================== -->
+
+    <div class="security-overview-grid">
+
+
+        <article class="security-overview-card">
+
+            <span class="security-card-label">
+                Total events
+            </span>
+
+            <strong>
+                {{ total_events }}
+            </strong>
+
+            <small>
+                Recorded security activity
+            </small>
+
+        </article>
+
+
+        <article class="security-overview-card success-card">
+
+            <span class="security-card-label">
+                Successful logins
+            </span>
+
+            <strong>
+                {{ successful_logins.count }}
+            </strong>
+
+            <small>
+                Completed authenticated sessions
+            </small>
+
+        </article>
+
+
+        <article class="security-overview-card warning-card">
+
+            <span class="security-card-label">
+                Blocked / failed
+            </span>
+
+            <strong>
+                {{ blocked_events.count }}
+            </strong>
+
+            <small>
+                Security controls triggered
+            </small>
+
+        </article>
+
+
+        <article class="security-overview-card">
+
+            <span class="security-card-label">
+                Clinical events
+            </span>
+
+            <strong>
+                {{ clinical_events.count }}
+            </strong>
+
+            <small>
+                Record access and documentation
+            </small>
+
+        </article>
+
+    </div>
+
+
+    <!-- =====================================================
+         SECURITY WORKSPACE
+    ====================================================== -->
+
+    <div class="security-workspace-layout">
+
+
+        <!-- =================================================
+             AUDIT TRAIL
+        ================================================== -->
+
+        <section class="security-event-panel">
+
+
+            <div class="security-panel-header">
+
+                <div>
+
+                    <span class="security-section-label">
+                        AUDIT TRAIL
+                    </span>
+
+                    <h2>
+                        Security Events
+                    </h2>
+
+                    <p>
+                        Authentication, authorisation and
+                        clinical-access events recorded by MedSecure.
+                    </p>
+
+                </div>
+
+
+                <span class="security-event-count">
+                    {{ total_events }} events
+                </span>
+
+            </div>
+
+
+            <!-- =============================================
+                 SEARCH & FILTER
+            ============================================== -->
+
+            <div class="security-filter-bar">
+
+
+                <div class="security-search">
+
+                    <span>
+                        ⌕
+                    </span>
+
+                    <input
+                        id="securitySearch"
+                        type="search"
+                        placeholder="Search username, action or result"
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <select id="securityFilter">
+
+                    <option value="all">
+                        All events
+                    </option>
+
+                    <option value="success">
+                        Successful / allowed
+                    </option>
+
+                    <option value="failure">
+                        Failed / blocked
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- =============================================
+                 EVENT TABLE
+            ============================================== -->
+
+            <div class="security-events-list">
+
+
+                <div class="security-events-header">
+
+                    <span>
+                        Time
+                    </span>
+
+                    <span>
+                        User
+                    </span>
+
+                    <span>
+                        Security Action
+                    </span>
+
+                    <span>
+                        Category
+                    </span>
+
+                    <span>
+                        Result
+                    </span>
+
+                </div>
+
+
+                {% for event in events %}
+
+
+                    {% set action_upper =
+                        event.action|upper %}
+
+                    {% set result_upper =
+                        event.result|upper %}
+
+
+                    <!-- =====================================
+                         EVENT FILTER CATEGORY
+                    ====================================== -->
+
+                    {% if result_upper == "SUCCESS"
+                          or result_upper == "ALLOWED" %}
+
+                        {% set filter_result = "success" %}
+
+                    {% else %}
+
+                        {% set filter_result = "failure" %}
+
+                    {% endif %}
+
+
+                    <!-- =====================================
+                         EVENT CATEGORY
+                    ====================================== -->
+
+                    {% if action_upper.startswith("ENTRA_") %}
+
+                        {% set event_category =
+                            "Identity & Access" %}
+
+
+                    {% elif action_upper == "LOGIN"
+                          or action_upper == "PASSWORD_AUTH"
+                          or action_upper == "LOGIN_RATE_LIMIT"
+                          or action_upper == "LOGOUT" %}
+
+                        {% set event_category =
+                            "Authentication" %}
+
+
+                    {% elif action_upper.startswith("VIEW_")
+                          or action_upper.startswith("PATIENT_RECORD_") %}
+
+                        {% set event_category =
+                            "Clinical Access" %}
+
+
+                    {% elif action_upper.startswith("ADD_NOTE_") %}
+
+                        {% set event_category =
+                            "Documentation" %}
+
+
+                    {% elif action_upper.startswith("UNAUTHORIZED_ACCESS") %}
+
+                        {% set event_category =
+                            "Authorisation" %}
+
+
+                    {% else %}
+
+                        {% set event_category =
+                            "Application" %}
+
+                    {% endif %}
+
+
+                    <article
+                        class="security-event-row"
+
+                        data-search="
+                            {{ event.username|lower }}
+                            {{ event.action|lower }}
+                            {{ event.result|lower }}
+                            {{ event_category|lower }}
+                        "
+
+                        data-outcome="{{ filter_result }}"
+                    >
+
+
+                        <!-- =============================
+                             TIME
+                        ============================== -->
+
+                        <div class="security-event-time">
+
+                            <strong>
+                                {{ event.timestamp.strftime('%Y-%m-%d') }}
+                            </strong>
+
+                            <span class="security-event-time-detail">
+                                {{ event.timestamp.strftime('%H:%M:%S') }}
+                            </span>
+
+                        </div>
+
+
+                        <!-- =============================
+                             USER
+                        ============================== -->
+
+                        <div class="security-event-user">
+
+
+                            <div class="security-user-avatar">
+
+                                {% if event.username %}
+
+                                    {{ event.username[0]|upper }}
+
+                                {% else %}
+
+                                    ?
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <div>
+
+                                <strong {% if event.username %}title="{{ event.username }}"{% endif %}>
+
+                                    {% if event.username %}
+
+                                        {{ event.username }}
+
+                                    {% else %}
+
+                                        Anonymous
+
+                                    {% endif %}
+
+                                </strong>
+
+                                <span>
+                                    MedSecure identity
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =============================
+                             ACTION
+                        ============================== -->
+
+                        <div class="security-event-type">
+
+                            <strong title="{{ event.action }}">
+                                {{ event.action }}
+                            </strong>
+
+                            <span>
+
+                                {% if action_upper == "ENTRA_LOGIN" %}
+
+                                    Microsoft Entra sign-in
+
+
+                                {% elif action_upper.startswith("ENTRA_ROLE") %}
+
+                                    Entra application role mapped
+
+
+                                {% elif action_upper == "ENTRA_APP_ROLE" %}
+
+                                    Entra application role validation
+
+
+                                {% elif action_upper == "ENTRA_LOGIN_TENANT" %}
+
+                                    Entra tenant validation
+
+
+                                {% elif action_upper == "ENTRA_PROFILE_MAPPING" %}
+
+                                    Workforce profile mapping
+
+
+                                {% elif action_upper == "ENTRA_WORKFORCE_STATUS" %}
+
+                                    Workforce account status validation
+
+
+                                {% elif action_upper == "PASSWORD_AUTH" %}
+
+                                    Password authentication
+
+
+                                {% elif action_upper == "LOGIN" %}
+
+                                    Session established
+
+
+                                {% elif action_upper == "LOGOUT" %}
+
+                                    Session terminated
+
+
+                                {% elif action_upper == "LOGIN_RATE_LIMIT" %}
+
+                                    Login protection triggered
+
+
+                                {% elif action_upper.startswith("VIEW_") %}
+
+                                    Clinical record viewed
+
+
+                                {% elif action_upper.startswith("ADD_NOTE_") %}
+
+                                    Clinical note action
+
+
+                                {% elif action_upper.startswith("PATIENT_RECORD_") %}
+
+                                    Patient access control
+
+
+                                {% elif action_upper.startswith("UNAUTHORIZED_ACCESS") %}
+
+                                    Access-control violation
+
+
+                                {% else %}
+
+                                    Application security event
+
+                                {% endif %}
+
+                            </span>
+
+                        </div>
+
+
+                        <!-- =============================
+                             CATEGORY
+                        ============================== -->
+
+                        <div class="security-event-source">
+
+                            <span class="security-category-badge">
+                                {{ event_category }}
+                            </span>
+
+                        </div>
+
+
+                        <!-- =============================
+                             RESULT
+                        ============================== -->
+
+                        <div>
+
+
+                            {% if result_upper == "SUCCESS" %}
+
+                                <span class="security-outcome success">
+
+                                    <span>
+                                        ✓
+                                    </span>
+
+                                    Success
+
+                                </span>
+
+
+                            {% elif result_upper == "ALLOWED" %}
+
+                                <span class="security-outcome success">
+
+                                    <span>
+                                        ✓
+                                    </span>
+
+                                    Allowed
+
+                                </span>
+
+
+                            {% elif result_upper == "FAILED" %}
+
+                                <span class="security-outcome failure">
+
+                                    <span>
+                                        ×
+                                    </span>
+
+                                    Failed
+
+                                </span>
+
+
+                            {% elif result_upper == "BLOCKED" %}
+
+                                <span class="security-outcome blocked">
+
+                                    <span>
+                                        !
+                                    </span>
+
+                                    Blocked
+
+                                </span>
+
+
+                            {% elif result_upper == "BLOCKED_LENGTH" %}
+
+                                <span class="security-outcome warning">
+
+                                    <span>
+                                        !
+                                    </span>
+
+                                    Validation blocked
+
+                                </span>
+
+
+                            {% else %}
+
+                                <span class="security-outcome neutral">
+
+                                    {{ event.result }}
+
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </article>
+
+
+                {% else %}
+
+
+                    <div class="security-empty-state">
+
+                        <strong>
+                            No security events recorded
+                        </strong>
+
+                        <p>
+                            Security activity will appear here
+                            as MedSecure is used.
+                        </p>
+
+                    </div>
+
+
+                {% endfor %}
+
+
+                <div
+                    id="securityNoResults"
+                    class="security-empty-state"
+                    hidden
+                >
+
+                    <strong>
+                        No matching security events
+                    </strong>
+
+                    <p>
+                        Change the search or filter criteria.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SECURITY SIDEBAR
+        ================================================== -->
+
+        <aside class="security-side-column">
+
+
+            <!-- =============================================
+                 SECURITY POSTURE
+            ============================================== -->
+
+            <section class="security-side-card">
+
+                <span class="security-section-label">
+                    SECURITY POSTURE
+                </span>
+
+                <h3>
+                    Protection Status
+                </h3>
+
+
+                <div class="security-posture-list">
+
+
+                    <div class="security-posture-item">
+
+                        <span class="posture-check">
+                            ✓
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Role-based access
+                            </strong>
+
+                            <span>
+                                RBAC controls active
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="security-posture-item">
+
+                        <span class="posture-check">
+                            ✓
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                CSRF protection
+                            </strong>
+
+                            <span>
+                                Protected form requests
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="security-posture-item">
+
+                        <span class="posture-check">
+                            ✓
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Login rate limiting
+                            </strong>
+
+                            <span>
+                                Authentication abuse controlled
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="security-posture-item">
+
+                        <span class="posture-check">
+                            ✓
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Security headers
+                            </strong>
+
+                            <span>
+                                Browser protections enabled
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="security-posture-item">
+
+                        <span class="posture-check">
+                            ✓
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Audit logging
+                            </strong>
+
+                            <span>
+                                Security events recorded
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 LEAST PRIVILEGE
+            ============================================== -->
+
+            <section class="security-side-card privilege-card">
+
+                <span class="security-section-label">
+                    ADMINISTRATION
+                </span>
+
+                <h3>
+                    Least Privilege
+                </h3>
+
+                <p>
+                    Security administrators can review application
+                    security activity while remaining restricted
+                    from clinical patient records.
+                </p>
+
+
+                <div class="privilege-state">
+
+                    <span>
+                        ✓
+                    </span>
+
+                    Clinical access restricted
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 DEVSECOPS
+            ============================================== -->
+
+            <section class="security-side-card">
+
+                <span class="security-section-label">
+                    SECURITY ASSURANCE
+                </span>
+
+                <h3>
+                    DevSecOps Controls
+                </h3>
+
+
+                <div class="assurance-list">
+
+                    <div>
+
+                        <span>
+                            SAST
+                        </span>
+
+                        <strong>
+                            Bandit
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Dependencies
+                        </span>
+
+                        <strong>
+                            pip-audit
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Automated tests
+                        </span>
+
+                        <strong>
+                            Pytest
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            DAST
+                        </span>
+
+                        <strong>
+                            OWASP ZAP
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <p class="assurance-note">
+                    Assurance status must be supported by
+                    actual testing evidence before production use.
+                </p>
+
+            </section>
+
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="security-return-button"
+            >
+                ← Return to Admin Dashboard
+            </a>
+
+        </aside>
+
+    </div>
+
+</section>
+
+{% endblock %}

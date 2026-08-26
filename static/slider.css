@@ -1,0 +1,283 @@
+/* =========================================================
+   MEDSECURE HEALTHCARE SLIDER
+========================================================= */
+
+.health-slider {
+    position: relative;
+
+    width: 100%;
+    height: 300px;
+
+    margin-top: 26px;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background: #123957;
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    box-shadow:
+        0 18px 38px rgba(4, 22, 39, 0.20);
+}
+
+
+/* =========================================================
+   INDIVIDUAL SLIDES
+========================================================= */
+
+.health-slide {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition:
+        opacity 0.65s ease-in-out,
+        visibility 0.65s ease-in-out;
+
+    z-index: 1;
+
+    /*
+        IMPORTANT:
+        Turn off all previous CSS slideshow animations.
+    */
+
+    animation: none !important;
+}
+
+
+/* =========================================================
+   CURRENT ACTIVE SLIDE
+========================================================= */
+
+.health-slide.active {
+    opacity: 1;
+
+    visibility: visible;
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.health-slide img {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    /*
+        Fill the box like the version you preferred.
+    */
+
+    object-fit: cover;
+
+    object-position: center center;
+
+    display: block;
+}
+
+
+/* =========================================================
+   GRADIENT FOR TEXT READABILITY
+========================================================= */
+
+.slide-shade {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 2;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(5, 19, 32, 0.02) 10%,
+            rgba(5, 19, 32, 0.08) 40%,
+            rgba(5, 19, 32, 0.76) 100%
+        );
+}
+
+
+/* =========================================================
+   TEXT CONTENT
+========================================================= */
+
+.slide-content {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    z-index: 3;
+
+    padding: 22px 24px 24px;
+}
+
+
+.slide-content h3 {
+    max-width: 580px;
+
+    margin: 0 0 7px;
+
+    color: #ffffff;
+
+    font-size: 22px;
+    font-weight: 800;
+
+    line-height: 1.25;
+
+    letter-spacing: -0.3px;
+}
+
+
+.slide-content p {
+    max-width: 550px;
+
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.93);
+
+    font-size: 13px;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   CATEGORY LABEL
+========================================================= */
+
+.photo-label {
+    display: inline-flex;
+
+    margin-bottom: 10px;
+
+    padding: 6px 11px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255, 255, 255, 0.18);
+
+    color: #ffffff;
+
+    backdrop-filter: blur(8px);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.8px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   SLIDER DOTS
+========================================================= */
+
+.slider-indicators {
+    position: absolute;
+
+    right: 21px;
+    bottom: 18px;
+
+    z-index: 20;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+
+.slider-dot {
+    display: block;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.45);
+
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease;
+
+    animation: none !important;
+}
+
+
+.slider-dot.active {
+    background: #ffffff;
+
+    transform: scale(1.4);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .health-slider {
+        height: 285px;
+    }
+
+}
+
+
+@media (max-width: 720px) {
+
+    .health-slider {
+        height: 235px;
+
+        border-radius: 16px;
+    }
+
+
+    .slide-content {
+        padding: 17px 18px;
+    }
+
+
+    .slide-content h3 {
+        max-width: 80%;
+
+        font-size: 18px;
+    }
+
+
+    .slide-content p {
+        max-width: 78%;
+
+        font-size: 11px;
+    }
+
+
+    .slider-indicators {
+        right: 14px;
+        bottom: 14px;
+    }
+
+}
