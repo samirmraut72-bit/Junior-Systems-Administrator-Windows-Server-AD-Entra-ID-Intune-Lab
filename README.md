@@ -78,7 +78,6 @@ Planned authorised testing includes OWASP ZAP, Nikto, Nmap, and Kali Linux.
 
 ## Environment Configuration
 
-Create a local `.env` file. Never commit real secrets.
 
 Example:
 
