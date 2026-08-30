@@ -1068,6 +1068,17 @@ def workforce_entra_login(
                 "login"
             )
         )
+    # Temporary production diagnostic:
+    # Logs only Entra application-role names. It does NOT log tokens,
+    # passwords, client secrets, database credentials, or user claims.
+    app.logger.warning(
+        "ENTRA ROLE DEBUG: %s",
+        claims.get(
+            "roles",
+            [],
+        ),
+    )
+
     local_role, recognised_roles = (
         _resolve_entra_role(
             claims
