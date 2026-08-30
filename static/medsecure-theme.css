@@ -1,0 +1,514 @@
+/* ============================================================
+   MEDSECURE GLOBAL THEME
+   Calm + Professional Healthcare Design System
+   ============================================================ */
+
+:root {
+
+    --ms-bg: #f3f8f6;
+    --ms-bg-soft: #edf5f2;
+
+    --ms-surface: #ffffff;
+    --ms-surface-soft: #f4f9f7;
+
+    --ms-primary: #0f766e;
+    --ms-primary-dark: #0a5c56;
+    --ms-primary-light: #dff2ed;
+
+    --ms-text: #17322f;
+    --ms-text-secondary: #58716c;
+    --ms-text-muted: #81948f;
+
+    --ms-border: #d7e5e1;
+    --ms-border-soft: #e7efed;
+
+    --ms-success: #27845d;
+    --ms-warning: #a66a17;
+    --ms-danger: #a94747;
+
+    --ms-shadow:
+        0 10px 28px rgba(17, 64, 58, 0.06);
+
+    --ms-shadow-hover:
+        0 16px 34px rgba(17, 64, 58, 0.10);
+
+    --ms-radius: 16px;
+    --ms-radius-small: 10px;
+}
+
+
+/* ============================================================
+   BASE
+============================================================ */
+
+html {
+    background: var(--ms-bg);
+}
+
+
+body {
+    background:
+        linear-gradient(
+            180deg,
+            #f8fbfa 0%,
+            var(--ms-bg) 100%
+        );
+
+    color: var(--ms-text);
+}
+
+
+/* ============================================================
+   NAVIGATION
+============================================================ */
+
+nav {
+    background: rgba(255, 255, 255, 0.96);
+
+    border-bottom:
+        1px solid var(--ms-border);
+
+    box-shadow:
+        0 8px 25px rgba(17, 64, 58, 0.04);
+
+    backdrop-filter: blur(12px);
+}
+
+
+.brand {
+    color: var(--ms-primary-dark);
+}
+
+
+.brand::before {
+    background: var(--ms-primary);
+
+    color: #ffffff;
+
+    box-shadow:
+        0 5px 14px rgba(15, 118, 110, 0.18);
+}
+
+
+.nav-right a {
+    color: var(--ms-text-secondary);
+}
+
+
+.nav-right a:hover {
+    color: var(--ms-primary);
+}
+
+
+.nav-right span {
+    color: var(--ms-text-muted);
+}
+
+
+/* ============================================================
+   TYPOGRAPHY
+============================================================ */
+
+.dashboard-eyebrow,
+.panel-eyebrow {
+    color: var(--ms-primary);
+}
+
+
+.dashboard-header h1,
+.panel-header h2,
+.card h2,
+.patient-summary h3,
+.clinical-section-heading h3,
+.clinical-access-box strong {
+    color: var(--ms-text);
+}
+
+
+.dashboard-subtitle,
+.panel-subtitle {
+    color: var(--ms-text-secondary);
+}
+
+
+/* ============================================================
+   STANDARD CARDS
+============================================================ */
+
+.stat-card,
+.panel,
+.card {
+    background: var(--ms-surface);
+
+    border-color: var(--ms-border);
+
+    box-shadow: var(--ms-shadow);
+}
+
+
+.stat-card:hover,
+.card:hover {
+    box-shadow: var(--ms-shadow-hover);
+}
+
+
+.stat-label {
+    color: var(--ms-text-muted);
+}
+
+
+.stat-value {
+    color: var(--ms-text);
+}
+
+
+.stat-description {
+    color: var(--ms-text-muted);
+}
+
+
+/* ============================================================
+   SOFT INFORMATION CARDS
+============================================================ */
+
+.patient-summary,
+.record-preview-item,
+.clinical-info-card,
+.clinical-note-form,
+.clinical-access-box,
+.medication-box {
+    background: var(--ms-surface-soft);
+
+    border-color: var(--ms-border);
+}
+
+
+.patient-avatar,
+.mini-avatar,
+.medication-icon {
+    background: var(--ms-primary-light);
+
+    color: var(--ms-primary);
+}
+
+
+.patient-summary h3,
+.record-preview-item strong,
+.clinical-info-card strong,
+.medication-box strong {
+    color: var(--ms-text);
+}
+
+
+.patient-summary p,
+.medication-box p {
+    color: var(--ms-text-secondary);
+}
+
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+
+button,
+.button,
+.button-primary {
+    background: var(--ms-primary);
+
+    color: #ffffff;
+}
+
+
+button:hover,
+.button:hover,
+.button-primary:hover {
+    background: var(--ms-primary-dark);
+
+    box-shadow:
+        0 9px 20px rgba(15, 118, 110, 0.18);
+}
+
+
+.button-secondary {
+    background: var(--ms-primary-light);
+
+    color: var(--ms-primary-dark);
+}
+
+
+.button-secondary:hover {
+    background: #cfe9e2;
+
+    color: var(--ms-primary-dark);
+
+    box-shadow: none;
+}
+
+
+/* ============================================================
+   FORMS
+============================================================ */
+
+label {
+    color: var(--ms-text-secondary);
+}
+
+
+input,
+textarea,
+select {
+    background: #ffffff;
+
+    color: var(--ms-text);
+
+    border-color: var(--ms-border);
+}
+
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--ms-primary);
+
+    box-shadow:
+        0 0 0 3px rgba(15, 118, 110, 0.11);
+}
+
+
+/* ============================================================
+   TABLES
+============================================================ */
+
+.table-wrapper {
+    border-color: var(--ms-border);
+
+    background: #ffffff;
+}
+
+
+table,
+.modern-table {
+    background: #ffffff;
+}
+
+
+th {
+    background: var(--ms-surface-soft);
+
+    color: var(--ms-text-secondary);
+
+    border-bottom-color: var(--ms-border);
+}
+
+
+td {
+    color: var(--ms-text-secondary);
+
+    border-bottom-color: var(--ms-border-soft);
+}
+
+
+tbody tr:hover {
+    background: #f8fbfa;
+}
+
+
+.table-patient strong {
+    color: var(--ms-text);
+}
+
+
+.patient-code {
+    background: var(--ms-bg-soft);
+
+    color: var(--ms-text-secondary);
+}
+
+
+/* ============================================================
+   SECURITY ELEMENTS
+============================================================ */
+
+.secure-pill {
+    background: var(--ms-primary-light);
+
+    color: var(--ms-primary-dark);
+}
+
+
+.security-check {
+    background: var(--ms-primary-light);
+
+    color: var(--ms-primary);
+}
+
+
+.security-info-item {
+    border-bottom-color: var(--ms-border-soft);
+}
+
+
+.security-info-item strong {
+    color: var(--ms-text);
+}
+
+
+.security-info-item p {
+    color: var(--ms-text-secondary);
+}
+
+
+.dashboard-security-footer {
+    background: var(--ms-surface-soft);
+
+    border-color: var(--ms-border);
+
+    color: var(--ms-text-secondary);
+}
+
+
+.dashboard-security-footer strong {
+    color: var(--ms-primary-dark);
+}
+
+
+.footer-lock {
+    color: var(--ms-primary);
+}
+
+
+/* ============================================================
+   ROLE BADGES
+============================================================ */
+
+.role-patient {
+    background: #e9f4f6;
+    color: #296774;
+}
+
+
+.role-nurse {
+    background: #e5f5ed;
+    color: #23684e;
+}
+
+
+.role-doctor {
+    background: #f0ecf8;
+    color: #655185;
+}
+
+
+.role-admin {
+    background: #f9eaea;
+    color: #934747;
+}
+
+
+/* ============================================================
+   TAGS
+============================================================ */
+
+.tag-safe {
+    background: #e5f5ed;
+
+    color: #23684e;
+}
+
+
+.tag-warning {
+    background: #fff4dc;
+
+    color: #956216;
+}
+
+
+/* ============================================================
+   STATUS
+============================================================ */
+
+.status-line {
+    color: var(--ms-success);
+}
+
+
+.status-dot {
+    background: #45b889;
+
+    box-shadow:
+        0 0 0 5px rgba(69, 184, 137, 0.13);
+}
+
+
+/* ============================================================
+   ADMIN NOTICE
+============================================================ */
+
+.admin-notice {
+    background: #fffaf0;
+
+    border-color: #eedfb9;
+}
+
+
+.notice-icon {
+    background: #c98b31;
+}
+
+
+/* ============================================================
+   PRE / LOG OUTPUT
+============================================================ */
+
+pre {
+    background: #f5f9f8;
+
+    border-color: var(--ms-border);
+
+    color: var(--ms-text-secondary);
+}
+
+
+/* ============================================================
+   ALERTS
+============================================================ */
+
+.alert {
+    border-color: #eadcae;
+
+    background: #fff9e8;
+
+    color: #765d1b;
+}
+
+
+/* ============================================================
+   ERROR PAGE
+============================================================ */
+
+.error-card {
+    background: #ffffff;
+
+    border-color: var(--ms-border);
+
+    box-shadow: var(--ms-shadow);
+}
+
+
+/* ============================================================
+   GLOBAL INTERACTION
+============================================================ */
+
+a,
+button,
+.button,
+.stat-card,
+.panel,
+.card {
+    transition:
+        color 0.18s ease,
+        background 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
+}

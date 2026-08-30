@@ -15,118 +15,20 @@ Dashboard | MedSecure
     else current_user.username
 %}
 
-<div class="clinical-app-shell">
+<section class="admin-workspace-dashboard role-workspace-dashboard" id="workspace-home">
 
     <!-- =====================================================
          LEFT WORKSPACE NAVIGATION
     ====================================================== -->
 
-    <aside class="clinical-sidebar">
 
-        <div class="sidebar-workspace">
-
-            <span class="sidebar-label">
-                WORKSPACE
-            </span>
-
-            <h2>
-                Clinical Care
-            </h2>
-
-            <p>
-                {{ current_user.role|title }} access
-            </p>
-
-        </div>
-
-
-        <nav class="clinical-sidebar-nav">
-
-            <a
-                href="#workspace-home"
-                class="clinical-nav-item active"
-            >
-                <span class="clinical-nav-icon">⌂</span>
-
-                <span>
-                    Overview
-                </span>
-            </a>
-
-
-            <a
-                href="#patient-worklist"
-                class="clinical-nav-item"
-            >
-                <span class="clinical-nav-icon">PT</span>
-
-                <span>
-                    Patients
-                </span>
-
-                <span class="clinical-nav-count">
-                    {{ patients|length }}
-                </span>
-            </a>
-
-
-            <a
-                href="#clinical-alerts"
-                class="clinical-nav-item"
-            >
-                <span class="clinical-nav-icon">!</span>
-
-                <span>
-                    Clinical Alerts
-                </span>
-            </a>
-
-
-            <a
-                href="#security-controls"
-                class="clinical-nav-item"
-            >
-                <span class="clinical-nav-icon">✓</span>
-
-                <span>
-                    Access Security
-                </span>
-            </a>
-
-        </nav>
-
-
-        <div class="sidebar-session-card">
-
-            <div class="sidebar-session-status">
-
-                <span class="live-dot"></span>
-
-                Secure session
-
-            </div>
-
-            <strong>
-                {{ workforce_display_name }}
-            </strong>
-
-            <span>
-                {{ current_user.role|title }}
-            </span>
-
-        </div>
-
-    </aside>
 
 
     <!-- =====================================================
          MAIN CLINICAL AREA
     ====================================================== -->
 
-    <section
-        class="clinical-main-workspace"
-        id="workspace-home"
-    >
+
 
         <!-- =================================================
              TOP HEADER
@@ -140,8 +42,15 @@ Dashboard | MedSecure
                     MEDSECURE CLINICAL WORKSPACE
                 </span>
 
+                <div
+                    id="dashboardGreeting"
+                    class="dashboard-greeting"
+                    data-user-name="{{ workforce_display_name }}"
+                    aria-live="polite"
+                ></div>
+
                 <h1>
-                    {{ current_user.role|title }} Dashboard
+                    {{ current_user.role|title }} Clinical Workspace
                 </h1>
 
                 <p>
@@ -706,29 +615,55 @@ Dashboard | MedSecure
 
         </div>
 
-    </section>
-
-</div>
-
+</section>
 
 {% elif current_user.role == "patient" %}
 
 
-<section class="patient-portal-dashboard">
+<section class="admin-workspace-dashboard patient-portal-dashboard role-workspace-dashboard">
 
-    <header class="patient-portal-header">
+    <header class="clinical-topbar patient-portal-header">
 
-        <span class="clinical-kicker">
-            MEDSECURE PATIENT PORTAL
-        </span>
+        <div>
 
-        <h1>
-            My Health Record
-        </h1>
+            <span class="clinical-kicker">
+                MEDSECURE PATIENT PORTAL
+            </span>
 
-        <p>
-            Secure access to your clinical information.
-        </p>
+            <div
+                id="dashboardGreeting"
+                class="dashboard-greeting"
+                data-user-name="{{ patient.name if patient else current_user.username }}"
+                aria-live="polite"
+            ></div>
+
+            <h1>
+                My Health Record
+            </h1>
+
+            <p>
+                Secure access to your clinical information.
+            </p>
+
+        </div>
+
+        <div class="clinical-system-state">
+
+            <span class="system-state-dot"></span>
+
+            <div>
+
+                <strong>
+                    Patient session
+                </strong>
+
+                <span>
+                    Record access protected
+                </span>
+
+            </div>
+
+        </div>
 
     </header>
 
@@ -859,6 +794,13 @@ Dashboard | MedSecure
             <span class="clinical-kicker">
                 SECURITY ADMINISTRATION
             </span>
+
+            <div
+                id="dashboardGreeting"
+                class="dashboard-greeting"
+                data-user-name="{% if current_employee_profile %}{{ current_employee_profile.full_name }}{% else %}{{ current_user.username }}{% endif %}"
+                aria-live="polite"
+            ></div>
 
             <h1>
                 MedSecure Administration

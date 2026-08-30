@@ -1,336 +1,157 @@
 {% extends "base.html" %}
 
+
+{% block title %}
+MedSecure | Secure Clinical Workspace
+{% endblock %}
+
+
+{% block page_styles %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='login.css') }}?v=30"
+>
+
+{% endblock %}
+
+
 {% block content %}
 
-<section class="login-shell">
+<section class="medsecure-login-page">
 
-    <div class="login-grid">
 
-        <!-- =================================================
-             LEFT SIDE
-        ================================================== -->
+    <!-- =====================================================
+         HERO / CLINICAL SCREENSAVER
+    ====================================================== -->
 
-        <div class="login-showcase">
+    <section class="medsecure-hero">
 
-            <div class="showcase-badge">
-                MEDSECURE HEALTH PLATFORM
-            </div>
 
+        <!-- Slide 1 -->
+        <div class="hero-slide hero-slide-active hero-slide-helicopter">
 
-            <h1 class="showcase-title">
-                Connected clinical care.
-                Secure access.
-                Better information.
-            </h1>
-
-
-            <p class="showcase-copy">
-                Secure access to clinical information for healthcare
-                professionals, administrators and patients — built
-                around identity, accountability and patient privacy.
-            </p>
-
-
-            <!-- =================================================
-                 AUTOMATIC HEALTHCARE SLIDESHOW
-            ================================================== -->
-
-            <div class="health-slider">
-
-                <!-- SLIDE 1 -->
-
-                <div class="health-slide slide-1">
-
-                    <img
-                        src="{{ url_for('static', filename='images/nurse-team.jpg') }}"
-                        alt="Healthcare clinical team"
-                    >
-
-                    <div class="slide-shade"></div>
-
-                    <div class="slide-content">
-
-                        <span class="photo-label">
-                            CLINICAL TEAMS
-                        </span>
-
-                        <h3>
-                            Connected care across healthcare teams
-                        </h3>
-
-                        <p>
-                            Secure access for nurses, doctors and
-                            authorised healthcare professionals.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- SLIDE 2 -->
-
-                <div class="health-slide slide-2">
-
-                    <img
-                        src="{{ url_for('static', filename='images/doctor-patient.jpg') }}"
-                        alt="Doctor consulting with patient"
-                    >
-
-                    <div class="slide-shade"></div>
-
-                    <div class="slide-content">
-
-                        <span class="photo-label">
-                            PATIENT CARE
-                        </span>
-
-                        <h3>
-                            Clinical information where care happens
-                        </h3>
-
-                        <p>
-                            Giving authorised clinicians access to
-                            relevant patient information.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- SLIDE 3 -->
-
-                <div class="health-slide slide-3">
-
-                    <img
-                        src="{{ url_for('static', filename='images/hospital-team.jpg') }}"
-                        alt="Hospital healthcare team"
-                    >
-
-                    <div class="slide-shade"></div>
-
-                    <div class="slide-content">
-
-                        <span class="photo-label">
-                            HEALTH SERVICES
-                        </span>
-
-                        <h3>
-                            Built for multidisciplinary environments
-                        </h3>
-
-                        <p>
-                            A secure workspace designed around
-                            organisational healthcare roles.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- SLIDE 4 -->
-
-                <div class="health-slide slide-4">
-
-                    <img
-                        src="{{ url_for('static', filename='images/clinical-consultation.jpg') }}"
-                        alt="Clinical consultation"
-                    >
-
-                    <div class="slide-shade"></div>
-
-                    <div class="slide-content">
-
-                        <span class="photo-label">
-                            DIGITAL HEALTH
-                        </span>
-
-                        <h3>
-                            Information supporting clinical decisions
-                        </h3>
-
-                        <p>
-                            A modern interface for accessing protected
-                            clinical information.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- SLIDE 5 -->
-
-                <div class="health-slide slide-5">
-
-                    <img
-                        src="{{ url_for('static', filename='images/aged-care.jpg') }}"
-                        alt="Healthcare professional providing aged care"
-                    >
-
-                    <div class="slide-shade"></div>
-
-                    <div class="slide-content">
-
-                        <span class="photo-label">
-                            AGED CARE
-                        </span>
-
-                        <h3>
-                            Secure information across care settings
-                        </h3>
-
-                        <p>
-                            Supporting healthcare and aged-care
-                            environments with controlled information access.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- SLIDE 6 -->
-
-                <div class="health-slide slide-6">
-
-                    <img
-                        src="{{ url_for('static', filename='images/senior-care.jpg') }}"
-                        alt="Healthcare professional supporting older person"
-                    >
-
-                    <div class="slide-shade"></div>
-
-                    <div class="slide-content">
-
-                        <span class="photo-label">
-                            PERSON-CENTRED CARE
-                        </span>
-
-                        <h3>
-                            Technology designed around people
-                        </h3>
-
-                        <p>
-                            Protecting sensitive information while
-                            supporting safe and coordinated care.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- SLIDER INDICATORS -->
-
-                <div class="slider-indicators">
-
-                    <span class="slider-dot dot-1"></span>
-                    <span class="slider-dot dot-2"></span>
-                    <span class="slider-dot dot-3"></span>
-                    <span class="slider-dot dot-4"></span>
-                    <span class="slider-dot dot-5"></span>
-                    <span class="slider-dot dot-6"></span>
-
-                </div>
-
-            </div>
-
-
-            <!-- =================================================
-                 SECURITY FEATURES
-            ================================================== -->
-
-            <div class="showcase-feature-list">
-
-                <div class="showcase-feature-item">
-
-                    <span class="showcase-icon">
-                        ✓
-                    </span>
-
-                    <div>
-
-                        <strong>
-                            Identity & access security
-                        </strong>
-
-                        <p>
-                            Role-based access separates clinical,
-                            patient and administrative privileges.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="showcase-feature-item">
-
-                    <span class="showcase-icon">
-                        ✓
-                    </span>
-
-                    <div>
-
-                        <strong>
-                            Clinical audit trail
-                        </strong>
-
-                        <p>
-                            Authentication and access activity is
-                            recorded for security monitoring.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="showcase-feature-item">
-
-                    <span class="showcase-icon">
-                        ✓
-                    </span>
-
-                    <div>
-
-                        <strong>
-                            Enterprise identity architecture
-                        </strong>
-
-                        <p>
-                            Designed for centrally managed workforce
-                            identities and organisational access.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
+            <img
+                src="{{ url_for('static', filename='images/hero/01-helicopter-left.png') }}"
+                alt="Air medical helicopter response"
+            >
 
         </div>
 
 
+        <!-- Slide 2 -->
+        <div class="hero-slide hero-slide-emergency">
+
+            <img
+                src="{{ url_for('static', filename='images/hero/02-emergency-response.png') }}"
+                alt="Emergency response outside a hospital"
+            >
+
+        </div>
+
+
+        <!-- Slide 3 -->
+        <div class="hero-slide hero-slide-clinical">
+
+            <img
+                src="{{ url_for('static', filename='images/hero/03-clinical-team.png') }}"
+                alt="Clinical healthcare team"
+            >
+
+        </div>
+
+
+        <!-- Slide 4 -->
+        <div class="hero-slide hero-slide-patient">
+
+            <img
+                src="{{ url_for('static', filename='images/hero/04-patient-care.png') }}"
+                alt="Patient centred clinical care"
+            >
+
+        </div>
+
+
+        <!-- Dark healthcare overlay -->
+        <div class="hero-overlay"></div>
+
+
         <!-- =================================================
-             RIGHT SIDE — LOGIN
+             HERO INNER LAYOUT
         ================================================== -->
 
-        <div class="login-panel-wrap">
-
-            <div class="login-card enterprise-login-card">
+        <div class="hero-layout">
 
 
-                <div class="login-brand-mobile">
+            <!-- =============================================
+                 LEFT CONTENT
+            ============================================== -->
 
-                    <div class="login-brand-symbol">
+            <div class="hero-copy">
+
+
+                <div class="hero-badge">
+                    MEDSECURE HEALTH PLATFORM
+                </div>
+
+
+                <h1>
+
+                    Secure Clinical
+
+                    <span>
+                        Information Workspace
+                    </span>
+
+                </h1>
+
+
+                <p class="hero-description">
+
+                    Protected access to healthcare information for
+                    clinicians, administrators and patients through
+                    modern identity and access controls.
+
+                </p>
+
+
+                <div class="hero-status">
+
+                    <span class="status-dot"></span>
+
+                    <span>Secure</span>
+
+                    <span class="status-divider">•</span>
+
+                    <span>Reliable</span>
+
+                    <span class="status-divider">•</span>
+
+                    <span>Clinical</span>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =============================================
+                 RIGHT SIGN-IN CARD
+            ============================================== -->
+
+            <aside class="login-card-modern">
+
+
+                <!-- Brand -->
+
+                <div class="login-card-brand">
+
+                    <div class="medsecure-mark">
                         +
                     </div>
 
-                    <div>
+
+                    <div class="login-brand-text">
 
                         <strong>
                             MedSecure
@@ -345,73 +166,100 @@
                 </div>
 
 
-                <p class="dashboard-eyebrow">
-                    MEDSECURE IDENTITY GATEWAY
-                </p>
+                <div class="login-card-rule"></div>
 
 
-                <h1>
-                    Secure sign-in
-                </h1>
+                <!-- Identity gateway -->
+
+                <div class="login-heading">
+
+                    <div class="identity-label">
+                        MEDSECURE IDENTITY GATEWAY
+                    </div>
 
 
-                <p class="login-subtitle">
-                    Workforce identities are authenticated through
-                    Microsoft Entra ID. Patients continue through the
-                    protected MedSecure patient portal.
-                </p>
+                    <h2>
+                        Secure sign-in
+                    </h2>
 
 
-                <div class="enterprise-note-box">
+                    <p>
 
-                    <div class="enterprise-note-heading">
+                        Access protected clinical systems using your
+                        authorised organisational identity.
 
-                        <div class="microsoft-grid-icon">
+                    </p>
 
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
+                </div>
 
-                        </div>
 
-                        <div>
+                <!-- =========================================
+                     WORKFORCE ACCESS
+                ========================================== -->
 
-                            <strong>
-                                Workforce access
-                            </strong>
+                <div class="workforce-login">
 
-                            <p>
-                                Nurses, doctors and administrators sign in
-                                using their centrally managed organisational
-                                Microsoft identity.
-                            </p>
+                    <div class="workforce-title">
 
-                        </div>
+                        <strong>
+                            Workforce access
+                        </strong>
+
+                        <span>
+                            Nurses, Doctors and Administrators
+                        </span>
 
                     </div>
 
 
                     <a
                         href="{{ url_for('workforce_entra_login') }}"
-                        class="button button-primary button-full login-submit"
+                        class="microsoft-login-button"
                     >
-                        Continue with Microsoft
+
+                        <span
+                            class="microsoft-logo"
+                            aria-hidden="true"
+                        >
+
+                            <span class="ms-red"></span>
+                            <span class="ms-green"></span>
+                            <span class="ms-blue"></span>
+                            <span class="ms-yellow"></span>
+
+                        </span>
+
+
+                        <span class="microsoft-button-text">
+                            Continue with Microsoft
+                        </span>
+
                     </a>
 
                 </div>
 
 
-                <div class="login-divider">
+                <!-- =========================================
+                     PATIENT PORTAL DIVIDER
+                ========================================== -->
+
+                <div class="patient-divider">
 
                     <span>
-                        Patient portal
+                        PATIENT PORTAL
                     </span>
 
                 </div>
 
 
-                <form method="POST">
+                <!-- =========================================
+                     PATIENT LOGIN
+                ========================================== -->
+
+                <form
+                    method="POST"
+                    class="patient-login-form"
+                >
 
                     <input
                         type="hidden"
@@ -426,12 +274,13 @@
                             Patient username
                         </label>
 
+
                         <input
                             id="username"
                             name="username"
                             type="text"
                             autocomplete="username"
-                            placeholder="Enter your patient username"
+                            placeholder="Enter username"
                             required
                         >
 
@@ -440,17 +289,9 @@
 
                     <div class="login-field">
 
-                        <div class="login-label-row">
-
-                            <label for="password">
-                                Password
-                            </label>
-
-                            <span class="login-security-label">
-                                Protected patient access
-                            </span>
-
-                        </div>
+                        <label for="password">
+                            Password
+                        </label>
 
 
                         <input
@@ -458,7 +299,7 @@
                             name="password"
                             type="password"
                             autocomplete="current-password"
-                            placeholder="Enter your password"
+                            placeholder="Enter password"
                             required
                         >
 
@@ -467,7 +308,7 @@
 
                     <button
                         type="submit"
-                        class="button button-secondary button-full login-submit"
+                        class="patient-login-button"
                     >
                         Sign in to Patient Portal
                     </button>
@@ -475,50 +316,213 @@
                 </form>
 
 
-                <div class="login-security-box">
+                <!-- =========================================
+                     SECURITY NOTE
+                ========================================== -->
 
-                    <div class="login-security-icon">
+                <div class="secure-environment-note">
+
+                    <span class="secure-icon">
                         ✓
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            Identity-aware access control
-                        </strong>
-
-                        <p>
-                            Workforce access requires a verified Microsoft
-                            identity and an authorised MedSecure application
-                            role. Patient password attempts remain monitored
-                            and rate limited.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="login-footer-note">
-
-                    <span class="footer-status-dot"></span>
-
-                    Protected clinical environment
-
-                    <span class="footer-divider">
-                        •
                     </span>
 
-                    Synthetic patient data
+                    <span>
+                        Protected clinical environment
+                    </span>
 
                 </div>
 
-            </div>
+
+            </aside>
+
 
         </div>
 
-    </div>
+
+        <!-- =================================================
+             SLIDER DOTS
+        ================================================== -->
+
+        <div
+            class="hero-indicators"
+            aria-label="Healthcare image slideshow"
+        >
+
+            <button
+                class="hero-indicator active"
+                type="button"
+                aria-label="Show air medical response"
+            ></button>
+
+            <button
+                class="hero-indicator"
+                type="button"
+                aria-label="Show emergency response"
+            ></button>
+
+            <button
+                class="hero-indicator"
+                type="button"
+                aria-label="Show clinical team"
+            ></button>
+
+            <button
+                class="hero-indicator"
+                type="button"
+                aria-label="Show patient care"
+            ></button>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =====================================================
+         PLATFORM FEATURES
+    ====================================================== -->
+
+    <section class="platform-features">
+
+
+        <article class="feature-card">
+
+            <div class="feature-icon">
+                ◉
+            </div>
+
+            <div>
+
+                <strong>
+                    Role-Based Access
+                </strong>
+
+                <p>
+                    Clinical permissions separated by authorised
+                    workforce roles.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <article class="feature-card">
+
+            <div class="feature-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <strong>
+                    Audit Logging
+                </strong>
+
+                <p>
+                    Authentication and access activity recorded for
+                    security monitoring.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <article class="feature-card">
+
+            <div class="feature-icon">
+                ◉
+            </div>
+
+            <div>
+
+                <strong>
+                    Microsoft Entra ID
+                </strong>
+
+                <p>
+                    Centrally managed workforce identity and
+                    application access.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <article class="feature-card">
+
+            <div class="feature-icon">
+                ▣
+            </div>
+
+            <div>
+
+                <strong>
+                    Clinical Security
+                </strong>
+
+                <p>
+                    Designed around protected healthcare information
+                    and accountable access.
+                </p>
+
+            </div>
+
+        </article>
+
+
+    </section>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="login-page-footer">
+
+        <span class="footer-network">
+            MedSecure Health Network
+        </span>
+
+        <span class="footer-divider">
+            |
+        </span>
+
+        <span>
+            Secure
+        </span>
+
+        <span class="footer-dot">
+            •
+        </span>
+
+        <span>
+            Reliable
+        </span>
+
+        <span class="footer-dot">
+            •
+        </span>
+
+        <span>
+            Clinical
+        </span>
+
+    </footer>
+
 
 </section>
+
+{% endblock %}
+
+
+{% block page_scripts %}
+
+<script
+    src="{{ url_for('static', filename='hero-slider.js') }}?v=30"
+    defer
+></script>
 
 {% endblock %}

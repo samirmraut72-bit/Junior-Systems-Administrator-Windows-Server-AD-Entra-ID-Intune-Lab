@@ -31,6 +31,8 @@ from flask_wtf.csrf import CSRFProtect
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
+from sqlalchemy.pool import NullPool
+
 from identity.flask import Auth as EntraAuth
 
 from werkzeug.security import (
@@ -106,25 +108,103 @@ ENTRA_CONFIGURED = all(
     ]
 )
 
-# The Microsoft identity helper uses server-side Flask sessions.
-# Filesystem storage is appropriate for this local development lab.
-# A production deployment should use a central session store.
-app.config["SESSION_TYPE"] = "filesystem"
-app.config["SESSION_FILE_DIR"] = os.path.join(
-    app.instance_path,
-    "flask_session",
-)
-app.config["SESSION_PERMANENT"] = False
+# =========================================================
+# DATABASE + SERVER-SIDE SESSION CONFIGURATION
+# =========================================================
 
-os.makedirs(
-    app.config["SESSION_FILE_DIR"],
-    exist_ok=True,
-)
+DATABASE_URL = os.getenv(
+    "DATABASE_URL",
+    "",
+).strip()
+
+APP_ENV = os.getenv(
+    "APP_ENV",
+    "development",
+).strip().lower()
+
+IS_PRODUCTION = APP_ENV == "production"
+
+
+# ---------------------------------------------------------
+# NORMALISE POSTGRES CONNECTION STRING
+# ---------------------------------------------------------
+
+if DATABASE_URL.startswith(
+    "postgres://"
+):
+    DATABASE_URL = DATABASE_URL.replace(
+        "postgres://",
+        "postgresql://",
+        1,
+    )
+
+
+# ---------------------------------------------------------
+# PRODUCTION / HOSTED DATABASE
+# ---------------------------------------------------------
+
+if DATABASE_URL:
+
+    app.config[
+        "SQLALCHEMY_DATABASE_URI"
+    ] = DATABASE_URL
+
+    # Supabase transaction pooling already handles connection
+    # pooling. NullPool avoids keeping process-local persistent
+    # connections inside short-lived serverless functions.
+    app.config[
+        "SQLALCHEMY_ENGINE_OPTIONS"
+    ] = {
+        "poolclass": NullPool,
+    }
+
+    # Microsoft Identity uses Flask-Session. Store those
+    # server-side sessions in the central PostgreSQL database
+    # rather than Vercel's ephemeral filesystem.
+    app.config[
+        "SESSION_TYPE"
+    ] = "sqlalchemy"
+
+    app.config[
+        "SESSION_SQLALCHEMY_TABLE"
+    ] = "medsecure_sessions"
+
+    # Periodic cleanup of expired Flask-Session rows.
+    app.config[
+        "SESSION_CLEANUP_N_REQUESTS"
+    ] = 100
+
+
+# ---------------------------------------------------------
+# LOCAL DEVELOPMENT
+# ---------------------------------------------------------
+
+else:
+
+    app.config[
+        "SQLALCHEMY_DATABASE_URI"
+    ] = "sqlite:///medsecure.db"
+
+    app.config[
+        "SESSION_TYPE"
+    ] = "filesystem"
+
+    app.config[
+        "SESSION_FILE_DIR"
+    ] = os.path.join(
+        app.instance_path,
+        "flask_session",
+    )
+
+    os.makedirs(
+        app.config["SESSION_FILE_DIR"],
+        exist_ok=True,
+    )
 
 
 app.config[
-    "SQLALCHEMY_DATABASE_URI"
-] = "sqlite:///medsecure.db"
+    "SESSION_PERMANENT"
+] = False
 
 app.config[
     "SQLALCHEMY_TRACK_MODIFICATIONS"
@@ -143,11 +223,10 @@ app.config[
     "SESSION_COOKIE_SAMESITE"
 ] = "Lax"
 
-# Local development currently uses HTTP.
-# Production HTTPS should set this to True.
+# Local development uses HTTP; Vercel production uses HTTPS.
 app.config[
     "SESSION_COOKIE_SECURE"
-] = False
+] = IS_PRODUCTION
 
 app.config[
     "PERMANENT_SESSION_LIFETIME"
@@ -165,6 +244,18 @@ app.config[
 # =========================================================
 
 db = SQLAlchemy(app)
+
+
+# Flask-Session needs the existing Flask-SQLAlchemy object when
+# PostgreSQL is used as the server-side session backend.
+if app.config[
+    "SESSION_TYPE"
+] == "sqlalchemy":
+
+    app.config[
+        "SESSION_SQLALCHEMY"
+    ] = db
+
 
 csrf = CSRFProtect(app)
 
@@ -977,7 +1068,6 @@ def workforce_entra_login(
                 "login"
             )
         )
-
     local_role, recognised_roles = (
         _resolve_entra_role(
             claims

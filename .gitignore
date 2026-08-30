@@ -1,10 +1,47 @@
-.venv/
 .env
+.env.*
+!.env.example
+
+venv/
+.venv/
+env/
+
 __pycache__/
-*.pyc
-instance/
+*.py[cod]
 .pytest_cache/
-.coverage
-security.log
-*.log
-app-before-*.py
+
+instance/
+*.db
+*.sqlite
+*.sqlite3
+
+flask_session/
+
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local development / backups
+screenshots-old/
+app-before-entra-sso.py
+app-before-workforce-lifecycle.py
+274dcf54-91fe-42b0-95ab-b069b4f9fedb.png
+
+# Local caches
+.pytest_cache/
+__pycache__/
+.venv/
+
+# Local database and sessions
+instance/
+
+# Secrets
+.env
+
+app-before-vercel.py
+
+# Local development backups
+requirements-dev-full.txt
+static/dashboard-backup.css
+static/login-backup.css
+app-before-vercel.py

@@ -17,6 +17,11 @@
     </title>
 
 
+    <!-- =========================================================
+         EXISTING / LEGACY STYLES
+         Keep for now while we migrate the project safely.
+    ========================================================== -->
+
     <link
         rel="stylesheet"
         href="{{ url_for('static', filename='style.css') }}?v=121"
@@ -72,11 +77,39 @@
         href="{{ url_for('static', filename='security_readability.css') }}?v=121"
     >
 
+
+    <!-- =========================================================
+         MEDSECURE GLOBAL DESIGN SYSTEM
+         Loaded after legacy CSS so the new calm/professional
+         healthcare theme takes priority.
+    ========================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='medsecure-theme.css') }}?v=1"
+    >
+
+
+    <!-- =========================================================
+         PAGE-SPECIFIC STYLES
+
+         login.html      -> login.css
+         dashboard.html  -> later dashboard-specific styles
+         etc.
+    ========================================================== -->
+
+    {% block page_styles %}
+    {% endblock %}
+
 </head>
 
 
 <body>
 
+
+<!-- =========================================================
+     MAIN NAVIGATION
+========================================================== -->
 
 <nav>
 
@@ -96,10 +129,15 @@
 
         {% if current_user.is_authenticated %}
 
+
+            <!-- Dashboard -->
+
             <a href="{{ url_for('dashboard') }}">
                 Dashboard
             </a>
 
+
+            <!-- Admin navigation -->
 
             {% if current_user.role == "admin" %}
 
@@ -118,6 +156,8 @@
             {% endif %}
 
 
+            <!-- Employee profile -->
+
             {% if current_employee_profile %}
 
                 <a href="{{ url_for('my_employee_profile') }}">
@@ -127,14 +167,24 @@
             {% endif %}
 
 
+            <!-- Signed-in identity -->
+
             <span class="signed-in-user-name">
+
                 {% if current_employee_profile %}
+
                     {{ current_employee_profile.full_name }}
+
                 {% else %}
+
                     {{ current_user.username }}
+
                 {% endif %}
+
             </span>
 
+
+            <!-- Logout -->
 
             <form
                 class="inline-form"
@@ -160,9 +210,13 @@
 
         {% else %}
 
+
+            <!-- Public / login navigation message -->
+
             <span>
                 Secure Clinical Information Portal
             </span>
+
 
         {% endif %}
 
@@ -171,7 +225,17 @@
 </nav>
 
 
+
+<!-- =========================================================
+     MAIN PAGE CONTENT
+========================================================== -->
+
 <main>
+
+
+    <!-- =====================================================
+         FLASH MESSAGES
+    ====================================================== -->
 
     {% with messages = get_flashed_messages() %}
 
@@ -190,11 +254,23 @@
     {% endwith %}
 
 
+
+    <!-- =====================================================
+         PAGE CONTENT
+    ====================================================== -->
+
     {% block content %}
     {% endblock %}
 
+
 </main>
 
+
+
+<!-- =========================================================
+     EXISTING JAVASCRIPT
+     Keep temporarily while we migrate each page.
+========================================================== -->
 
 <script
     src="{{ url_for('static', filename='slider.js') }}?v=121"
@@ -202,7 +278,7 @@
 ></script>
 
 <script
-    src="{{ url_for('static', filename='dashboard.js') }}?v=121"
+    src="{{ url_for('static', filename='dashboard.js') }}?v=500"
     defer
 ></script>
 
@@ -215,6 +291,18 @@
     src="{{ url_for('static', filename='workforce.js') }}?v=121"
     defer
 ></script>
+
+
+
+<!-- =========================================================
+     PAGE-SPECIFIC JAVASCRIPT
+
+     Example:
+     login.html can run the new emergency hero slider here.
+========================================================== -->
+
+{% block page_scripts %}
+{% endblock %}
 
 
 </body>

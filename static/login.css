@@ -1,0 +1,1928 @@
+/* ============================================================
+   MEDSECURE
+   Secure Clinical Workspace
+
+   FINAL LOGIN PAGE DESIGN
+   ============================================================ */
+
+
+/* ============================================================
+   DESIGN VARIABLES
+============================================================ */
+
+:root {
+
+    --ms-primary: #087e74;
+    --ms-primary-dark: #075f59;
+    --ms-primary-soft: #daf1eb;
+
+    --ms-background: #f4f8f7;
+    --ms-card: #ffffff;
+    --ms-card-soft: #eef7f4;
+
+    --ms-text: #183a36;
+    --ms-text-soft: #6b807c;
+    --ms-text-light: #839591;
+
+    --ms-border: #d8e6e2;
+
+    --ms-hero-radius: 20px;
+    --ms-card-radius: 22px;
+
+    /*
+       IMAGE FOCAL CONTROL
+
+       These can later be tuned individually
+       without rewriting the layout.
+    */
+
+    --heli-width: 112%;
+    --heli-left: -8%;
+
+    --emergency-width: 108%;
+    --emergency-left: -5%;
+
+    --clinical-width: 106%;
+    --clinical-left: -3%;
+
+    --patient-width: 106%;
+    --patient-left: -3%;
+}
+
+
+/* ============================================================
+   BASIC RESET
+============================================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+
+    min-height: 100%;
+
+    background: var(--ms-background);
+
+    color: var(--ms-text);
+}
+
+
+body {
+    min-height: 100vh;
+}
+
+
+main {
+    width: 100%;
+    max-width: none;
+
+    margin: 0;
+    padding: 0;
+}
+
+
+/* ============================================================
+   TOP NAVIGATION
+============================================================ */
+
+nav {
+    min-height: 66px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding:
+        0
+        4.5vw;
+
+    position: relative;
+    z-index: 100;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.98
+        );
+
+    border-bottom:
+        1px solid
+        var(--ms-border);
+}
+
+
+nav .brand {
+    color:
+        var(--ms-primary-dark);
+
+    font-size: 1.15rem;
+    font-weight: 850;
+
+    letter-spacing: -0.035em;
+
+    text-decoration: none;
+}
+
+
+nav .nav-right {
+    color:
+        var(--ms-text-soft);
+
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   PAGE
+============================================================ */
+
+.medsecure-login-page {
+    width: 100%;
+
+    padding:
+        10px
+        16px
+        28px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f7faf9 0%,
+            #eff6f4 100%
+        );
+}
+
+
+/* ============================================================
+   HERO CONTAINER
+============================================================ */
+
+.medsecure-hero {
+    position: relative;
+
+    width:
+        calc(
+            100% - 20px
+        );
+
+    height:
+        clamp(
+            610px,
+            calc(100vh - 105px),
+            705px
+        );
+
+    margin:
+        0 auto;
+
+    overflow: hidden;
+
+    border-radius:
+        var(--ms-hero-radius);
+
+    background:
+        #123d3b;
+
+    box-shadow:
+        0 20px 55px
+        rgba(
+            12,
+            53,
+            48,
+            0.14
+        );
+}
+
+
+/* ============================================================
+   HERO SLIDES
+============================================================ */
+
+/* ============================================================
+   HERO IMAGE SLIDESHOW
+   Previous working mirror solution
+============================================================ */
+
+.hero-slide {
+    position: absolute;
+    inset: 0;
+
+    z-index: 1;
+
+    opacity: 0;
+
+    /*
+       The SLIDE performs the cinematic zoom.
+       This keeps the mirror transform separate.
+    */
+    transform: scale(1.055);
+
+    transition:
+        opacity 1.35s ease-in-out,
+        transform 5.8s ease-in-out;
+}
+
+
+.hero-slide.hero-slide-active {
+    opacity: 1;
+
+    z-index: 2;
+
+    transform: scale(1);
+}
+
+
+/* ============================================================
+   MIRROR THE PHOTOGRAPHS
+============================================================ */
+
+.hero-slide img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    /*
+       Mirror only.
+       No zoom here.
+    */
+    transform: scaleX(-1);
+}
+
+
+/* ============================================================
+   INDIVIDUAL IMAGE POSITIONING
+============================================================ */
+
+
+/* Slide 1 — helicopter */
+
+.hero-slide-helicopter img {
+    object-position: 55% center;
+}
+
+
+/* Slide 2 — emergency response */
+
+.hero-slide-emergency img {
+    object-position: 55% center;
+}
+
+
+/* Slide 3 — clinical team */
+
+.hero-slide-clinical img {
+    object-position: 58% center;
+}
+
+
+/* Slide 4 — patient care */
+
+.hero-slide-patient img {
+    object-position: 55% center;
+}
+
+/* ============================================================
+   HERO OVERLAY
+============================================================ */
+
+.hero-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 3;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            90deg,
+
+            rgba(
+                3,
+                31,
+                31,
+                0.66
+            )
+            0%,
+
+            rgba(
+                5,
+                43,
+                41,
+                0.44
+            )
+            34%,
+
+            rgba(
+                6,
+                37,
+                37,
+                0.12
+            )
+            61%,
+
+            rgba(
+                3,
+                26,
+                27,
+                0.22
+            )
+            100%
+        );
+}
+
+
+/* ============================================================
+   HERO LAYOUT
+============================================================ */
+
+.hero-layout {
+    position: relative;
+
+    z-index: 5;
+
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(
+            0,
+            1fr
+        )
+        400px;
+
+    gap: 48px;
+
+    align-items: center;
+
+    padding:
+        38px
+        4.6%;
+}
+
+
+/* ============================================================
+   LEFT HERO CONTENT
+============================================================ */
+
+.hero-copy {
+    align-self: end;
+
+    max-width:
+        620px;
+
+    padding-bottom:
+        50px;
+
+    color:
+        #ffffff;
+}
+
+
+/* ============================================================
+   BADGE
+============================================================ */
+
+.hero-badge {
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    padding:
+        8px
+        16px;
+
+    margin-bottom:
+        18px;
+
+    border:
+        1px solid
+        rgba(
+            183,
+            233,
+            221,
+            0.45
+        );
+
+    border-radius:
+        999px;
+
+    background:
+        rgba(
+            8,
+            126,
+            116,
+            0.26
+        );
+
+    color:
+        #eefbf7;
+
+    font-size:
+        0.70rem;
+
+    font-weight:
+        850;
+
+    letter-spacing:
+        0.12em;
+
+    backdrop-filter:
+        blur(8px);
+}
+
+
+/* ============================================================
+   HERO HEADING
+============================================================ */
+
+.hero-copy h1 {
+    max-width:
+        610px;
+
+    margin:
+        0;
+
+    color:
+        #ffffff;
+
+    font-size:
+        clamp(
+            3rem,
+            4.2vw,
+            4.35rem
+        );
+
+    font-weight:
+        900;
+
+    line-height:
+        0.99;
+
+    letter-spacing:
+        -0.05em;
+}
+
+
+.hero-copy h1 span {
+    display:
+        block;
+
+    margin-top:
+        8px;
+
+    color:
+        #c0ece2;
+}
+
+
+/* ============================================================
+   HERO DESCRIPTION
+============================================================ */
+
+.hero-description {
+    max-width:
+        525px;
+
+    margin:
+        22px
+        0
+        0;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.93
+        );
+
+    font-size:
+        0.97rem;
+
+    line-height:
+        1.65;
+}
+
+
+/* ============================================================
+   HERO STATUS
+============================================================ */
+
+.hero-status {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        11px;
+
+    margin-top:
+        25px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.96
+        );
+
+    font-size:
+        0.80rem;
+
+    font-weight:
+        750;
+}
+
+
+.status-dot {
+    width:
+        10px;
+
+    height:
+        10px;
+
+    border-radius:
+        50%;
+
+    background:
+        #42d5ad;
+
+    box-shadow:
+        0
+        0
+        0
+        5px
+        rgba(
+            66,
+            213,
+            173,
+            0.16
+        );
+}
+
+
+.status-divider {
+    opacity:
+        0.55;
+}
+
+
+/* ============================================================
+   LOGIN CARD
+============================================================ */
+
+.login-card-modern {
+    width:
+        400px;
+
+    max-width:
+        400px;
+
+    justify-self:
+        end;
+
+    align-self:
+        center;
+
+    padding:
+        25px
+        26px
+        23px;
+
+    border-radius:
+        var(--ms-card-radius);
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.965
+        );
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.72
+        );
+
+    box-shadow:
+        0
+        25px
+        65px
+        rgba(
+            1,
+            27,
+            25,
+            0.24
+        );
+
+    backdrop-filter:
+        blur(14px);
+}
+
+
+/* ============================================================
+   CARD BRAND
+============================================================ */
+
+.login-card-brand {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        13px;
+}
+
+
+.medsecure-mark {
+    width:
+        43px;
+
+    height:
+        43px;
+
+    flex-shrink:
+        0;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border-radius:
+        11px;
+
+    background:
+        var(--ms-primary);
+
+    color:
+        #ffffff;
+
+    font-size:
+        1.55rem;
+
+    font-weight:
+        700;
+}
+
+
+.login-brand-text strong {
+    display:
+        block;
+
+    color:
+        var(--ms-text);
+
+    font-size:
+        1.02rem;
+
+    font-weight:
+        850;
+}
+
+
+.login-brand-text span {
+    display:
+        block;
+
+    margin-top:
+        3px;
+
+    color:
+        var(--ms-text-soft);
+
+    font-size:
+        0.72rem;
+}
+
+
+.login-card-rule {
+    height:
+        1px;
+
+    margin:
+        17px
+        0
+        20px;
+
+    background:
+        var(--ms-border);
+}
+
+
+/* ============================================================
+   IDENTITY GATEWAY
+============================================================ */
+
+.identity-label {
+    color:
+        var(--ms-primary);
+
+    font-size:
+        0.63rem;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        0.13em;
+}
+
+
+.login-heading h2 {
+    margin:
+        7px
+        0
+        8px;
+
+    color:
+        var(--ms-text);
+
+    font-size:
+        1.57rem;
+
+    font-weight:
+        850;
+
+    line-height:
+        1.05;
+
+    letter-spacing:
+        -0.035em;
+}
+
+
+.login-heading p {
+    margin:
+        0
+        0
+        18px;
+
+    color:
+        var(--ms-text-soft);
+
+    font-size:
+        0.79rem;
+
+    line-height:
+        1.55;
+}
+
+
+/* ============================================================
+   WORKFORCE CARD
+============================================================ */
+
+.workforce-login {
+    padding:
+        14px;
+
+    border:
+        1px solid
+        var(--ms-border);
+
+    border-radius:
+        15px;
+
+    background:
+        #eef7f4;
+}
+
+
+.workforce-title {
+    margin-bottom:
+        11px;
+}
+
+
+.workforce-title strong {
+    display:
+        block;
+
+    margin-bottom:
+        4px;
+
+    color:
+        var(--ms-text);
+
+    font-size:
+        0.84rem;
+
+    font-weight:
+        850;
+}
+
+
+.workforce-title span {
+    display:
+        block;
+
+    color:
+        var(--ms-text-soft);
+
+    font-size:
+        0.70rem;
+
+    font-weight:
+        500;
+}
+
+
+/* ============================================================
+   MICROSOFT BUTTON
+============================================================ */
+
+.microsoft-login-button {
+    width:
+        100%;
+
+    min-height:
+        45px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        11px;
+
+    padding:
+        9px
+        14px;
+
+    border:
+        1px solid
+        #929d9a;
+
+    border-radius:
+        8px;
+
+    background:
+        #ffffff;
+
+    color:
+        #252525;
+
+    text-decoration:
+        none;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    font-size:
+        0.84rem;
+
+    font-weight:
+        600;
+
+    transition:
+        background
+        0.2s
+        ease,
+        border-color
+        0.2s
+        ease,
+        transform
+        0.2s
+        ease,
+        box-shadow
+        0.2s
+        ease;
+}
+
+
+.microsoft-login-button:hover {
+    background:
+        #f7f7f7;
+
+    border-color:
+        #687370;
+
+    transform:
+        translateY(-1px);
+
+    box-shadow:
+        0
+        5px
+        14px
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+}
+
+
+/* ============================================================
+   MICROSOFT FOUR-SQUARE LOGO
+============================================================ */
+
+.microsoft-logo {
+    width:
+        19px;
+
+    height:
+        19px;
+
+    flex-shrink:
+        0;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    grid-template-rows:
+        1fr 1fr;
+
+    gap:
+        2px;
+}
+
+
+.microsoft-logo span {
+    display:
+        block;
+}
+
+
+.ms-red {
+    background:
+        #f25022;
+}
+
+
+.ms-green {
+    background:
+        #7fba00;
+}
+
+
+.ms-blue {
+    background:
+        #00a4ef;
+}
+
+
+.ms-yellow {
+    background:
+        #ffb900;
+}
+
+
+/* ============================================================
+   PATIENT DIVIDER
+============================================================ */
+
+.patient-divider {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+    margin:
+        17px
+        0;
+}
+
+
+.patient-divider::before,
+.patient-divider::after {
+    content:
+        "";
+
+    flex:
+        1;
+
+    height:
+        1px;
+
+    background:
+        var(--ms-border);
+}
+
+
+.patient-divider span {
+    padding:
+        1px
+        9px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.94
+        );
+
+    color:
+        #69817c;
+
+    font-size:
+        0.68rem;
+
+    font-weight:
+        850;
+
+    letter-spacing:
+        0.10em;
+
+    white-space:
+        nowrap;
+}
+
+
+/* ============================================================
+   PATIENT LOGIN
+============================================================ */
+
+.patient-login-form {
+    display:
+        grid;
+
+    gap:
+        12px;
+}
+
+
+.login-field {
+    display:
+        grid;
+
+    gap:
+        6px;
+}
+
+
+.login-field label {
+    color:
+        var(--ms-text);
+
+    font-size:
+        0.70rem;
+
+    font-weight:
+        750;
+}
+
+
+.login-field input {
+    width:
+        100%;
+
+    min-height:
+        43px;
+
+    padding:
+        10px
+        12px;
+
+    border:
+        1px solid
+        var(--ms-border);
+
+    border-radius:
+        8px;
+
+    outline:
+        none;
+
+    background:
+        #ffffff;
+
+    color:
+        var(--ms-text);
+
+    font-size:
+        0.80rem;
+
+    transition:
+        border-color
+        0.2s
+        ease,
+        box-shadow
+        0.2s
+        ease;
+}
+
+
+.login-field input::placeholder {
+    color:
+        #9babaa;
+}
+
+
+.login-field input:focus {
+    border-color:
+        var(--ms-primary);
+
+    box-shadow:
+        0
+        0
+        0
+        3px
+        rgba(
+            8,
+            126,
+            116,
+            0.11
+        );
+}
+
+
+/* ============================================================
+   PATIENT BUTTON
+============================================================ */
+
+.patient-login-button {
+    min-height:
+        44px;
+
+    margin-top:
+        1px;
+
+    border:
+        0;
+
+    border-radius:
+        8px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #087c72,
+            #0e8e80
+        );
+
+    color:
+        #ffffff;
+
+    cursor:
+        pointer;
+
+    font-size:
+        0.79rem;
+
+    font-weight:
+        800;
+
+    transition:
+        transform
+        0.2s
+        ease,
+        box-shadow
+        0.2s
+        ease;
+}
+
+
+.patient-login-button:hover {
+    transform:
+        translateY(-1px);
+
+    box-shadow:
+        0
+        8px
+        18px
+        rgba(
+            8,
+            126,
+            116,
+            0.20
+        );
+}
+
+
+/* ============================================================
+   SECURITY NOTE
+============================================================ */
+
+.secure-environment-note {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        9px;
+
+    margin-top:
+        15px;
+
+    padding-top:
+        13px;
+
+    color:
+        var(--ms-text-soft);
+
+    font-size:
+        0.69rem;
+
+    font-weight:
+        600;
+}
+
+
+.secure-icon {
+    width:
+        21px;
+
+    height:
+        21px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--ms-primary);
+
+    color:
+        #ffffff;
+
+    font-size:
+        0.67rem;
+
+    font-weight:
+        900;
+}
+
+
+/* ============================================================
+   SLIDER INDICATORS
+============================================================ */
+
+.hero-indicators {
+    position:
+        absolute;
+
+    left:
+        50%;
+
+    bottom:
+        17px;
+
+    z-index:
+        10;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        9px;
+
+    transform:
+        translateX(-50%);
+}
+
+
+.hero-indicator {
+    width:
+        8px;
+
+    height:
+        8px;
+
+    padding:
+        0;
+
+    border:
+        0;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.58
+        );
+
+    cursor:
+        pointer;
+
+    transition:
+        width
+        0.25s
+        ease,
+        background
+        0.25s
+        ease,
+        opacity
+        0.25s
+        ease;
+}
+
+
+.hero-indicator:hover {
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.90
+        );
+}
+
+
+.hero-indicator.active {
+    width:
+        26px;
+
+    border-radius:
+        999px;
+
+    background:
+        #ffffff;
+}
+
+
+/* ============================================================
+   FEATURE CARDS
+============================================================ */
+
+.platform-features {
+    width:
+        min(
+            1180px,
+            92%
+        );
+
+    margin:
+        24px auto
+        0;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap:
+        16px;
+}
+
+
+.feature-card {
+    min-height:
+        105px;
+
+    display:
+        flex;
+
+    align-items:
+        flex-start;
+
+    gap:
+        13px;
+
+    padding:
+        18px
+        17px;
+
+    border:
+        1px solid
+        var(--ms-border);
+
+    border-radius:
+        14px;
+
+    background:
+        #ffffff;
+
+    box-shadow:
+        0
+        8px
+        22px
+        rgba(
+            19,
+            64,
+            59,
+            0.05
+        );
+
+    transition:
+        transform
+        0.2s
+        ease,
+        box-shadow
+        0.2s
+        ease;
+}
+
+
+.feature-card:hover {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0
+        13px
+        28px
+        rgba(
+            19,
+            64,
+            59,
+            0.09
+        );
+}
+
+
+.feature-icon {
+    width:
+        38px;
+
+    height:
+        38px;
+
+    flex-shrink:
+        0;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border-radius:
+        50%;
+
+    background:
+        #ddf3ed;
+
+    color:
+        var(--ms-primary);
+
+    font-size:
+        0.95rem;
+
+    font-weight:
+        900;
+}
+
+
+.feature-card strong {
+    display:
+        block;
+
+    margin-top:
+        1px;
+
+    color:
+        var(--ms-text);
+
+    font-size:
+        0.82rem;
+
+    font-weight:
+        850;
+}
+
+
+.feature-card p {
+    margin:
+        6px
+        0
+        0;
+
+    color:
+        var(--ms-text-soft);
+
+    font-size:
+        0.70rem;
+
+    line-height:
+        1.55;
+}
+
+
+/* ============================================================
+   FOOTER
+============================================================ */
+
+.login-page-footer {
+    width:
+        min(
+            1180px,
+            92%
+        );
+
+    margin:
+        18px auto
+        0;
+
+    padding:
+        18px
+        0
+        3px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        14px;
+
+    border-top:
+        1px solid
+        var(--ms-border);
+
+    color:
+        #718681;
+
+    font-size:
+        0.70rem;
+
+    font-weight:
+        600;
+}
+
+
+.footer-divider,
+.footer-dot {
+    opacity:
+        0.65;
+}
+
+
+/* ============================================================
+   FLASH MESSAGE
+============================================================ */
+
+.alert {
+    width:
+        min(
+            1100px,
+            90%
+        );
+
+    margin:
+        10px auto;
+
+    padding:
+        11px
+        14px;
+
+    border:
+        1px solid
+        var(--ms-border);
+
+    border-radius:
+        9px;
+
+    background:
+        #ffffff;
+
+    color:
+        var(--ms-text);
+}
+
+
+/* ============================================================
+   LARGE DESKTOPS
+============================================================ */
+
+@media (min-width: 1500px) {
+
+    .hero-layout {
+        padding-left:
+            5.2%;
+
+        padding-right:
+            5.2%;
+    }
+
+
+    .hero-copy {
+        max-width:
+            650px;
+    }
+
+}
+
+
+/* ============================================================
+   TABLETS / SMALL LAPTOPS
+============================================================ */
+
+@media (max-width: 1050px) {
+
+    .medsecure-hero {
+        height:
+            auto;
+
+        min-height:
+            900px;
+    }
+
+
+    .hero-layout {
+        grid-template-columns:
+            1fr;
+
+        align-content:
+            center;
+
+        gap:
+            34px;
+
+        padding:
+            55px
+            6%
+            70px;
+    }
+
+
+    .hero-copy {
+        align-self:
+            auto;
+
+        padding-bottom:
+            0;
+
+        max-width:
+            650px;
+    }
+
+
+    .login-card-modern {
+        width:
+            min(
+                480px,
+                100%
+            );
+
+        max-width:
+            480px;
+
+        justify-self:
+            start;
+    }
+
+
+    .platform-features {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(
+                    0,
+                    1fr
+                )
+            );
+    }
+
+}
+
+
+/* ============================================================
+   MOBILE
+============================================================ */
+
+@media (max-width: 680px) {
+
+    nav {
+        min-height:
+            58px;
+
+        padding:
+            0
+            18px;
+    }
+
+
+    nav .nav-right {
+        display:
+            none;
+    }
+
+
+    .medsecure-login-page {
+        padding:
+            8px;
+    }
+
+
+    .medsecure-hero {
+        width:
+            100%;
+
+        min-height:
+            940px;
+
+        border-radius:
+            16px;
+    }
+
+
+    .hero-layout {
+        padding:
+            38px
+            19px
+            65px;
+    }
+
+
+    .hero-copy h1 {
+        font-size:
+            2.5rem;
+    }
+
+
+    .hero-description {
+        font-size:
+            0.90rem;
+    }
+
+
+    .login-card-modern {
+        width:
+            100%;
+
+        padding:
+            22px
+            19px;
+    }
+
+
+    .platform-features {
+        width:
+            100%;
+
+        grid-template-columns:
+            1fr;
+
+        margin-top:
+            16px;
+    }
+
+
+    .login-page-footer {
+        width:
+            100%;
+
+        flex-wrap:
+            wrap;
+
+        gap:
+            8px;
+    }
+
+
+    /*
+       On mobile use natural image positions.
+    */
+
+    .hero-slide-helicopter img,
+    .hero-slide-emergency img,
+    .hero-slide-clinical img,
+    .hero-slide-patient img {
+
+        width:
+            100%;
+
+        left:
+            0;
+    }
+
+}
+
+
+/* ============================================================
+   SHORT DESKTOP SCREENS
+============================================================ */
+
+@media (
+    max-height: 760px
+)
+and (
+    min-width: 1051px
+) {
+
+    .medsecure-hero {
+        height:
+            620px;
+    }
+
+
+    .hero-layout {
+        padding-top:
+            25px;
+
+        padding-bottom:
+            25px;
+    }
+
+
+    .hero-copy {
+        padding-bottom:
+            26px;
+    }
+
+
+    .hero-copy h1 {
+        font-size:
+            3.25rem;
+    }
+
+
+    .login-card-modern {
+        padding:
+            20px
+            23px;
+    }
+
+
+    .login-card-rule {
+        margin:
+            13px
+            0
+            15px;
+    }
+
+
+    .login-heading p {
+        margin-bottom:
+            13px;
+    }
+
+
+    .secure-environment-note {
+        margin-top:
+            10px;
+
+        padding-top:
+            9px;
+    }
+
+}
