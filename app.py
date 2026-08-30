@@ -26,7 +26,6 @@ from flask_login import (
 )
 
 from flask_sqlalchemy import SQLAlchemy
-from flask_session import Session
 from flask_wtf.csrf import CSRFProtect
 
 from flask_limiter import Limiter
@@ -256,13 +255,6 @@ if app.config[
     app.config[
         "SESSION_SQLALCHEMY"
     ] = db
-
-
-# Initialise Flask-Session.
-# In production, Microsoft authentication state is stored in the
-# central Supabase PostgreSQL database instead of Vercel's ephemeral
-# filesystem, so the Entra login callback can recover the same session.
-server_session = Session(app)
 
 
 csrf = CSRFProtect(app)
