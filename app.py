@@ -1049,6 +1049,11 @@ def workforce_entra_login(
     principal = _entra_principal(
         claims
     )
+    entra_display_name = (
+    claims.get("name")
+    or claims.get("preferred_username")
+    or principal
+    )
 
     # Defence in depth: the ID token must belong to the configured
     # tenant even though the MSAL/Identity library has already
@@ -1176,6 +1181,9 @@ def workforce_entra_login(
     session[
         "entra_principal"
     ] = principal
+    session[
+    "entra_display_name"
+    ] = entra_display_name
 
     session[
         "entra_roles"
