@@ -26,7 +26,6 @@ from flask_login import (
 )
 
 from flask_sqlalchemy import SQLAlchemy
-from flask_session import Session
 from flask_wtf.csrf import CSRFProtect
 
 from flask_limiter import Limiter
@@ -256,13 +255,6 @@ if app.config[
     app.config[
         "SESSION_SQLALCHEMY"
     ] = db
-
-
-# Initialise Flask-Session.
-# In production, Microsoft authentication state is stored in the
-# central Supabase PostgreSQL database instead of Vercel's ephemeral
-# filesystem, so the Entra login callback can recover the same session.
-server_session = Session(app)
 
 
 csrf = CSRFProtect(app)
@@ -1058,6 +1050,12 @@ def workforce_entra_login(
         claims
     )
 
+    entra_display_name = (
+        claims.get("name")
+        or claims.get("preferred_username")
+        or principal
+    )
+
     # Defence in depth: the ID token must belong to the configured
     # tenant even though the MSAL/Identity library has already
     # validated the token against our single-tenant authority.
@@ -1184,6 +1182,10 @@ def workforce_entra_login(
     session[
         "entra_principal"
     ] = principal
+
+    session[
+        "entra_display_name"
+    ] = entra_display_name
 
     session[
         "entra_roles"
@@ -1458,6 +1460,7 @@ def login():
     "/logout",
     methods=["POST"],
 )
+@csrf.exempt
 @login_required
 def logout():
 
@@ -3004,9 +3007,11 @@ def seed_database():
 
 with app.app_context():
 
-    db.create_all()
+    if not IS_PRODUCTION:
 
-    seed_database()
+        db.create_all()
+
+        seed_database()
 
 
 # =========================================================

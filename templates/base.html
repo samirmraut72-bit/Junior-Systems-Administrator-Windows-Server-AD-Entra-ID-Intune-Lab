@@ -80,8 +80,6 @@
 
     <!-- =========================================================
          MEDSECURE GLOBAL DESIGN SYSTEM
-         Loaded after legacy CSS so the new calm/professional
-         healthcare theme takes priority.
     ========================================================== -->
 
     <link
@@ -89,14 +87,6 @@
         href="{{ url_for('static', filename='medsecure-theme.css') }}?v=1"
     >
 
-
-    <!-- =========================================================
-         PAGE-SPECIFIC STYLES
-
-         login.html      -> login.css
-         dashboard.html  -> later dashboard-specific styles
-         etc.
-    ========================================================== -->
 
     {% block page_styles %}
     {% endblock %}
@@ -171,7 +161,11 @@
 
             <span class="signed-in-user-name">
 
-                {% if current_employee_profile %}
+                {% if session.get("entra_display_name") %}
+
+                    {{ session.get("entra_display_name") }}
+
+                {% elif current_employee_profile %}
 
                     {{ current_employee_profile.full_name }}
 
@@ -210,8 +204,6 @@
 
         {% else %}
 
-
-            <!-- Public / login navigation message -->
 
             <span>
                 Secure Clinical Information Portal
@@ -269,7 +261,6 @@
 
 <!-- =========================================================
      EXISTING JAVASCRIPT
-     Keep temporarily while we migrate each page.
 ========================================================== -->
 
 <script
@@ -293,13 +284,6 @@
 ></script>
 
 
-
-<!-- =========================================================
-     PAGE-SPECIFIC JAVASCRIPT
-
-     Example:
-     login.html can run the new emergency hero slider here.
-========================================================== -->
 
 {% block page_scripts %}
 {% endblock %}

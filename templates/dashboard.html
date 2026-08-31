@@ -9,11 +9,25 @@ Dashboard | MedSecure
 
 {% if current_user.role in ["nurse", "doctor"] %}
 
-{% set workforce_display_name =
-    current_employee_profile.full_name
-    if current_employee_profile
-    else current_user.username
-%}
+{% if session.get("entra_display_name") %}
+
+    {% set workforce_display_name =
+        session.get("entra_display_name")
+    %}
+
+{% elif current_employee_profile %}
+
+    {% set workforce_display_name =
+        current_employee_profile.full_name
+    %}
+
+{% else %}
+
+    {% set workforce_display_name =
+        current_user.username
+    %}
+
+{% endif %}
 
 <section class="admin-workspace-dashboard role-workspace-dashboard" id="workspace-home">
 
@@ -798,7 +812,7 @@ Dashboard | MedSecure
             <div
                 id="dashboardGreeting"
                 class="dashboard-greeting"
-                data-user-name="{% if current_employee_profile %}{{ current_employee_profile.full_name }}{% else %}{{ current_user.username }}{% endif %}"
+                data-user-name="{% if session.get('entra_display_name') %}{{ session.get('entra_display_name') }}{% elif current_employee_profile %}{{ current_employee_profile.full_name }}{% else %}{{ current_user.username }}{% endif %}"
                 aria-live="polite"
             ></div>
 
