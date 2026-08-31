@@ -1455,7 +1455,6 @@ def login():
 # LOGOUT
 # =========================================================
 
-
 @app.route(
     "/logout",
     methods=["POST"],
@@ -1464,21 +1463,15 @@ def login():
 @login_required
 def logout():
 
-    username = (
-        current_user.username
-    )
+    username = current_user.username
 
     was_entra_session = (
-        session.get(
-            "identity_provider"
-        )
+        session.get("identity_provider")
         == "Microsoft Entra ID"
     )
 
     audit_identity = (
-        session.get(
-            "entra_principal"
-        )
+        session.get("entra_principal")
         or username
     )
 
@@ -1494,17 +1487,16 @@ def logout():
         was_entra_session
         and entra_auth
     ):
-        # The Microsoft identity helper clears its own token/user
-        # state and sends the browser to the Entra end-session
-        # endpoint before returning to MedSecure.
-        return entra_auth.logout()
+        response = entra_auth.logout()
+
+        session.clear()
+
+        return response
 
     session.clear()
 
     return redirect(
-        url_for(
-            "login"
-        )
+        url_for("login")
     )
 
 
