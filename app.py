@@ -2994,12 +2994,13 @@ def seed_database():
 # DATABASE INITIALISATION
 # =========================================================
 
-
 with app.app_context():
 
-    db.create_all()
+    if not IS_PRODUCTION:
 
-    seed_database()
+        db.create_all()
+
+        seed_database()
 
 
 # =========================================================
