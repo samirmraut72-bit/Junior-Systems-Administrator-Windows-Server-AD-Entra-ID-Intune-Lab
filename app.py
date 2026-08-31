@@ -1450,6 +1450,7 @@ def login():
     "/logout",
     methods=["POST"],
 )
+@csrf.exempt
 @login_required
 def logout():
 
