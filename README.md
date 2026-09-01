@@ -2,6 +2,8 @@
 
 **MedSecure** is an end-to-end healthcare IT lab that I built to connect infrastructure, identity, endpoint management and secure application development in one project.
 
+**Live MedSecure demo:** https://medsecure-sam-git-main-project-beyond.vercel.app
+
 I originally started with the web application, but I wanted to understand what would sit around an application like this in a real organisation. The project grew into a small Microsoft-based enterprise environment with Windows Server Active Directory, Group Policy, Microsoft Entra ID, hybrid identity, Intune device management, workforce SSO, MFA, application roles and a Flask healthcare portal.
 
 > **Lab note:** All patients, staff profiles, clinical information and organisation data used in this repository are synthetic. MedSecure is an educational prototype, not a production healthcare system.
@@ -94,6 +96,8 @@ The `MedSecure - Display Control` profile reporting **Succeeded: 1** is the fina
 ## MedSecure application
 
 The application is written in Python using Flask and SQLAlchemy with SQLite for the lab database.
+
+**Live demo:** https://medsecure-sam-git-main-project-beyond.vercel.app
 
 Workforce authentication is handled through Microsoft Entra ID. The application requires exactly one recognised MedSecure app role and maps that role to the corresponding local application profile.
 
