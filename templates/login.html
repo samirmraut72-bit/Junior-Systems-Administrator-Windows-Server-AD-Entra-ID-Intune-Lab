@@ -10,7 +10,7 @@ MedSecure | Secure Clinical Workspace
 
 <link
     rel="stylesheet"
-    href="{{ url_for('static', filename='login.css') }}?v=30"
+    href="{{ url_for('static', filename='login.css') }}?v=31"
 >
 
 {% endblock %}
@@ -303,6 +303,20 @@ MedSecure | Secure Clinical Workspace
                             required
                         >
 
+
+                        <label
+                            class="show-password-control"
+                            for="show-password"
+                        >
+                            <input
+                                id="show-password"
+                                type="checkbox"
+                            >
+                            <span>
+                                Show password
+                            </span>
+                        </label>
+
                     </div>
 
 
@@ -522,6 +536,11 @@ MedSecure | Secure Clinical Workspace
 
 <script
     src="{{ url_for('static', filename='hero-slider.js') }}?v=30"
+    defer
+></script>
+
+<script
+    src="{{ url_for('static', filename='password-toggle.js') }}?v=1"
     defer
 ></script>
 
