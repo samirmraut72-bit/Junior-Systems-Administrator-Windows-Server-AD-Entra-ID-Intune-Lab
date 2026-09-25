@@ -817,6 +817,22 @@ def log_event(
     db.session.commit()
 
 
+    # Mirror the security audit event to the application console
+    # so authorised lab testing can be correlated in real time.
+    # Never include passwords, tokens, cookies or request bodies.
+    app.logger.warning(
+        (
+            "SECURITY_AUDIT "
+            "user=%s "
+            "action=%s "
+            "result=%s"
+        ),
+        username,
+        action,
+        result,
+    )
+
+
 def audit_http_error(
     status_code,
     result="BLOCKED",
