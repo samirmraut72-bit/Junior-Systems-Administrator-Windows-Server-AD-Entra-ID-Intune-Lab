@@ -1177,6 +1177,47 @@ nav .nav-right {
 
 
 /* ============================================================
+   SHOW PASSWORD CONTROL
+============================================================ */
+
+.show-password-control {
+    width: fit-content;
+
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 1px;
+
+    color: var(--ms-text-soft);
+
+    font-size: 0.70rem;
+    font-weight: 650;
+
+    cursor: pointer;
+    user-select: none;
+}
+
+.show-password-control input {
+    width: 15px;
+    min-height: 15px;
+    height: 15px;
+
+    margin: 0;
+    padding: 0;
+
+    accent-color: var(--ms-primary);
+
+    cursor: pointer;
+}
+
+.show-password-control span {
+    line-height: 1;
+}
+
+
+/* ============================================================
    PATIENT BUTTON
 ============================================================ */
 
