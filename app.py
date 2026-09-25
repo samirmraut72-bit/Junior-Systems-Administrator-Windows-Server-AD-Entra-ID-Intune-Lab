@@ -817,6 +817,83 @@ def log_event(
     db.session.commit()
 
 
+def audit_http_error(
+    status_code,
+    result="BLOCKED",
+):
+
+    """
+    Record a safe, generic audit event for handled HTTP errors.
+
+    The event intentionally stores only the authenticated/submitted
+    username, HTTP method, path, status code and result. Passwords,
+    request bodies, cookies and tokens are never written to the log.
+    """
+
+    username = "ANONYMOUS"
+
+    if current_user.is_authenticated:
+        username = (
+            current_user.username
+            or "ANONYMOUS"
+        )
+
+    elif request.method == "POST":
+        username = (
+            request.form.get(
+                "username",
+                "",
+            )
+            or "ANONYMOUS"
+        )
+
+
+    # Avoid letting an arbitrary submitted username exceed the
+    # database column size.
+    username = str(username)[:80]
+
+
+    remote_ip = (
+        request.remote_addr
+        or "UNKNOWN"
+    )
+
+
+    action = (
+        f"HTTP_{status_code} "
+        f"{request.method} "
+        f"{request.path} "
+        f"IP={remote_ip}"
+    )[:150]
+
+
+    try:
+
+        log_event(
+            username,
+            action,
+            result,
+        )
+
+
+    except Exception as log_error:
+
+        # Error logging must never turn the original request into
+        # another application failure.
+        try:
+            db.session.rollback()
+        except Exception:
+            pass
+
+        app.logger.warning(
+            (
+                "Failed to record HTTP "
+                "error audit event: %s"
+            ),
+            log_error,
+        )
+
+
 # =========================================================
 # ROLE-BASED ACCESS CONTROL
 # =========================================================
@@ -2636,6 +2713,11 @@ def bad_request(
     error,
 ):
 
+    audit_http_error(
+        400,
+        "REJECTED",
+    )
+
     return (
         render_template(
             "error.html",
@@ -2648,6 +2730,32 @@ def bad_request(
 
 
 # =========================================================
+# ERROR HANDLER — 401
+# =========================================================
+
+
+@app.errorhandler(401)
+def unauthorized(
+    error,
+):
+
+    audit_http_error(
+        401,
+        "BLOCKED",
+    )
+
+    return (
+        render_template(
+            "error.html",
+            message=(
+                "401 - Authentication Required"
+            ),
+        ),
+        401,
+    )
+
+
+# =========================================================
 # ERROR HANDLER — 403
 # =========================================================
 
@@ -2656,6 +2764,11 @@ def bad_request(
 def forbidden(
     error,
 ):
+
+    audit_http_error(
+        403,
+        "BLOCKED",
+    )
 
     return (
         render_template(
@@ -2678,6 +2791,11 @@ def not_found(
     error,
 ):
 
+    audit_http_error(
+        404,
+        "NOT_FOUND",
+    )
+
     return (
         render_template(
             "error.html",
@@ -2690,6 +2808,32 @@ def not_found(
 
 
 # =========================================================
+# ERROR HANDLER — 405
+# =========================================================
+
+
+@app.errorhandler(405)
+def method_not_allowed(
+    error,
+):
+
+    audit_http_error(
+        405,
+        "BLOCKED",
+    )
+
+    return (
+        render_template(
+            "error.html",
+            message=(
+                "405 - Method Not Allowed"
+            ),
+        ),
+        405,
+    )
+
+
+# =========================================================
 # ERROR HANDLER — 413
 # =========================================================
 
@@ -2698,6 +2842,11 @@ def not_found(
 def request_too_large(
     error,
 ):
+
+    audit_http_error(
+        413,
+        "BLOCKED",
+    )
 
     return (
         render_template(
@@ -2720,7 +2869,7 @@ def rate_limit_exceeded(
     error,
 ):
 
-    username = "UNKNOWN"
+    username = "ANONYMOUS"
 
 
     if request.method == "POST":
@@ -2730,14 +2879,14 @@ def rate_limit_exceeded(
                 "username",
                 "",
             )
-            or "UNKNOWN"
+            or "ANONYMOUS"
         )
 
 
     try:
 
         log_event(
-            username,
+            str(username)[:80],
             "LOGIN_RATE_LIMIT",
             "BLOCKED",
         )
@@ -2755,6 +2904,12 @@ def rate_limit_exceeded(
         )
 
 
+    audit_http_error(
+        429,
+        "BLOCKED",
+    )
+
+
     return (
         render_template(
             "error.html",
@@ -2763,6 +2918,48 @@ def rate_limit_exceeded(
             ),
         ),
         429,
+    )
+
+
+# =========================================================
+# ERROR HANDLER — 500
+# =========================================================
+
+
+@app.errorhandler(500)
+def internal_server_error(
+    error,
+):
+
+    # A failed database operation can leave the SQLAlchemy
+    # session unusable until it is rolled back.
+    try:
+        db.session.rollback()
+    except Exception:
+        pass
+
+
+    audit_http_error(
+        500,
+        "ERROR",
+    )
+
+
+    app.logger.error(
+        "Unhandled server error on %s %s",
+        request.method,
+        request.path,
+    )
+
+
+    return (
+        render_template(
+            "error.html",
+            message=(
+                "500 - Internal Server Error"
+            ),
+        ),
+        500,
     )
 
 
