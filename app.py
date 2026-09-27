@@ -1,4 +1,5 @@
 import os
+import tempfile
 
 from datetime import datetime, timezone, timedelta
 from functools import wraps
@@ -215,10 +216,17 @@ else:
 
         app.config[
             "SQLALCHEMY_DATABASE_URI"
-        ] = "sqlite:////tmp/medsecure.db"
+        ] = (
+            "sqlite:///"
+            + os.path.join(
+                tempfile.gettempdir(),
+                "medsecure.db",
+            )
+        )
 
-        session_dir = (
-            "/tmp/medsecure_flask_session"
+        session_dir = os.path.join(
+            tempfile.gettempdir(),
+            "medsecure_flask_session",
         )
 
     else:
