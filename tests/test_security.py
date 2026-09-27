@@ -290,7 +290,7 @@ def test_zero_trust_denial_is_audited(client):
             SecurityEvent.query
             .filter(
                 SecurityEvent.action.like(
-                    "ZT_POLICY resource=clinical_record read%"
+                    "ZT_POLICY resource=clinical_record action=read%"
                 )
             )
             .order_by(
