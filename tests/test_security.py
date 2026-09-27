@@ -1,6 +1,12 @@
+import os
 import pytest
 
 from app import app, SecurityEvent
+
+
+TEST_PATIENT_PASSWORD = os.environ["DEMO_PATIENT_PASSWORD"]
+TEST_NURSE_PASSWORD = os.environ["DEMO_NURSE_PASSWORD"]
+TEST_ADMIN_PASSWORD = os.environ["DEMO_ADMIN_PASSWORD"]
 
 
 @pytest.fixture
@@ -39,7 +45,7 @@ def test_valid_patient_login(client):
     response = login(
         client,
         "patient1",
-        "Patient123!",
+        TEST_PATIENT_PASSWORD,
         "10.10.10.11",
     )
 
@@ -57,7 +63,7 @@ def test_patient_can_view_own_record(client):
     login(
         client,
         "patient1",
-        "Patient123!",
+        TEST_PATIENT_PASSWORD,
         "10.10.10.12",
     )
 
@@ -79,7 +85,7 @@ def test_patient_cannot_view_another_patient(client):
     login(
         client,
         "patient1",
-        "Patient123!",
+        TEST_PATIENT_PASSWORD,
         "10.10.10.13",
     )
 
@@ -99,7 +105,7 @@ def test_admin_cannot_access_clinical_record(client):
     login(
         client,
         "admin1",
-        "Admin123!",
+        TEST_ADMIN_PASSWORD,
         "10.10.10.14",
     )
 
@@ -117,7 +123,7 @@ def test_nurse_can_access_patient_record(client):
     login(
         client,
         "nurse1",
-        "Nurse123!",
+        TEST_NURSE_PASSWORD,
         "10.10.10.15",
     )
 
@@ -137,7 +143,7 @@ def test_nurse_cannot_access_security_logs(client):
     login(
         client,
         "nurse1",
-        "Nurse123!",
+        TEST_NURSE_PASSWORD,
         "10.10.10.16",
     )
 
@@ -217,7 +223,7 @@ def test_zero_trust_patient_cannot_write_clinical_note(client):
     login(
         client,
         "patient1",
-        "Patient123!",
+        TEST_PATIENT_PASSWORD,
         "10.10.10.17",
     )
 
@@ -244,7 +250,7 @@ def test_zero_trust_nurse_can_write_clinical_note(client):
     login(
         client,
         "nurse1",
-        "Nurse123!",
+        TEST_NURSE_PASSWORD,
         "10.10.10.18",
     )
 
@@ -271,7 +277,7 @@ def test_zero_trust_denial_is_audited(client):
     login(
         client,
         "patient1",
-        "Patient123!",
+        TEST_PATIENT_PASSWORD,
         "10.10.10.19",
     )
 
