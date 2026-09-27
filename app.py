@@ -1,4 +1,5 @@
 import os
+import tempfile
 
 from datetime import datetime, timezone, timedelta
 from functools import wraps
@@ -118,12 +119,36 @@ DATABASE_URL = os.getenv(
     "",
 ).strip()
 
-APP_ENV = os.getenv(
-    "APP_ENV",
-    "development",
+# Vercel exposes VERCEL / VERCEL_ENV at runtime when system
+# environment variables are enabled. Treat a Vercel deployment as
+# hosted production even when APP_ENV was not explicitly configured.
+VERCEL_ENV = os.getenv(
+    "VERCEL_ENV",
+    "",
 ).strip().lower()
 
-IS_PRODUCTION = APP_ENV == "production"
+IS_VERCEL = (
+    os.getenv("VERCEL", "") == "1"
+    or bool(os.getenv("VERCEL_URL", "").strip())
+    or bool(VERCEL_ENV)
+)
+
+APP_ENV = os.getenv(
+    "APP_ENV",
+    "",
+).strip().lower()
+
+if not APP_ENV:
+    APP_ENV = (
+        "production"
+        if IS_VERCEL
+        else "development"
+    )
+
+IS_PRODUCTION = (
+    APP_ENV == "production"
+    or VERCEL_ENV == "production"
+)
 
 
 # ---------------------------------------------------------
@@ -182,9 +207,38 @@ if DATABASE_URL:
 
 else:
 
-    app.config[
-        "SQLALCHEMY_DATABASE_URI"
-    ] = "sqlite:///medsecure.db"
+    # Vercel's deployed filesystem is immutable except for /tmp.
+    # Use /tmp only as a safe fallback so the Flask function can
+    # start and render a diagnostic/login page when DATABASE_URL
+    # is not configured. Persistent hosted deployments should set
+    # DATABASE_URL and use PostgreSQL instead.
+    if IS_VERCEL:
+
+        app.config[
+            "SQLALCHEMY_DATABASE_URI"
+        ] = (
+            "sqlite:///"
+            + os.path.join(
+                tempfile.gettempdir(),
+                "medsecure.db",
+            )
+        )
+
+        session_dir = os.path.join(
+            tempfile.gettempdir(),
+            "medsecure_flask_session",
+        )
+
+    else:
+
+        app.config[
+            "SQLALCHEMY_DATABASE_URI"
+        ] = "sqlite:///medsecure.db"
+
+        session_dir = os.path.join(
+            app.instance_path,
+            "flask_session",
+        )
 
     app.config[
         "SESSION_TYPE"
@@ -192,13 +246,10 @@ else:
 
     app.config[
         "SESSION_FILE_DIR"
-    ] = os.path.join(
-        app.instance_path,
-        "flask_session",
-    )
+    ] = session_dir
 
     os.makedirs(
-        app.config["SESSION_FILE_DIR"],
+        session_dir,
         exist_ok=True,
     )
 
@@ -1289,6 +1340,14 @@ def home():
             "login"
         )
     )
+
+
+@app.route("/healthz")
+def healthz():
+
+    return {
+        "status": "ok",
+    }, 200
 
 
 # =========================================================
@@ -3425,11 +3484,42 @@ def seed_database():
 
 with app.app_context():
 
-    if not IS_PRODUCTION:
+    # Never perform schema creation or demo-data seeding against a
+    # hosted DATABASE_URL during application import. Serverless cold
+    # starts must remain lightweight and should not issue DDL or seed
+    # queries before the first request.
+    if not DATABASE_URL:
 
         db.create_all()
 
-        seed_database()
+        demo_passwords_configured = all(
+            [
+                os.getenv("DEMO_PATIENT_PASSWORD"),
+                os.getenv("DEMO_NURSE_PASSWORD"),
+                os.getenv("DEMO_DOCTOR_PASSWORD"),
+                os.getenv("DEMO_ADMIN_PASSWORD"),
+            ]
+        )
+
+        if demo_passwords_configured:
+
+            seed_database()
+
+        elif not IS_VERCEL:
+
+            raise RuntimeError(
+                "Demo passwords are missing from .env"
+            )
+
+        else:
+
+            app.logger.warning(
+                "Vercel fallback storage is active because "
+                "DATABASE_URL is not configured. The login page "
+                "can start, but demo accounts are unavailable "
+                "until hosted database/environment settings are "
+                "configured."
+            )
 
 
 # =========================================================
