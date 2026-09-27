@@ -18,15 +18,30 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      SECRET_KEY: ci-test-secret-not-for-production
       APP_ENV: development
 
-      DEMO_PATIENT_PASSWORD: Patient123!
-      DEMO_NURSE_PASSWORD: Nurse123!
-      DEMO_DOCTOR_PASSWORD: Doctor123!
-      DEMO_ADMIN_PASSWORD: Admin123!
-
     steps:
+
+      - name: Generate ephemeral CI credentials
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os
+          import secrets
+
+          values = {
+              "SECRET_KEY": secrets.token_hex(32),
+              "DEMO_PATIENT_PASSWORD": secrets.token_urlsafe(24),
+              "DEMO_NURSE_PASSWORD": secrets.token_urlsafe(24),
+              "DEMO_DOCTOR_PASSWORD": secrets.token_urlsafe(24),
+              "DEMO_ADMIN_PASSWORD": secrets.token_urlsafe(24),
+          }
+
+          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as handle:
+              for key, value in values.items():
+                  handle.write(f"{key}={value}\n")
+          PY
+
 
       - name: Checkout repository
         uses: actions/checkout@v4

@@ -45,3 +45,20 @@ requirements-dev-full.txt
 static/dashboard-backup.css
 static/login-backup.css
 app-before-vercel.py
+
+# Local assessment evidence may contain student IDs, browser state,
+# private lab addresses, or other context that should be reviewed/redacted
+# before publication. Curated public evidence belongs under screenshots/.
+evidence/
+security-reports/
+
+# Private key / certificate material
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Test / coverage artefacts
+.coverage
+htmlcov/
+coverage.xml
