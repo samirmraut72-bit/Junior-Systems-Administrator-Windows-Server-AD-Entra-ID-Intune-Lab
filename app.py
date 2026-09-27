@@ -898,8 +898,11 @@ def audit_http_error(
         # another application failure.
         try:
             db.session.rollback()
-        except Exception:
-            pass
+        except Exception as rollback_error:
+            app.logger.warning(
+                "Database rollback failed while recording audit event: %s",
+                rollback_error,
+            )
 
         app.logger.warning(
             (
@@ -2951,8 +2954,11 @@ def internal_server_error(
     # session unusable until it is rolled back.
     try:
         db.session.rollback()
-    except Exception:
-        pass
+    except Exception as rollback_error:
+        app.logger.warning(
+            "Database rollback failed during 500 handling: %s",
+            rollback_error,
+        )
 
 
     audit_http_error(
