@@ -1,6 +1,6 @@
 import pytest
 
-from app import app
+from app import app, SecurityEvent
 
 
 @pytest.fixture
@@ -206,3 +206,99 @@ def test_login_rate_limiting(client):
     assert response.status_code == 429
 
     assert b"Too Many Login Attempts" in response.data
+
+
+# =========================================================
+# TEST 9 — ZERO TRUST PATIENT WRITE DENIAL
+# =========================================================
+
+def test_zero_trust_patient_cannot_write_clinical_note(client):
+
+    login(
+        client,
+        "patient1",
+        "Patient123!",
+        "10.10.10.17",
+    )
+
+    response = client.post(
+        "/patient/1/note",
+        data={
+            "note": "Patient attempted to write a clinical note.",
+        },
+        environ_base={
+            "REMOTE_ADDR": "10.10.10.17",
+        },
+        follow_redirects=False,
+    )
+
+    assert response.status_code == 403
+
+
+# =========================================================
+# TEST 10 — ZERO TRUST NURSE WRITE ALLOW
+# =========================================================
+
+def test_zero_trust_nurse_can_write_clinical_note(client):
+
+    login(
+        client,
+        "nurse1",
+        "Nurse123!",
+        "10.10.10.18",
+    )
+
+    response = client.post(
+        "/patient/2/note",
+        data={
+            "note": "Zero Trust policy validation note.",
+        },
+        environ_base={
+            "REMOTE_ADDR": "10.10.10.18",
+        },
+        follow_redirects=False,
+    )
+
+    assert response.status_code == 302
+
+
+# =========================================================
+# TEST 11 — ZERO TRUST DECISION AUDIT
+# =========================================================
+
+def test_zero_trust_denial_is_audited(client):
+
+    login(
+        client,
+        "patient1",
+        "Patient123!",
+        "10.10.10.19",
+    )
+
+    response = client.get(
+        "/patient/2",
+        environ_base={
+            "REMOTE_ADDR": "10.10.10.19",
+        },
+    )
+
+    assert response.status_code == 403
+
+    with app.app_context():
+
+        event = (
+            SecurityEvent.query
+            .filter(
+                SecurityEvent.action.like(
+                    "ZT_POLICY resource=clinical_record action=read%"
+                )
+            )
+            .order_by(
+                SecurityEvent.id.desc()
+            )
+            .first()
+        )
+
+        assert event is not None
+        assert event.result == "BLOCKED"
+        assert "PATIENT_OWNERSHIP_MISMATCH" in event.action
